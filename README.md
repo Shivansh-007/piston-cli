@@ -1,5 +1,5 @@
 # Piston CLI
-A cli tool which uses the [piston api](https://github.com/engineer-man/piston), developed by Engineerman and his team to compile over 20 languages instantly. Accepts files, paste.pythondiscord.com links and input.
+A cli tool which uses the [piston api](https://github.com/engineer-man/piston), developed by Engineerman and his team to compile over 35 languages instantly. Accepts files, paste.pythondiscord.com links and input.
 
 ## How to run it?
 ```shell
