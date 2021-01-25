@@ -1,4 +1,9 @@
 # Piston CLI
+[![](https://img.shields.io/github/license/Shivansh-007/piston-cli?style=for-the-badge)]()
+[![](https://img.shields.io/github/issues/Shivansh-007/piston-cli?style=for-the-badge)]()
+[![](https://img.shields.io/github/issues-pr/Shivansh-007/piston-cli?style=for-the-badge)]()
+[![](https://img.shields.io/github/workflow/status/Shivansh-007/piston-cli/Linting/main?style=for-the-badge)]()
+
 A cli tool which uses the [piston api](https://github.com/engineer-man/piston), developed by Engineerman and his team to compile over 35 languages instantly. Accepts files, paste.pythondiscord.com links and input.
 
 ## How to run it?
