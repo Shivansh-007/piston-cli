@@ -1,0 +1,31 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[packages]
+rich = "*"
+aiohttp = "*"
+prompt-toolkit = "*"
+requests = "*"
+pygments = "*"
+
+[dev-packages]
+flake8 = "~=3.8"
+flake8-annotations = "~=2.3"
+flake8-bugbear = "~=20.1"
+flake8-docstrings = "~=1.5"
+flake8-import-order = "~=0.18"
+flake8-string-format = "~=0.3"
+flake8-tidy-imports = "~=4.1"
+flake8-todo = "~=0.7"
+pep8-naming = "~=0.11"
+pre-commit = "~=2.1"
+
+[requires]
+python_version = "3.8"
+
+[scripts]
+start = "python -m piston"
+lint = "pre-commit run --all-files"
+precommit = "pre-commit install"
