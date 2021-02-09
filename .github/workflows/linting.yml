@@ -49,7 +49,3 @@ jobs:
       - name: Run flake8
         run: "flake8 \
         --format='::error file=%(path)s,line=%(row)d,col=%(col)d::[flake8] %(code)s: %(text)s'"
-
-      # Run black
-      - name: Run black
-        run: black . --check --diff
