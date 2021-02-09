@@ -1,0 +1,55 @@
+name: Linting
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      PIP_CACHE_DIR: /tmp/pip-cache-dir
+      PIPENV_CACHE_DIR: /tmp/pip-cache-dir
+
+    steps:
+      - name: Checks out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        id: python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      # This step caches our Python dependencies. To make sure we
+      # only restore a cache when the dependencies, the python version and
+      # the runner operating system we create a cache key
+      # that is a composite of those states.
+      # Only when the context is exactly the same, we will restore the cache.
+      - name: Restore pip cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.PIP_CACHE_DIR }}
+          key: "python-0-${{ runner.os }}-\
+          ${{ steps.python.outputs.python-version }}-\
+          ${{ hashFiles('./Pipfile', './Pipfile.lock') }}"
+
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install --dev --deploy --system
+      # Run flake8 and have it format the linting errors in the format of
+      # the GitHub Workflow command to register error annotations. This
+      # means that our flake8 output is automatically added as an error
+      # annotation to both the run result and in the "Files" tab of a
+      # pull request.
+      #
+      # Format used:
+      # ::error file={filename},line={line},col={col}::{message}
+      - name: Run flake8
+        run: "flake8 \
+        --format='::error file=%(path)s,line=%(row)d,col=%(col)d::[flake8] %(code)s: %(text)s'"
+
+      # Run black
+      - name: Run black
+        run: black . --check --diff
