@@ -6,7 +6,21 @@
 
 A cli tool which uses the [piston api](https://github.com/engineer-man/piston), developed by Engineerman and his team to compile over 35 languages instantly. Accepts files, paste.pythondiscord.com links and input.
 
-## How to run it?
+
+### Commands
+```bash
+# Installing the package
+pip3.8 install piston-cli -U
+# Help Command
+piston -h
+```
+
+### Languages
+```bash
+piston --list
+```
+
+## How to run it? (Contributing)
 ```shell
 # This will install the development and project dependencies.
 pipenv sync --dev
@@ -21,16 +35,3 @@ pipenv run pre-commit run --all-files
 # Run it
 pipenv run start
 ```
-
-### Commands
-```bash
-pipenv run start -h
-```
-
-### Languages
-```bash
-pipenv run start -l
-```
-
-### Credit
-- [Vinam](https://github.com/v1nam) For his wonderful wandabox cli.
