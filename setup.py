@@ -5,7 +5,7 @@ with open('README.md') as readme_file:
 
 setup_args = dict(
     name="piston-cli",
-    version="1.1",
+    version="1.2",
     description="A cli tool with an terminal editor to compile over 35 languages instantly using the piston api.",
     long_description=README,
     long_description_content_type="text/markdown",
