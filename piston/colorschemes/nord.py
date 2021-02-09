@@ -1,20 +1,20 @@
-from prompt_toolkit.styles import style_from_pygments_dict, Style
+from prompt_toolkit.styles import Style, style_from_pygments_dict
 from pygments.token import (
+    Comment,
+    Error,
+    Generic,
     Keyword,
     Name,
-    Comment,
-    String,
-    Error,
     Number,
     Operator,
     Punctuation,
-    Generic,
+    String,
     Whitespace,
 )
 
 
 class NordStyle:
-    """Configuratin for Nord Theme."""
+    """Configuration for Nord Theme."""
 
     def __init__(self) -> None:
         self.nord0 = "#2e3440"
@@ -42,6 +42,7 @@ class NordStyle:
         self.default = self.nord4
 
     def get_nord(self) -> Style:
+        """Configuration for Nord Theme."""
         return style_from_pygments_dict(
             {
                 Whitespace: self.nord4,

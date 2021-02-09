@@ -3,15 +3,15 @@ import random
 from typing import List
 
 import requests
-
-from rich.console import Console
-
 from piston.utilities.constants import spinners
-from piston.utilities.utils import Utils
 from piston.utilities.lang_extensions import lang_extensions_
+from piston.utilities.utils import Utils
+from rich.console import Console
 
 
 class FromFile:
+    """TODO: Write a Docstring here."""
+
     def __init__(self) -> None:
         self.console = Console()
         self.output_json = dict()
@@ -33,7 +33,7 @@ class FromFile:
         ).lower()
         return stdin
 
-    def runfile(self, file) -> str:
+    def runfile(self, file: str) -> str:
         """Send code form file to the api and return the response."""
         args = self.get_args()
         stdin = self.get_stdin()
@@ -61,7 +61,7 @@ class FromFile:
 
         with self.console.status(
             "Compiling", spinner=random.choice(self.spinners)
-        ) as status:
+        ) as _:
             data = requests.post(
                 "https://emkc.org/api/v1/piston/execute",
                 data=json.dumps(self.output_json),

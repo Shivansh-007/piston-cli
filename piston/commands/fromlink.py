@@ -1,19 +1,20 @@
 import json
 import random
 import urllib
-from typing import List, Union, Optional
+from typing import List, Optional, Union
 
 import requests
+from piston.colorschemes import schemes
+from piston.utilities.compilers import languages_
+from piston.utilities.constants import init_lexers, spinners
+from piston.utilities.utils import Utils
 from pygments.styles import get_all_styles
 from rich.console import Console
 
-from piston.utilities.constants import init_lexers, spinners
-from piston.utilities.utils import Utils
-from piston.utilities.compilers import languages_
-from piston.colorschemes import schemes
-
 
 class FromLink:
+    """TODO: Write a Docstring here."""
+
     def __init__(self) -> None:
         init_lexers()
         self.languages = languages_
@@ -103,7 +104,7 @@ class FromLink:
 
         with self.console.status(
             "Compiling", spinner=random.choice(self.spinners)
-        ) as status:
+        ) as _:
             data = requests.post(
                 "https://emkc.org/api/v1/piston/execute",
                 data=json.dumps(self.output_json),

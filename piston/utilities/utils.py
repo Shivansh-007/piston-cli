@@ -1,7 +1,10 @@
-import sys, os
+import os
+import sys
 
 
 class Utils:
+    """TODO: Write a Docstring here."""
+
     def close(self) -> None:
         """Exit the program."""
         try:

@@ -3,15 +3,15 @@ import random
 from typing import List
 
 import requests
+from piston.colorschemes import scheme_dict, schemes
+from piston.utilities.compilers import languages_
+from piston.utilities.constants import init_lexers, lexers_dict, spinners
+from piston.utilities.utils import Utils
 from prompt_toolkit.lexers import PygmentsLexer
 from prompt_toolkit.shortcuts import prompt
 from prompt_toolkit.styles.pygments import style_from_pygments_cls as sfpc
 from pygments.styles import get_all_styles, get_style_by_name
 from pygments.util import ClassNotFound
-from piston.colorschemes import scheme_dict, schemes
-from piston.utilities.compilers import languages_
-from piston.utilities.constants import init_lexers, lexers_dict, spinners
-from piston.utilities.utils import Utils
 from rich.console import Console
 
 

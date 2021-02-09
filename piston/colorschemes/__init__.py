@@ -1,6 +1,6 @@
-from piston.colorschemes.nord import NordStyle
-from piston.colorschemes.gruvbox import GruvboxStyle
 from piston.colorschemes.dracula import DraculaStyle
+from piston.colorschemes.gruvbox import GruvboxStyle
+from piston.colorschemes.nord import NordStyle
 
 
 scheme_dict = {

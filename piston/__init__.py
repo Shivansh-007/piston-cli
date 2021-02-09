@@ -3,14 +3,16 @@
 import os
 import sys
 
-from piston.utilities.utils import Utils
-from piston.utilities.maketable import MakeTable
+
 from piston.commands import commands_dict
 from piston.utilities.constants import languages_table, themes
+from piston.utilities.maketable import MakeTable
+from piston.utilities.utils import Utils
 from rich.console import Console
 
 
 def main() -> None:
+    """TODO: Write a Docstring here."""
     console = Console()
 
     args = commands_dict["base"]()

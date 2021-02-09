@@ -2,7 +2,10 @@ import argparse
 
 
 class Base:
+    """TODO: Write a Docstring here."""
+
     def run(self) -> argparse.Namespace:
+        """TODO: Write a Docstring here."""
         prog = argparse.ArgumentParser(
             prog="piston",
             description="Compile code snippets through the piston api for over 26 languages",
@@ -34,7 +37,8 @@ class Base:
             "-t",
             "--theme",
             type=str,
-            help="Change the default theme (solarized-dark) of code, to see available themes use -tl or --themelist",
+            help="Change the default theme (solarized-dark) of code, to see "
+            "available themes use -tl or --themelist",
             required=False,
         )
 
