@@ -7,10 +7,10 @@ import requests
 from pygments.styles import get_all_styles
 from rich.console import Console
 
-from piston.utilities.constants import init_lexers, lexers_dict, spinners
+from piston.utilities.constants import init_lexers, spinners
 from piston.utilities.utils import Utils
 from piston.utilities.compilers import languages_
-from piston.colorschemes import schemes, scheme_dict
+from piston.colorschemes import schemes
 
 
 class FromLink:

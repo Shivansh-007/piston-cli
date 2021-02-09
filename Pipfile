@@ -5,7 +5,6 @@ verify_ssl = true
 
 [packages]
 rich = "*"
-aiohttp = "*"
 prompt-toolkit = "*"
 requests = "*"
 pygments = "*"
