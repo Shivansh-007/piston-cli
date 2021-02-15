@@ -26,18 +26,18 @@ def main() -> None:
         Utils.close()
 
     elif args.file:
-        output = commands_dict["fromfile"](args.file)
+        output, language = commands_dict["fromfile"](args.file)
 
     elif args.link:
-        output = commands_dict["fromlink"]()
+        output, language = commands_dict["fromlink"]()
 
     else:
-        output = commands_dict["frominput"](args.theme)
+        output, language = commands_dict["frominput"](args.theme)
 
     width = os.get_terminal_size().columns - 5
 
     if output:
-        console.print("\nHere is your output:", style="green")
+        console.print(f"\nHere is your {language} output:", style="green")
         console.print(Utils.print_msg_box(output, width=width))
 
 

@@ -1,10 +1,10 @@
 import json
 import random
-from typing import List
+from typing import List, Tuple
 
 import requests
 from piston.utilities.constants import spinners
-from piston.utilities.lang_extensions import lang_extensions_
+from piston.utilities.lang_extensions import lang_extensions
 from piston.utilities.utils import Utils
 from rich.console import Console
 
@@ -17,7 +17,7 @@ class FromFile:
         self.output_json = dict()
         self.spinners = spinners
 
-        self.extensions = lang_extensions_
+        self.extensions = lang_extensions
 
     def get_args(self) -> List[str]:
         """Prompt the user for the programming language, close program if language not supported."""
@@ -33,7 +33,7 @@ class FromFile:
         ).lower()
         return stdin
 
-    def runfile(self, file: str) -> str:
+    def runfile(self, file: str) -> Tuple[str, str]:
         """Send code form file to the api and return the response."""
         args = self.get_args()
         stdin = self.get_stdin()
@@ -52,8 +52,9 @@ class FromFile:
             self.console.print("Path is invalid; File not found", style="bold red")
             Utils.close()
 
+        language = self.extensions[file[file.rfind(".") + 1 :]]
         self.output_json = {
-            "language": self.extensions[file[file.rfind(".") + 1 :]],
+            "language": language,
             "source": code,
             "args": args,
             "stdin": stdin,
@@ -68,13 +69,13 @@ class FromFile:
             ).json()
 
         if len(data["output"]) == 0:
-            return "Your code ran without output."
+            return "Your code ran without output.", language
         else:
             result = [
                 f"{i:02d} | {line}"
                 for i, line in enumerate(data["output"].split("\n"), 1)
             ]
-            return "\n".join(result)
+            return "\n".join(result), language
 
 
 FromFile = FromFile()

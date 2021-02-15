@@ -30,11 +30,16 @@ def init_lexers() -> None:
     lexers.find_lexer_class_by_name("rust")
     lexers.find_lexer_class_by_name("swift")
     lexers.find_lexer_class_by_name("zig")
-
+    lexers.find_lexer_class_by_name("nim")
+    lexers.find_lexer_class_by_name("scala")
+    lexers.find_lexer_class_by_name("typescript")
+    lexers.find_lexer_class_by_name("lua")
+    lexers.find_lexer_class_by_name("crystal")
+    lexers.find_lexer_class_by_name("text")
 
 init_lexers()
 
-# https://chromium.googlesource.com/external/bitbucket.org/birkenfeld/pygments-main/+/db08aaee269398020b08a388206b62b560a08665/pygments/lexers/_mapping.py
+# https://github.com/pydanny/pygments-custom/blob/master/pygments/lexers/_mapping.py
 lexers_dict = {
     "nasm": lexers.asm.NasmLexer,
     "awk": lexers.textedit.AwkLexer,
@@ -56,11 +61,20 @@ lexers_dict = {
     "kotlin": lexers.jvm.KotlinLexer,
     "perl": lexers.perl.PerlLexer,
     "php": lexers.php.PhpLexer,
-    "python3": lexers.python.Python3Lexer,
+    "python": lexers.python.Python3Lexer,
     "python2": lexers.python.PythonLexer,
     "rust": lexers.rust.RustLexer,
     "swift": lexers.objective.SwiftLexer,
     "zig": lexers.zig.ZigLexer,
+    "paradox": lexers.special.TextLexer,
+    "crystal": lexers.crystal.CrystalLexer,
+    "dash": lexers.special.TextLexer,
+    "osabie": lexers.special.TextLexer,
+    "nim": lexers.nimrod.NimrodLexer,
+    "deno": lexers.javascript.JavascriptLexer,
+    "scala": lexers.jvm.ScalaLexer,
+    "typescript": lexers.javascript.TypeScriptLexer,
+    "lua": lexers.scripting.LuaLexer
 }
 
 spinners = [

@@ -1,7 +1,7 @@
 import json
 import random
 import urllib
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Tuple
 
 import requests
 from piston.colorschemes import schemes
@@ -81,7 +81,7 @@ class FromLink:
             return False
         return response.text
 
-    def askinp(self) -> Optional[str]:
+    def askinp(self) -> Optional[Tuple[str, str]]:
         """
         Make a multiline prompt for code input and send the code to the api.
 
@@ -111,13 +111,13 @@ class FromLink:
             ).json()
 
         if len(data["output"]) == 0:
-            return "Your code ran without output."
+            return "Your code ran without output.", language
         else:
             result = [
                 f"{i:02d} | {line}"
                 for i, line in enumerate(data["output"].split("\n"), 1)
             ]
-            return "\n".join(result)
+            return "\n".join(result), language
 
 
 FromLink = FromLink()

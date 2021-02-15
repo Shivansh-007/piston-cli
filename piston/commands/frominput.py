@@ -1,6 +1,6 @@
 import json
 import random
-from typing import List
+from typing import List, Tuple
 
 import requests
 from piston.colorschemes import scheme_dict, schemes
@@ -50,7 +50,7 @@ class FromInput:
         ).lower()
         return stdin
 
-    def askinp(self, theme: str = "solarized-dark") -> str:
+    def askinp(self, theme: str = "solarized-dark") -> Tuple[str, str]:
         """
         Make a multiline prompt for code input and send the code to the api.
 
@@ -93,13 +93,13 @@ class FromInput:
             ).json()
 
         if len(data["output"]) == 0:
-            return "Your code ran without output."
+            return "Your code ran without output.", language
         else:
             result = [
                 f"{i:02d} | {line}"
                 for i, line in enumerate(data["output"].split("\n"), 1)
             ]
-            return "\n".join(result)
+            return "\n".join(result), language
 
 
 FromInput = FromInput()
