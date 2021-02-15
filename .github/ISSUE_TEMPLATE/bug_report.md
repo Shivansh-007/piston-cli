@@ -23,7 +23,7 @@ assignees: ''
 <!-- Outline what occurs instead of the expected behaviour, include screenshots if relevant -->
 
 
-## Known Impacted Operating Systems 
+## Known Impacted Operating Systems
 <!-- On which OS did u face the problem. -->
 
 
