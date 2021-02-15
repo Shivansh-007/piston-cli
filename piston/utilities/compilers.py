@@ -33,5 +33,5 @@ languages_ = [
     "deno",
     "scala",
     "typescript",
-    "lua"
+    "lua",
 ]

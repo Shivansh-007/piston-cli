@@ -37,6 +37,7 @@ def init_lexers() -> None:
     lexers.find_lexer_class_by_name("crystal")
     lexers.find_lexer_class_by_name("text")
 
+
 init_lexers()
 
 # https://github.com/pydanny/pygments-custom/blob/master/pygments/lexers/_mapping.py
@@ -74,7 +75,7 @@ lexers_dict = {
     "deno": lexers.javascript.JavascriptLexer,
     "scala": lexers.jvm.ScalaLexer,
     "typescript": lexers.javascript.TypeScriptLexer,
-    "lua": lexers.scripting.LuaLexer
+    "lua": lexers.scripting.LuaLexer,
 }
 
 spinners = [

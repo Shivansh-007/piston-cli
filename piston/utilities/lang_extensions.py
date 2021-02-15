@@ -20,5 +20,5 @@ lang_extensions = {
     "nim": "nim",
     "php": "php",
     "pl": "perl",
-    "cs": "csharp"
+    "cs": "csharp",
 }

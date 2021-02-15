@@ -1,7 +1,8 @@
 import json
 import random
 import urllib
-from typing import List, Optional, Union, Tuple
+from typing import List, Optional, Tuple, Union
+
 
 import requests
 from piston.colorschemes import schemes
