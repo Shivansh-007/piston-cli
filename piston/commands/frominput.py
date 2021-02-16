@@ -6,6 +6,7 @@ import requests
 from piston.colorschemes import scheme_dict, schemes
 from piston.utilities.compilers import languages_
 from piston.utilities.constants import init_lexers, lexers_dict, spinners
+from piston.utilities.format_output import format_output
 from piston.utilities.utils import Utils
 from prompt_toolkit.lexers import PygmentsLexer
 from prompt_toolkit.shortcuts import prompt
@@ -95,10 +96,7 @@ class FromInput:
         if len(data["output"]) == 0:
             return "Your code ran without output.", language
         else:
-            result = [
-                f"{i:02d} | {line}"
-                for i, line in enumerate(data["output"].split("\n"), 1)
-            ]
+            result = format_output(data["output"])
             return "\n".join(result), language
 
 

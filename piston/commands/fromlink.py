@@ -8,6 +8,7 @@ import requests
 from piston.colorschemes import schemes
 from piston.utilities.compilers import languages_
 from piston.utilities.constants import init_lexers, spinners
+from piston.utilities.format_output import format_output
 from piston.utilities.utils import Utils
 from pygments.styles import get_all_styles
 from rich.console import Console
@@ -114,10 +115,7 @@ class FromLink:
         if len(data["output"]) == 0:
             return "Your code ran without output.", language
         else:
-            result = [
-                f"{i:02d} | {line}"
-                for i, line in enumerate(data["output"].split("\n"), 1)
-            ]
+            result = format_output(data["output"])
             return "\n".join(result), language
 
 
