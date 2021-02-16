@@ -27,8 +27,10 @@ class FromShell:
         self.themes = list(get_all_styles()) + schemes
         self.style = None
         self.language = None
-        self.set_language()
+        self.prompt_session = None
 
+    def set_prompt_session(self) -> None:
+        """Set the prompt session to use for input."""
         self.prompt_session = PromptSession(
             ">>> ",
             include_default_pygments_style=False,
@@ -37,7 +39,7 @@ class FromShell:
             prompt_continuation=prompt_continuation,
         )
 
-    def set_style(self, theme: str) -> Style:
+    def set_style(self, theme: str) -> None:
         """Set the theme for prompt_toolkit."""
         if theme in self.themes:
             try:
@@ -113,6 +115,8 @@ class FromShell:
 
     def run_shell(self, theme: str) -> None:
         """Run the shell."""
+        self.set_language()
+        self.set_prompt_session()
         self.set_style(theme)
         output = ""
         while output != "exit":
