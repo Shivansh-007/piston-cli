@@ -1,5 +1,4 @@
 import json
-import os
 import random
 from typing import List, Tuple
 
@@ -119,9 +118,7 @@ class FromShell:
         while output != "exit":
             output, language = self.prompt_input()
             if output != "exit":
-                width = os.get_terminal_size().columns - 5
-                self.console.print(f"\nHere is your {language} output:", style="green")
-                self.console.print(Utils.print_msg_box(output, width=width))
+                self.console.print(output)
 
 
 from_shell = FromShell()
