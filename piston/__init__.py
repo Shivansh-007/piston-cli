@@ -3,7 +3,6 @@
 import os
 import sys
 
-
 from piston.commands import commands_dict
 from piston.utilities.constants import languages_table, themes
 from piston.utilities.maketable import MakeTable
@@ -17,6 +16,8 @@ def main() -> None:
 
     args = commands_dict["base"]()
 
+    output = None
+
     if args.list:
         console.print(MakeTable.mktbl(languages_table))
         Utils.close()
@@ -26,13 +27,16 @@ def main() -> None:
         Utils.close()
 
     elif args.file:
-        output, language = commands_dict["fromfile"](args.file)
+        output, language = commands_dict["from_file"](args.file)
 
     elif args.link:
-        output, language = commands_dict["fromlink"]()
+        output, language = commands_dict["from_link"]()
+
+    elif args.shell:
+        commands_dict["from_shell"](args.theme)
 
     else:
-        output, language = commands_dict["frominput"](args.theme)
+        output, language = commands_dict["from_input"](args.theme)
 
     width = os.get_terminal_size().columns - 5
 
