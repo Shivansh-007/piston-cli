@@ -23,7 +23,7 @@ piston -h
 ![example usage](media/piston-cli.png)
 ![example shell usage](media/piston-cli-shell.png)
 ![example file usage](media/piston-cli-file.png)
-![example link usage](media/piston-cli-fle.png)
+![example link usage](media/piston-cli-link.png)
 
 ### Languages
 
