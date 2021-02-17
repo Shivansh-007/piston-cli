@@ -101,9 +101,6 @@ class FromShell:
             style=self.style,
         )
 
-        if code.strip() in Shell.exit_keywords:
-            return None
-
         args = self.get_args()
         stdin = self.get_stdin()
 
@@ -117,30 +114,30 @@ class FromShell:
         """Run the shell."""
         self.console.print(
             "[bold blue]NOTE: stdin and args will be prompted after code. "
-            "Use escape + enter to finish writing the code.[/bold blue]"
+            "Use escape + enter to finish writing the code. "
+            "To quit, use ctrl + c. [/bold blue]"
         )
 
         self.set_language(language)
         self.set_prompt_session()
         self.set_style(theme)
 
-        query = ""
-        while query is not None:
+        while True:
             query = self.prompt()
-            if query is not None:
-                data = self.query_piston(query)
 
-                if len(data["output"]) == 0:
-                    self.console.print("Your code ran without output.")
-                else:
-                    self.console.print(
-                        "\n".join(
-                            [
-                                f"{i:02d} | {line}"
-                                for i, line in enumerate(data["output"].split("\n"), 1)
-                            ]
-                        )
+            data = self.query_piston(query)
+
+            if len(data["output"]) == 0:
+                self.console.print("Your code ran without output.")
+            else:
+                self.console.print(
+                    "\n".join(
+                        [
+                            f"{i:02d} | {line}"
+                            for i, line in enumerate(data["output"].split("\n"), 1)
+                        ]
                     )
+                )
 
 
 from_shell = FromShell()

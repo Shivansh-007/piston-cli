@@ -95,9 +95,5 @@ languages_table = zip(iter(languages_), iter(languages_))
 
 
 class Shell:
-    exit_keywords = [
-        "exit",
-        "quit",
-    ]
     promp_start = ">>> "
     promt_continuation = "... "

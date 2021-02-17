@@ -33,14 +33,16 @@ def main() -> None:
         output, language = commands_dict["from_link"]()
 
     elif args.shell:
-        commands_dict["from_shell"](args.shell, args.theme)
+        try:
+            commands_dict["from_shell"](args.shell, args.theme)
+        except KeyboardInterrupt:
+            pass
 
     else:
         output, language = commands_dict["from_input"](args.theme)
 
-    width = os.get_terminal_size().columns - 5
-
     if output:
+        width = os.get_terminal_size().columns - 5
         console.print(f"\nHere is your {language} output:", style="green")
         console.print(Utils.print_msg_box(output, width=width))
 
