@@ -1,6 +1,7 @@
+from dataclasses import dataclass
 import json
 import random
-from typing import List, Tuple
+from typing import List
 
 import requests
 from piston.colorschemes import scheme_dict, schemes
@@ -14,6 +15,13 @@ from prompt_toolkit.styles.pygments import style_from_pygments_cls as sfpc
 from pygments.styles import get_all_styles, get_style_by_name
 from pygments.util import ClassNotFound
 from rich.console import Console
+
+
+@dataclass
+class PistonQuery:
+    code: str
+    args: List[str]
+    stdin: str
 
 
 class FromShell:
@@ -50,10 +58,10 @@ class FromShell:
 
     def set_language(self) -> None:
         """Prompt the user for the programming language, close program if language not supported."""
-        language = self.console.input("Enter language: ", style="green").lower()
+        language = self.console.input("[green]Enter language:[/green] ").lower()
 
         if language not in languages_:
-            self.console.print("Language is not supported!", style="bold red")
+            self.console.print("[bold red]Language is not supported![/bold red]")
             Utils.close()
 
         self.language = language
@@ -61,24 +69,24 @@ class FromShell:
     def get_args(self) -> List[str]:
         """Prompt the user for the command line arguments."""
         args = self.console.input(
-            "Enter your args separated by comma: ", style="green"
+            "[green]Enter your args separated by comma:[/green] "
         ).lower()
         return [x for x in args.strip().split(",") if x]
 
     def get_stdin(self) -> str:
         """Prompt the user for the standard input."""
         stdin = self.console.input(
-            "Enter your stdin arguments: ", style="green"
+            "[green]Enter your stdin arguments:[/green] "
         ).lower()
         return stdin
 
-    def query_piston(self, code: str, args: List[str], stdin: str) -> dict:
+    def query_piston(self, payload: PistonQuery) -> dict:
         """Send a post request to the piston API with the code parameter."""
         output_json = {
             "language": self.language,
-            "source": code,
-            "args": args,
-            "stdin": stdin,
+            "source": payload.code,
+            "args": payload.args,
+            "stdin": payload.stdin,
         }
 
         with self.console.status("Compiling", spinner=random.choice(spinners)):
@@ -87,39 +95,52 @@ class FromShell:
                 data=json.dumps(output_json),
             ).json()
 
-    def prompt_input(self) -> Tuple[str, str]:
+    def prompt(self) -> PistonQuery:
         """Prompt the user for code input."""
-        args = self.get_args()
-        stdin = self.get_stdin()
-
         code = self.prompt_session.prompt(
             style=self.style,
         )
 
-        if code.strip() == "exit":
-            return "exit", self.language
+        if code.strip() in Shell.exit_keywords:
+            return None
 
-        data = self.query_piston(code, args, stdin)
+        args = self.get_args()
+        stdin = self.get_stdin()
 
-        if len(data["output"]) == 0:
-            return "Your code ran without output.", self.language
-        else:
-            result = [
-                f"{i:02d} | {line}"
-                for i, line in enumerate(data["output"].split("\n"), 1)
-            ]
-            return "\n".join(result), self.language
+        return PistonQuery(
+            code=code,
+            args=args,
+            stdin=stdin,
+        )
 
     def run_shell(self, theme: str) -> None:
         """Run the shell."""
+        self.console.print(
+            "[bold blue]NOTE: stdin and args will be prompted after code.[/bold blue]"
+        )
+        self.console.print(
+            "[bold blue]Use escape + enter to finish writing the code.[/bold blue]"
+        )
+
         self.set_language()
         self.set_prompt_session()
         self.set_style(theme)
-        output = ""
-        while output not in Shell.exit_keywords:
-            output, language = self.prompt_input()
-            if output not in Shell.exit_keywords:
-                self.console.print(output)
+
+        query = ""
+        while query is not None:
+            query = self.prompt()
+            if query is not None:
+                data = self.query_piston(query)
+
+                if len(data["output"]) == 0:
+                    self.console.print("Your code ran without output.")
+                else:
+                    self.console.print(
+                        "\n".join([
+                            f"{i:02d} | {line}"
+                            for i, line in enumerate(data["output"].split("\n"), 1)
+                        ])
+                    )
 
 
 from_shell = FromShell()
