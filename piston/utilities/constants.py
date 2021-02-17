@@ -1,3 +1,5 @@
+import os
+
 from pygments import lexers
 from pygments.styles import get_all_styles
 from piston.colorschemes import schemes
@@ -92,6 +94,17 @@ themes = list(get_all_styles()) + schemes
 themes = [list(themes[style : style + 2]) for style in range(0, len(themes), 2)]
 
 languages_table = zip(iter(languages_), iter(languages_))
+
+
+class Configuration:
+    configuration_paths = {
+        "Windows": os.path.expandvars("%APPDATA%/piston-cli/config.yaml"),
+        "Darwin": os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
+        "Linux": os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
+        "Java": None,
+    }
+
+    default_configuration = {"theme": "solarized-dark"}
 
 
 class Shell:

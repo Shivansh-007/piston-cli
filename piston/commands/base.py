@@ -57,6 +57,16 @@ class Base:
             required=False,
         )
 
+        prog.add_argument(
+            "-c",
+            "--config",
+            type=str,
+            help=(
+                "Path to the piston-cli config file, "
+                "leave blank if your config is in the system default location specified on the readme"
+            ),
+        )
+
         args = prog.parse_args()
 
         return args

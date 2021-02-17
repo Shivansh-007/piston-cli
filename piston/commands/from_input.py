@@ -58,16 +58,19 @@ class FromInput:
         args = self.get_args()
         stdin = self.get_stdin()
 
-        self.console.print(
-            "Enter your code, (press esc + enter to run)\n", style="green"
-        )
+        self.console.print("Enter your code, (press esc + enter to run)", style="green")
         if theme in self.themes:
             try:
                 style = sfpc(get_style_by_name(theme))
             except ClassNotFound:
                 style = scheme_dict[theme]()
         else:
+            self.console.print(
+                f"[red]Theme {theme} is not a valid theme, using piston-cli default"
+            )
             style = sfpc(get_style_by_name("solarized-dark"))
+
+        self.console.print()
 
         code = prompt(
             "",
