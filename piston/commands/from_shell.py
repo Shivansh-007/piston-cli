@@ -116,9 +116,9 @@ class FromShell:
         self.set_prompt_session()
         self.set_style(theme)
         output = ""
-        while output != "exit":
+        while output not in Shell.exit_keywords:
             output, language = self.prompt_input()
-            if output != "exit":
+            if output not in Shell.exit_keywords:
                 self.console.print(output)
 
 
