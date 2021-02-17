@@ -21,17 +21,15 @@ class FromFile:
 
     def get_args(self) -> List[str]:
         """Prompt the user for the programming language, close program if language not supported."""
-        args = self.console.input(
-            "[green]Enter your args separated by comma:[/green] "
-        ).lower()
+        args = self.console.input("[green]Enter your args separated by comma:[/green] ")
         return [x for x in args.strip().split(",") if x]
 
     def get_stdin(self) -> str:
         """Prompt the user for the programming language, close program if language not supported."""
         stdin = self.console.input(
-            "[green]Enter your stdin arguments:[/green] "
-        ).lower()
-        return stdin
+            "[green]Enter your stdin arguments by comma:[/green] "
+        )
+        return "\n".join([x for x in stdin.strip().split(",") if x])
 
     def runfile(self, file: str) -> Tuple[str, str]:
         """Send code form file to the api and return the response."""
