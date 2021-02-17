@@ -5,7 +5,7 @@ from typing import List, Tuple
 import requests
 from piston.colorschemes import scheme_dict, schemes
 from piston.utilities.compilers import languages_
-from piston.utilities.constants import init_lexers, lexers_dict, spinners
+from piston.utilities.constants import init_lexers, lexers_dict, Shell, spinners
 from piston.utilities.prompt_continuation import prompt_continuation
 from piston.utilities.utils import Utils
 from prompt_toolkit import PromptSession
@@ -32,7 +32,7 @@ class FromShell:
     def set_prompt_session(self) -> None:
         """Set the prompt session to use for input."""
         self.prompt_session = PromptSession(
-            ">>> ",
+            Shell.promp_start,
             include_default_pygments_style=False,
             lexer=PygmentsLexer(lexers_dict[self.language]),
             multiline=True,
