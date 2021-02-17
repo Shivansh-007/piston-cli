@@ -1,4 +1,3 @@
-from os import path
 import os
 import platform
 from typing import Optional
@@ -41,24 +40,32 @@ class ConfigLoader:
         for key, value in Configuration.default_configuration.items():
             if key not in self._config:
                 self._config[key] = value
-                self.console.print(f"[green]- Loaded default {key}: {value} -- not specified")
+                self.console.print(
+                    f"[green]- Loaded default {key}: {value} -- not specified"
+                )
 
     def load_config(self):
         """Loads the configuration file."""
-        if not os.path.isfile(self._path) and self._path not in Configuration.configuration_paths.values():
+        if (
+            not os.path.isfile(self._path)
+            and self._path not in Configuration.configuration_paths.values()
+        ):
             self.console.print(
                 "[bold red]Error: No configuration file found at that location, "
                 "using piston-cli defaults.[/bold red]"
             )
             return Configuration.default_configuration
-        elif not os.path.isfile(self._path) and self._path in Configuration.configuration_paths.values():
+        elif (
+            not os.path.isfile(self._path)
+            and self._path in Configuration.configuration_paths.values()
+        ):
             self.console.print(
                 "[bold blue]Info: No default configuration location on your system, "
                 "if you wish to use a configuration file, specify one with the --shell flag, "
                 "loading piston-cli defaults.[/bold blue]"
             )
             return Configuration.default_configuration
-        
+
         self._load_yaml()
 
         return self._config
