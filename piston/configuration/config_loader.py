@@ -3,11 +3,13 @@ import platform
 from typing import Optional
 
 from piston.utilities.constants import Configuration
-from rich.console import Console
 import yaml
+from rich.console import Console
 
 
 class ConfigLoader:
+    """Loads yaml config files to customize piston-cli."""
+
     def __init__(self, path: Optional[str]):
         self.console = Console()
         self._path = Configuration.configuration_paths[platform.system()]
@@ -15,11 +17,11 @@ class ConfigLoader:
             self.set_path(path)
         self._config = {}
 
-    def set_path(self, path: str):
+    def set_path(self, path: str) -> None:
         """Sets the path of private variable _path."""
         self._path = path
 
-    def _load_yaml(self):
+    def _load_yaml(self) -> None:
         """Loads the keys and values from a yaml file."""
         expanded_path = os.path.abspath(os.path.expandvars(self._path))
 
@@ -44,7 +46,7 @@ class ConfigLoader:
                     f"[green]- Loaded default {key}: {value} -- not specified"
                 )
 
-    def load_config(self):
+    def load_config(self) -> dict:
         """Loads the configuration file."""
         if (
             not os.path.isfile(self._path)
