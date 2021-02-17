@@ -1,12 +1,12 @@
-from dataclasses import dataclass
 import json
 import random
+from dataclasses import dataclass
 from typing import List
 
 import requests
 from piston.colorschemes import scheme_dict, schemes
 from piston.utilities.compilers import languages_
-from piston.utilities.constants import init_lexers, lexers_dict, Shell, spinners
+from piston.utilities.constants import Shell, init_lexers, lexers_dict, spinners
 from piston.utilities.prompt_continuation import prompt_continuation
 from piston.utilities.utils import Utils
 from prompt_toolkit import PromptSession
@@ -19,6 +19,8 @@ from rich.console import Console
 
 @dataclass
 class PistonQuery:
+    """Represents the payload sent to the Piston API."""
+
     code: str
     args: List[str]
     stdin: str
@@ -136,10 +138,12 @@ class FromShell:
                     self.console.print("Your code ran without output.")
                 else:
                     self.console.print(
-                        "\n".join([
-                            f"{i:02d} | {line}"
-                            for i, line in enumerate(data["output"].split("\n"), 1)
-                        ])
+                        "\n".join(
+                            [
+                                f"{i:02d} | {line}"
+                                for i, line in enumerate(data["output"].split("\n"), 1)
+                            ]
+                        )
                     )
 
 
