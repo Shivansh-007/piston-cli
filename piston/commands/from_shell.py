@@ -51,10 +51,10 @@ class FromShell:
 
     def set_language(self) -> None:
         """Prompt the user for the programming language, close program if language not supported."""
-        language = self.console.input("[green]Enter language:[/green] ").lower()
+        language = self.console.input("Enter language: ", style="green").lower()
 
         if language not in languages_:
-            self.console.print("[bold red]Language is not supported![/bold red]")
+            self.console.print("Language is not supported!", style="bold red")
             Utils.close()
 
         self.language = language
@@ -62,14 +62,14 @@ class FromShell:
     def get_args(self) -> List[str]:
         """Prompt the user for the command line arguments."""
         args = self.console.input(
-            "[green]Enter your args separated by comma:[/green] "
+            "Enter your args separated by comma: ", style="green"
         ).lower()
         return [x for x in args.strip().split(",") if x]
 
     def get_stdin(self) -> str:
         """Prompt the user for the standard input."""
         stdin = self.console.input(
-            "[green]Enter your stdin arguments:[/green] "
+            "Enter your stdin arguments: ", style="green"
         ).lower()
         return stdin
 
