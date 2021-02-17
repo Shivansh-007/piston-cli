@@ -73,7 +73,7 @@ class FromFile:
             return "Your code ran without output.", language
         else:
             result = format_output(data["output"])
-            return "\n".join(result), language
+            return result, language
 
 
 FromFile = FromFile()
