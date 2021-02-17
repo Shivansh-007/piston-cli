@@ -11,7 +11,6 @@ from piston.utilities.utils import Utils
 from prompt_toolkit import PromptSession
 from prompt_toolkit.lexers import PygmentsLexer
 from prompt_toolkit.styles.pygments import style_from_pygments_cls as sfpc
-from prompt_toolkit.styles.style import Style
 from pygments.styles import get_all_styles, get_style_by_name
 from pygments.util import ClassNotFound
 from rich.console import Console
@@ -73,9 +72,7 @@ class FromShell:
         ).lower()
         return stdin
 
-    def query_piston(
-        self, code: str, args: List[str], style: Style, stdin: str
-    ) -> dict:
+    def query_piston(self, code: str, args: List[str], stdin: str) -> dict:
         """Send a post request to the piston API with the code parameter."""
         output_json = {
             "language": self.language,
@@ -102,7 +99,7 @@ class FromShell:
         if code.strip() == "exit":
             return "exit", self.language
 
-        data = self.query_piston(code, args, self.style, stdin)
+        data = self.query_piston(code, args, stdin)
 
         if len(data["output"]) == 0:
             return "Your code ran without output.", self.language
