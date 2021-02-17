@@ -49,6 +49,14 @@ class Base:
             help="List all the available themes/colorschemes",
         )
 
+        prog.add_argument(
+            "-s",
+            "--shell",
+            type=str,
+            help="Run code from within a shell environment, the passed value is the language to use",
+            required=False,
+        )
+
         args = prog.parse_args()
 
         return args
