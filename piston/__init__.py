@@ -4,7 +4,7 @@ import os
 import sys
 
 from piston.commands import commands_dict
-from piston.configuration.get_config import get_config
+from piston.configuration.config_loader import ConfigLoader
 from piston.utilities.constants import languages_table, themes
 from piston.utilities.maketable import MakeTable
 from piston.utilities.utils import Utils
@@ -19,7 +19,8 @@ def main() -> None:
 
     output = None
 
-    config = get_config(args.config)
+    config_loader = ConfigLoader(args.config if args.config else None)
+    config = config_loader.load_config()
 
     if args.list:
         console.print(MakeTable.mktbl(languages_table))
