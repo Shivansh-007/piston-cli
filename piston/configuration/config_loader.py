@@ -2,8 +2,8 @@ import os
 import platform
 from typing import Optional
 
-from piston.utilities.constants import Configuration
 import yaml
+from piston.utilities.constants import Configuration
 from rich.console import Console
 
 
