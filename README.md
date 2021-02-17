@@ -20,9 +20,20 @@ piston -h
 
 ### Example usage
 
+#### Default
+
 ![example usage](media/piston-cli.png)
+
+#### Shell
+
 ![example shell usage](media/piston-cli-shell.png)
+
+#### File
+
 ![example file usage](media/piston-cli-file.png)
+
+#### Link
+
 ![example link usage](media/piston-cli-link.png)
 
 ### Languages
