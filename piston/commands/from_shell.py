@@ -58,10 +58,8 @@ class FromShell:
         else:
             self.style = sfpc(get_style_by_name("solarized-dark"))
 
-    def set_language(self) -> None:
+    def set_language(self, language: str) -> None:
         """Prompt the user for the programming language, close program if language not supported."""
-        language = self.console.input("[green]Enter language:[/green] ").lower()
-
         if language not in languages_:
             self.console.print("[bold red]Language is not supported![/bold red]")
             Utils.close()
@@ -115,16 +113,14 @@ class FromShell:
             stdin=stdin,
         )
 
-    def run_shell(self, theme: str) -> None:
+    def run_shell(self, language: str, theme: str) -> None:
         """Run the shell."""
         self.console.print(
-            "[bold blue]NOTE: stdin and args will be prompted after code.[/bold blue]"
-        )
-        self.console.print(
-            "[bold blue]Use escape + enter to finish writing the code.[/bold blue]"
+            "[bold blue]NOTE: stdin and args will be prompted after code. "
+            "Use escape + enter to finish writing the code.[/bold blue]"
         )
 
-        self.set_language()
+        self.set_language(language)
         self.set_prompt_session()
         self.set_style(theme)
 

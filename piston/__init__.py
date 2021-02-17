@@ -33,7 +33,7 @@ def main() -> None:
         output, language = commands_dict["from_link"]()
 
     elif args.shell:
-        commands_dict["from_shell"](args.theme)
+        commands_dict["from_shell"](args.shell, args.theme)
 
     else:
         output, language = commands_dict["from_input"](args.theme)

@@ -52,8 +52,8 @@ class Base:
         prog.add_argument(
             "-s",
             "--shell",
-            action="store_true",
-            help="Run code from within a shell environment",
+            type=str,
+            help="Run code from within a shell environment, the passed value is the language to use",
             required=False,
         )
 
