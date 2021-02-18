@@ -1,10 +1,11 @@
+import itertools
 import json
 import random
 from typing import List, Tuple
 
 import requests
 from piston.colorschemes import scheme_dict, schemes
-from piston.utilities.compilers import languages_
+from piston.utilities.compilers import all_languages
 from piston.utilities.constants import init_lexers, lexers_dict, spinners
 from piston.utilities.utils import Utils
 from prompt_toolkit.lexers import PygmentsLexer
@@ -20,7 +21,7 @@ class FromInput:
 
     def __init__(self) -> None:
         init_lexers()
-        self.languages = languages_
+        self.languages = all_languages()
 
         self.console = Console()
         self.output_json = dict()
@@ -30,11 +31,15 @@ class FromInput:
     def get_lang(self) -> str:
         """Prompt the user for the programming language, close program if language not supported."""
         language = self.console.input("[green]Enter language:[/green] ").lower()
+        languages = itertools.chain.from_iterable(list(self.languages.values()))
 
-        if language not in self.languages:
+        if language not in languages:
             self.console.print("Language is not supported!", style="bold red")
             Utils.close()
-        return language
+
+        return [
+            lang for lang in self.languages.keys() if language in self.languages[lang]
+        ][0]
 
     def get_args(self) -> List[str]:
         """Prompt the user for the command line arguments."""

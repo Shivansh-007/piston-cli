@@ -1,0 +1,118 @@
+---
+- nasm:
+  - asm
+  - nasm
+- nasm64:
+  - asm64
+  - nasm64
+- awk:
+  - awk
+- bash:
+  - bash
+  - sh
+- brainfuck:
+  - bf
+  - brainfuck
+- c:
+  - c
+- crystal:
+  - crystal
+  - cr
+- lisp:
+  - lisp
+  - commonlisp
+  - clisp
+  - cl
+- csharp:
+  - c#
+  - cs
+  - csharp
+- cpp:
+  - c++
+  - cpp
+  - cc
+  - cxx
+- d:
+  - dlang
+  - d
+- deno:
+  - deno
+  - denojs
+  - denots
+- dash:
+  - dash
+- ruby:
+  - duby
+  - rb
+  - ruby
+- emacs:
+  - el
+  - elisp
+  - emacs
+- elixir:
+  - elixir
+  - exs
+- haskell:
+  - haskell
+  - hs
+- go:
+  - go
+  - golang
+- java:
+  - java
+- nim:
+  - nim
+- js:
+  - javascript
+  - js
+  - node
+  - node.js
+- jelly:
+  - jelly
+- julia:
+  - jl
+  - julia
+- kotlin:
+  - kotlin
+  - kt
+- lua:
+  - lua
+- paradoc:
+  - paradoc
+- perl:
+  - perl
+  - pl
+- php:
+  - php
+  - php3
+  - php4
+  - php5
+- prolog:
+  - prolog
+  - plg
+- python3:
+  - py
+  - py3
+  - python
+  - python3
+- python2:
+  - python2
+  - py2
+- rust:
+  - rs
+  - rust
+- scala:
+  - scala
+  - sc
+- swift:
+  - swift
+- typescript:
+  - ts
+  - typescript
+- zig:
+  - zig
+- osabie:
+  - osabie
+  - 05AB1E
+  - osable
+  - usable

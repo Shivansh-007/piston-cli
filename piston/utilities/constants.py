@@ -1,7 +1,7 @@
 from pygments import lexers
 from pygments.styles import get_all_styles
 from piston.colorschemes import schemes
-from piston.utilities.compilers import languages_
+from piston.utilities.compilers import all_languages
 
 
 def init_lexers() -> None:
@@ -43,6 +43,7 @@ init_lexers()
 # https://github.com/pydanny/pygments-custom/blob/master/pygments/lexers/_mapping.py
 lexers_dict = {
     "nasm": lexers.asm.NasmLexer,
+    "nasm64": lexers.asm.NasmLexer,
     "awk": lexers.textedit.AwkLexer,
     "bash": lexers.shell.BashLexer,
     "brainfuck": lexers.esoteric.BrainfuckLexer,
@@ -62,7 +63,7 @@ lexers_dict = {
     "kotlin": lexers.jvm.KotlinLexer,
     "perl": lexers.perl.PerlLexer,
     "php": lexers.php.PhpLexer,
-    "python": lexers.python.Python3Lexer,
+    "python3": lexers.python.Python3Lexer,
     "python2": lexers.python.PythonLexer,
     "rust": lexers.rust.RustLexer,
     "swift": lexers.objective.SwiftLexer,
@@ -91,7 +92,8 @@ spinners = [
 themes = list(get_all_styles()) + schemes
 themes = [list(themes[style : style + 2]) for style in range(0, len(themes), 2)]
 
-languages_table = zip(iter(languages_), iter(languages_))
+languages = all_languages().keys()
+languages_table = zip(iter(languages), iter(languages))
 
 
 class Shell:

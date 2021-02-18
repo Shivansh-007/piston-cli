@@ -1,3 +1,4 @@
+import itertools
 import json
 import random
 from dataclasses import dataclass
@@ -5,7 +6,7 @@ from typing import List
 
 import requests
 from piston.colorschemes import scheme_dict, schemes
-from piston.utilities.compilers import languages_
+from piston.utilities.compilers import all_languages
 from piston.utilities.constants import Shell, init_lexers, lexers_dict, spinners
 from piston.utilities.prompt_continuation import prompt_continuation
 from piston.utilities.utils import Utils
@@ -31,6 +32,7 @@ class FromShell:
 
     def __init__(self):
         init_lexers()
+        self.languages = all_languages()
 
         self.console = Console()
         self.themes = list(get_all_styles()) + schemes
@@ -60,11 +62,15 @@ class FromShell:
 
     def set_language(self, language: str) -> None:
         """Prompt the user for the programming language, close program if language not supported."""
-        if language not in languages_:
-            self.console.print("[bold red]Language is not supported![/bold red]")
+        languages = itertools.chain.from_iterable(list(self.languages.values()))
+
+        if language not in languages:
+            self.console.print("Language is not supported!", style="bold red")
             Utils.close()
 
-        self.language = language
+        self.language = [
+            lang for lang in self.languages.keys() if language in self.languages[lang]
+        ][0]
 
     def get_args(self) -> List[str]:
         """Prompt the user for the command line arguments."""

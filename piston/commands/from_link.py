@@ -1,3 +1,4 @@
+import itertools
 import json
 import random
 import urllib
@@ -6,7 +7,7 @@ from typing import List, Optional, Tuple, Union
 
 import requests
 from piston.colorschemes import schemes
-from piston.utilities.compilers import languages_
+from piston.utilities.compilers import all_languages
 from piston.utilities.constants import init_lexers, spinners
 from piston.utilities.utils import Utils
 from pygments.styles import get_all_styles
@@ -18,7 +19,7 @@ class FromLink:
 
     def __init__(self) -> None:
         init_lexers()
-        self.languages = languages_
+        self.languages = all_languages()
 
         self.console = Console()
         self.output_json = dict()
@@ -28,11 +29,15 @@ class FromLink:
     def get_lang(self) -> str:
         """Prompt the user for the programming language, close program if language not supported."""
         language = self.console.input("[green]Enter language:[/green] ").lower()
+        languages = itertools.chain.from_iterable(list(self.languages.values()))
 
-        if language not in self.languages:
+        if language not in languages:
             self.console.print("Language is not supported!", style="bold red")
             Utils.close()
-        return language
+
+        return [
+            lang for lang in self.languages.keys() if language in self.languages[lang]
+        ][0]
 
     def get_args(self) -> List[str]:
         """Prompt the user for the command line arguments."""

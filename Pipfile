@@ -8,6 +8,7 @@ rich = "*"
 prompt-toolkit = "*"
 requests = "*"
 pygments = "*"
+pyyaml = "~=5.1"
 
 [dev-packages]
 flake8 = "~=3.8"

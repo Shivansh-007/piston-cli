@@ -1,37 +1,18 @@
-languages_ = [
-    "nasm",
-    "awk",
-    "bash",
-    "brainfuck",
-    "c",
-    "lisp",
-    "csharp",
-    "cpp",
-    "d",
-    "ruby",
-    "emacs",
-    "elixir",
-    "haskell",
-    "go",
-    "java",
-    "js",
-    "julia",
-    "kotlin",
-    "perl",
-    "php",
-    "python",
-    "python2",
-    "rust",
-    "swift",
-    "zig",
-    "paradox",
-    "nasm",
-    "crystal",
-    "dash",
-    "osabie",
-    "nim",
-    "deno",
-    "scala",
-    "typescript",
-    "lua",
-]
+from pathlib import Path
+from typing import Iterable
+
+import yaml
+
+
+def load_languages() -> dict:
+    """Loads languages from the yml file containing the language and its aliases."""
+    with open(Path("piston/utilities/languages.yml"), "r") as stream:
+        languages = yaml.safe_load(stream)
+    return languages
+
+
+def all_languages() -> dict:
+    """Returns all the languages along with its alis in a nice dict lang: alias."""
+    languages = load_languages()
+    languages = {lang: aliases for d in languages for lang, aliases in d.items()}
+    return languages

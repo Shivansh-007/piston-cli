@@ -1,5 +1,5 @@
 lang_extensions = {
-    "py": "python",
+    "py": "python3",
     "cpp": "cpp",
     "c": "c",
     "js": "javascript",
