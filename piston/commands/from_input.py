@@ -94,8 +94,7 @@ class FromInput:
         if len(data["output"]) == 0:
             return "Your code ran without output.", language
         else:
-            result = format_output(data["output"])
-            return result, language
+            return format_output(data["output"]), language
 
 
 FromInput = FromInput()

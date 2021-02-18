@@ -1,16 +1,14 @@
-from typing import NamedTuple
-
 from pygments import lexers
 from pygments.styles import get_all_styles
 from piston.colorschemes import schemes
 from piston.utilities.compilers import languages_
 
 
-class FormatOutput(NamedTuple):
-    MAX_PASTE_LEN = 10000
-    PASTE_FAILED_REQUEST_ATTEMPTS = 3
-    MAX_LINES = 20
-    MAX_CHARACTERS = 2000
+class FormatOutput:
+    max_paste_len = 10000
+    paste_failed_request_attempts = 3
+    max_lines = 20
+    max_characters = 2000
 
 
 def init_lexers() -> None:

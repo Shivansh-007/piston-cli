@@ -7,6 +7,7 @@ import requests
 from piston.colorschemes import scheme_dict, schemes
 from piston.utilities.compilers import languages_
 from piston.utilities.constants import Shell, init_lexers, lexers_dict, spinners
+from piston.utilities.format_output import format_output
 from piston.utilities.prompt_continuation import prompt_continuation
 from piston.utilities.utils import Utils
 from prompt_toolkit import PromptSession
@@ -128,14 +129,7 @@ class FromShell:
             if len(data["output"]) == 0:
                 self.console.print("Your code ran without output.")
             else:
-                self.console.print(
-                    "\n".join(
-                        [
-                            f"{i:02d} | {line}"
-                            for i, line in enumerate(data["output"].split("\n"), 1)
-                        ]
-                    )
-                )
+                self.console.print(format_output(data["output"]))
 
 
 from_shell = FromShell()
