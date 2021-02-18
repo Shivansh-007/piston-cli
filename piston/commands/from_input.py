@@ -39,17 +39,15 @@ class FromInput:
 
     def get_args(self) -> List[str]:
         """Prompt the user for the command line arguments."""
-        args = self.console.input(
-            "[green]Enter your args separated by comma:[/green] "
-        ).lower()
+        args = self.console.input("[green]Enter your args separated by comma:[/green] ")
         return [x for x in args.strip().split(",") if x]
 
     def get_stdin(self) -> str:
         """Prompt the user for the standard input."""
         stdin = self.console.input(
-            "[green]Enter your stdin arguments:[/green] "
-        ).lower()
-        return stdin
+            "[green]Enter your stdin arguments by comma:[/green] "
+        )
+        return "\n".join([x for x in stdin.strip().split(",") if x])
 
     def askinp(self, theme: str = "solarized-dark") -> Tuple[str, str]:
         """
