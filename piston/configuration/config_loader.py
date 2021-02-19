@@ -51,16 +51,19 @@ class ConfigLoader:
         """Loads the configuration file."""
         if (
             not os.path.isfile(self._path)
-            and self._path not in Configuration.configuration_paths.values()  # The config path was explicitly passed or the user is using a system with an unkown default config file location (currently on Java virtual machines)
+            and self._path
+            not in Configuration.configuration_paths.values()  # The config was likely passed
         ):
             self.console.print(
-                "[bold red]Error: No configuration file found at that location or you are using a system with an unknown default configuration file location, "
+                "[bold red]Error: No configuration file found at that location or "
+                "you are using a system with an unknown default configuration file location, "
                 "loading piston-cli defaults.[/bold red]"
             )
             return Configuration.default_configuration
         elif (
             not os.path.isfile(self._path)
-            and self._path in Configuration.configuration_paths.values()  # No congfig was explicitly passed.
+            and self._path
+            in Configuration.configuration_paths.values()  # No config was passed - default config in use
         ):
             self.console.print(
                 "[bold blue]Info: No default configuration file found on your system, "
@@ -68,8 +71,8 @@ class ConfigLoader:
             )
             return Configuration.default_configuration
 
-        self._load_yaml() # Set _config
+        self._load_yaml()  # Set _config
 
-        validate_config(self._config) # Catch errors and fix the ones found
+        validate_config(self._config)  # Catch errors and fix the ones found
 
         return self._config

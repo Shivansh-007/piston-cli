@@ -9,6 +9,7 @@ from rich.console import Console
 
 console = Console()
 
+
 def init_lexers() -> None:
     lexers.find_lexer_class_by_name("nasm")
     lexers.find_lexer_class_by_name("awk")
