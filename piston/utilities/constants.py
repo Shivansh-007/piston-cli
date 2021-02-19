@@ -4,13 +4,6 @@ from piston.colorschemes import schemes
 from piston.utilities.compilers import languages_
 
 
-class FormatOutput:
-    max_paste_len = 10000
-    paste_failed_request_attempts = 3
-    max_lines = 20
-    max_characters = 2000
-
-
 def init_lexers() -> None:
     lexers.find_lexer_class_by_name("nasm")
     lexers.find_lexer_class_by_name("awk")
@@ -104,3 +97,10 @@ languages_table = zip(iter(languages_), iter(languages_))
 class Shell:
     promp_start = ">>> "
     promt_continuation = "... "
+
+
+class FormatOutput:
+    max_paste_len = 10000
+    paste_failed_request_attempts = 3
+    max_lines = 20
+    max_characters = 2000

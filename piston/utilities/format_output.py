@@ -73,5 +73,5 @@ def send_to_paste_service(contents: str, *, extension: str = "") -> Optional[str
         if status == 200:
             response = response.json()
             return "https://emkc.org" + response["url"]
-        else:
-            return f"[Pasting failed with status code {status}... Try again later.]"
+
+    return f"[Pasting failed with status code {status}... Try again later.]"
