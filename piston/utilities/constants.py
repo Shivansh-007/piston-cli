@@ -36,6 +36,7 @@ def init_lexers() -> None:
     lexers.find_lexer_class_by_name("lua")
     lexers.find_lexer_class_by_name("crystal")
     lexers.find_lexer_class_by_name("text")
+    lexers.find_lexer_class_by_name("prolog")
 
 
 init_lexers()
@@ -77,6 +78,7 @@ lexers_dict = {
     "scala": lexers.jvm.ScalaLexer,
     "typescript": lexers.javascript.TypeScriptLexer,
     "lua": lexers.scripting.LuaLexer,
+    "prolog": lexers.prolog.LogtalkLexer,
 }
 
 spinners = [
