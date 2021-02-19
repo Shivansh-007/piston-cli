@@ -89,4 +89,4 @@ pipenv run start
 
 ## Contributing
 
-You can comment on the feature you want to work on in this [discussion](https://github.com/Shivansh-007/piston-cli/discussions/7).
+You can comment on the issues you would like to work on.
