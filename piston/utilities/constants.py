@@ -4,7 +4,10 @@ from pygments import lexers
 from pygments.styles import get_all_styles
 from piston.colorschemes import schemes
 from piston.utilities.compilers import languages_
+from rich.console import Console
 
+
+console = Console()
 
 def init_lexers() -> None:
     lexers.find_lexer_class_by_name("nasm")
@@ -91,7 +94,6 @@ spinners = [
 ]
 
 themes = list(get_all_styles()) + schemes
-themes = [list(themes[style : style + 2]) for style in range(0, len(themes), 2)]
 
 languages_table = zip(iter(languages_), iter(languages_))
 
@@ -101,7 +103,6 @@ class Configuration:
         "Windows": os.path.expandvars("%APPDATA%/piston-cli/config.yaml"),
         "Darwin": os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
         "Linux": os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
-        "Java": None,
     }
 
     default_configuration = {"theme": "solarized-dark"}
