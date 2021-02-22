@@ -1,0 +1,30 @@
+## Relevant Issues
+<!-- List relevant issue tickets here. -->
+<!-- Say "Closes #0" for issues that the PR resolves, replacing 0 with the issue number. -->
+
+
+## Description
+<!-- Describe how you've implemented your changes. -->
+
+
+## Reasoning
+<!-- Outline the reasoning for how it's been implemented. -->
+
+
+## Screenshots
+<!-- Remove this section if the changes don't impact anything user-facing. -->
+<!-- You can add images by just copy pasting them directly in the editor. -->
+
+
+## Additional Details
+<!-- Delete this section if not applicable. -->
+
+
+## Did you:
+<!-- These are required when contributing. -->
+<!-- Replace [ ] with [x] to mark items as done. -->
+
+- [ ] Join the [**Piston CLI Discord Community**](https://discord.gg/c7dZ4zdGQT)?
+- [ ] If dependencies have been added or updated, run `pipenv lock`?
+- [ ] **Lint your code** (`pipenv run lint`)?
+- [ ] Set the PR to **allow edits from contributors**?
