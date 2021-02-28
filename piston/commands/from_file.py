@@ -50,7 +50,7 @@ class FromFile:
             self.console.print("Path is invalid; File not found", style="bold red")
             Utils.close()
 
-        language = self.extensions[file[file.rfind(".") + 1 :]]
+        language = self.extensions[file[file.rfind(".") + 1:]]
         self.output_json = {
             "language": language,
             "source": code,
