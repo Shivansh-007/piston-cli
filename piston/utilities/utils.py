@@ -6,7 +6,7 @@ class Utils:
     """TODO: Write a Docstring here."""
 
     def close(self) -> None:
-        """Exit the program."""
+        # Exit the program.
         try:
             sys.exit(1)
         except SystemExit:
