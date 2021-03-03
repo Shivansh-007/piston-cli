@@ -14,7 +14,7 @@ from pygments.token import (
 
 
 class NordStyle:
-    """Configuration for Nord Theme."""
+    # Configuration for Nord Theme.
 
     def __init__(self) -> None:
         self.nord0 = "#2e3440"
@@ -42,7 +42,7 @@ class NordStyle:
         self.default = self.nord4
 
     def get_nord(self) -> Style:
-        """Configuration for Nord Theme."""
+        # Configuration for Nord Theme.
         return style_from_pygments_dict(
             {
                 Whitespace: self.nord4,
