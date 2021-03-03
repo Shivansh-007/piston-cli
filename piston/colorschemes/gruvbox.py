@@ -12,13 +12,13 @@ from pygments.token import (
 
 
 class GruvboxStyle:
-    """Configuration for Gruvbox Theme."""
+    # Configuration for Gruvbox Theme.
 
     def __init__(self) -> None:
         self.background_color = "#282828"
 
     def get_gruvbox(self) -> Style:
-        """Configuration for Gruvbox Theme."""
+        # Configuration for Gruvbox Theme.
         return style_from_pygments_dict(
             {
                 Comment.Preproc: "noinherit #8ec07c",
