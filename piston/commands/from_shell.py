@@ -19,7 +19,7 @@ from rich.console import Console
 
 @dataclass
 class PistonQuery:
-    """Represents the payload sent to the Piston API."""
+    # Represents the payload sent to the Piston API.
 
     code: str
     args: List[str]
@@ -27,7 +27,7 @@ class PistonQuery:
 
 
 class FromShell:
-    """Run code from a shell environment."""
+    # Run code from a shell environment.
 
     def __init__(self):
         init_lexers()
@@ -39,7 +39,7 @@ class FromShell:
         self.prompt_session = None
 
     def set_prompt_session(self) -> None:
-        """Set the prompt session to use for input."""
+        # Set the prompt session to use for input.
         self.prompt_session = PromptSession(
             Shell.promp_start,
             include_default_pygments_style=False,
@@ -49,7 +49,7 @@ class FromShell:
         )
 
     def set_style(self, theme: str) -> None:
-        """Set the theme for prompt_toolkit."""
+        # Set the theme for prompt_toolkit.
         if theme in self.themes:
             try:
                 self.style = sfpc(get_style_by_name(theme))
@@ -59,7 +59,7 @@ class FromShell:
             self.style = sfpc(get_style_by_name("solarized-dark"))
 
     def set_language(self, language: str) -> None:
-        """Prompt the user for the programming language, close program if language not supported."""
+        # Prompt the user for the programming language, close program if language not supported.
         if language not in languages_:
             self.console.print("[bold red]Language is not supported![/bold red]")
             Utils.close()
@@ -67,19 +67,19 @@ class FromShell:
         self.language = language
 
     def get_args(self) -> List[str]:
-        """Prompt the user for the command line arguments."""
+        # Prompt the user for the command line arguments.
         args = self.console.input("[green]Enter your args separated by comma:[/green] ")
         return [x for x in args.strip().split(",") if x]
 
     def get_stdin(self) -> str:
-        """Prompt the user for the standard input."""
+        # Prompt the user for the standard input.
         stdin = self.console.input(
             "[green]Enter your stdin arguments by comma:[/green] "
         )
         return "\n".join([x for x in stdin.strip().split(",") if x])
 
     def query_piston(self, payload: PistonQuery) -> dict:
-        """Send a post request to the piston API with the code parameter."""
+        # Send a post request to the piston API with the code parameter.
         output_json = {
             "language": self.language,
             "source": payload.code,
@@ -94,7 +94,7 @@ class FromShell:
             ).json()
 
     def prompt(self) -> PistonQuery:
-        """Prompt the user for code input."""
+        # Prompt the user for code input.
         code = self.prompt_session.prompt(
             style=self.style,
         )
@@ -109,7 +109,7 @@ class FromShell:
         )
 
     def run_shell(self, language: str, theme: str) -> None:
-        """Run the shell."""
+        # Run the shell.
         self.console.print(
             "[bold blue]NOTE: stdin and args will be prompted after code. "
             "Use escape + enter to finish writing the code. "
