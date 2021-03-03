@@ -16,7 +16,7 @@ from rich.console import Console
 
 
 class FromInput:
-    """Run code from input."""
+    # Run code from input.
 
     def __init__(self) -> None:
         init_lexers()
@@ -28,7 +28,7 @@ class FromInput:
         self.themes = list(get_all_styles()) + schemes
 
     def get_lang(self) -> str:
-        """Prompt the user for the programming language, close program if language not supported."""
+        # Prompt the user for the programming language, close program if language not supported.
         language = self.console.input("[green]Enter language:[/green] ").lower()
 
         if language not in self.languages:
@@ -37,12 +37,12 @@ class FromInput:
         return language
 
     def get_args(self) -> List[str]:
-        """Prompt the user for the command line arguments."""
+        # Prompt the user for the command line arguments.
         args = self.console.input("[green]Enter your args separated by comma:[/green] ")
         return [x for x in args.strip().split(",") if x]
 
     def get_stdin(self) -> str:
-        """Prompt the user for the standard input."""
+        # Prompt the user for the standard input.
         stdin = self.console.input(
             "[green]Enter your stdin arguments by comma:[/green] "
         )
