@@ -43,7 +43,7 @@ class Base:
         )
 
         prog.add_argument(
-            "-tl",
+            "-T",
             "--themelist",
             action="store_true",
             help="List all the available themes/colorschemes",
