@@ -26,7 +26,7 @@ class FromLink:
         self.themes = list(get_all_styles()) + schemes
 
     def get_lang(self) -> str:
-        """Prompt the user for the programming language, close program if language not supported."""
+        # Prompt the user for the programming language, close program if language not supported.
         language = self.console.input("[green]Enter language:[/green] ").lower()
 
         if language not in self.languages:
@@ -35,19 +35,19 @@ class FromLink:
         return language
 
     def get_args(self) -> List[str]:
-        """Prompt the user for the command line arguments."""
+        # Prompt the user for the command line arguments.
         args = self.console.input("[green]Enter your args separated by comma:[/green] ")
         return [x for x in args.strip().split(",") if x]
 
     def get_stdin(self) -> str:
-        """Prompt the user for the standard input."""
+        # Prompt the user for the standard input.
         stdin = self.console.input(
             "[green]Enter your stdin arguments by comma:[/green] "
         )
         return "\n".join([x for x in stdin.strip().split(",") if x])
 
     def get_code(self) -> Union[bool, str]:
-        """Prompt the user for the pastebin link."""
+        # Prompt the user for the pastebin link
         link = self.console.input("[green]Enter the link:[/green] ").lower()
 
         base_url = urllib.parse.quote_plus(
