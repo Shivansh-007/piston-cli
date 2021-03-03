@@ -17,14 +17,14 @@ from pygments.token import (
 
 
 class DraculaStyle:
-    """Configuration for Dracula Theme."""
+    # Configuration for Dracula Theme.
 
     def __init__(self) -> None:
         self.background_color = "#282a36"
         self.default_style = ""
 
     def get_dracula(self) -> Style:
-        """Configuration for Dracula Theme."""
+        # Configuration for Dracula Theme.
         return style_from_pygments_dict(
             {
                 Comment: "#6272a4",
