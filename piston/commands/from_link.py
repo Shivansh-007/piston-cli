@@ -8,7 +8,7 @@ import requests
 from piston.colorschemes import schemes
 from piston.utilities.compilers import languages_
 from piston.utilities.constants import init_lexers, spinners
-from piston.utilities.parse_userinput import split_unescape
+from piston.utilities.parse_userinput import parse_string
 from piston.utilities.utils import Utils
 from pygments.styles import get_all_styles
 from rich.console import Console
@@ -38,14 +38,14 @@ class FromLink:
     def get_args(self) -> List[str]:
         """Prompt the user for the command line arguments."""
         args = self.console.input("[green]Enter your args separated by comma:[/green] ")
-        return split_unescape(args)
+        return parse_string(args)
 
     def get_stdin(self) -> str:
         """Prompt the user for the standard input."""
         stdin = self.console.input(
             "[green]Enter your stdin arguments by comma:[/green] "
         )
-        return "\n".join(split_unescape(stdin))
+        return "\n".join(parse_string(stdin))
 
     def get_code(self) -> Union[bool, str]:
         """Prompt the user for the pastebin link."""

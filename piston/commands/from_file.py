@@ -5,7 +5,7 @@ from typing import List, Tuple
 import requests
 from piston.utilities.constants import spinners
 from piston.utilities.lang_extensions import lang_extensions
-from piston.utilities.parse_userinput import split_unescape
+from piston.utilities.parse_userinput import parse_string
 from piston.utilities.utils import Utils
 from rich.console import Console
 
@@ -23,14 +23,14 @@ class FromFile:
     def get_args(self) -> List[str]:
         """Prompt the user for the programming language, close program if language not supported."""
         args = self.console.input("[green]Enter your args separated by comma:[/green] ")
-        return split_unescape(args)
+        return parse_string(args)
 
     def get_stdin(self) -> str:
         """Prompt the user for the programming language, close program if language not supported."""
         stdin = self.console.input(
             "[green]Enter your stdin arguments by comma:[/green] "
         )
-        return "\n".join(split_unescape(stdin))
+        return "\n".join(parse_string(stdin))
 
     def runfile(self, file: str) -> Tuple[str, str]:
         """Send code form file to the api and return the response."""
