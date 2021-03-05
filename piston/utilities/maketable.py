@@ -4,6 +4,7 @@ from rich.table import Table
 class MakeTable:
     """TODO: Write a Docstring here."""
 
+    @staticmethod
     def mktbl(self, cont: list) -> Table:
         """Make a table list from rich library."""
         l_table = Table(show_header=False)

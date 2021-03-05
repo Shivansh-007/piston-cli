@@ -14,7 +14,7 @@ from pygments.token import (
 
 
 class NordStyle:
-    """Configuration for Nord Theme."""
+    """Configure for Nord Theme."""
 
     def __init__(self) -> None:
         self.nord0 = "#2e3440"
@@ -41,6 +41,7 @@ class NordStyle:
         self.background_color = self.nord0
         self.default = self.nord4
 
+    @staticmethod
     def get_nord(self) -> Style:
         """Configuration for Nord Theme."""
         return style_from_pygments_dict(

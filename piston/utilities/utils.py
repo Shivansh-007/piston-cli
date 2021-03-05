@@ -5,6 +5,7 @@ import sys
 class Utils:
     """TODO: Write a Docstring here."""
 
+    @staticmethod
     def close(self) -> None:
         """Exit the program."""
         try:
@@ -12,6 +13,7 @@ class Utils:
         except SystemExit:
             os._exit(1)
 
+    @staticmethod
     def print_msg_box(
         self, msg: str, indent: int = 1, width: int = 0, title: str = ""
     ) -> str:
