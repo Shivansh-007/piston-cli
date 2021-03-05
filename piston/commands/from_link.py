@@ -1,7 +1,7 @@
 import json
 import random
 import urllib
-from typing import List, Optional, Tuple, Union
+from typing import List, Tuple, Union
 
 
 import requests
@@ -80,7 +80,7 @@ class FromLink:
             return False
         return response.text
 
-    def askinp(self) -> Optional[Tuple[str, str]]:
+    def askinp(self) -> Tuple[str, str]:
         """
         Make a multiline prompt for code input and send the code to the api.
 
