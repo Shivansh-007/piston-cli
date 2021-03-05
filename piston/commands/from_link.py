@@ -111,12 +111,12 @@ class FromLink:
 
         if len(data["output"]) == 0:
             return "Your code ran without output.", language
-        else:
-            result = [
-                f"{i:02d} | {line}"
-                for i, line in enumerate(data["output"].split("\n"), 1)
-            ]
-            return "\n".join(result), language
+
+        result = [
+            f"{i:02d} | {line}"
+            for i, line in enumerate(data["output"].split("\n"), 1)
+        ]
+        return "\n".join(result), language
 
 
 FromLink = FromLink()
