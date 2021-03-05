@@ -28,7 +28,11 @@ class FromInput:
         self.themes = list(get_all_styles()) + schemes
 
     def get_lang(self) -> str:
-        """Prompt the user for the programming language, close program if language not supported."""
+        """
+        Prompt the user for the programming language.
+
+        If language is not supported then exit the CLI.
+        """
         language = self.console.input("[green]Enter language:[/green] ").lower()
 
         if language not in self.languages:

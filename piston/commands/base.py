@@ -9,7 +9,8 @@ class Base:
         """TODO: Write a Docstring here."""
         prog = argparse.ArgumentParser(
             prog="piston",
-            description="Compile code snippets through the piston api for over 26 languages",
+            description="Compile code snippets through the piston api "
+            "for over 36 languages",
         )
 
         prog.add_argument(
@@ -39,7 +40,7 @@ class Base:
             "--theme",
             type=str,
             help="Change the default theme (solarized-dark) of code, to see "
-            "available themes use -tl or --themelist",
+            "available themes use -T or --themelist",
             required=False,
         )
 
@@ -54,7 +55,8 @@ class Base:
             "-s",
             "--shell",
             type=str,
-            help="Run code from within a shell environment, the passed value is the language to use",
+            help="Run code from within a shell environment, "
+            "the passed value is the language to use",
             required=False,
         )
 

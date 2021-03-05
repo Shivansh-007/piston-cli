@@ -20,12 +20,12 @@ class FromFile:
         self.extensions = lang_extensions
 
     def get_args(self) -> List[str]:
-        """Prompt the user for the programming language, close program if language not supported."""
+        """Prompt the user for the command line arguments."""
         args = self.console.input("[green]Enter your args separated by comma:[/green] ")
         return [x for x in args.strip().split(",") if x]
 
     def get_stdin(self) -> str:
-        """Prompt the user for the programming language, close program if language not supported."""
+        """Prompt the user for the standard input."""
         stdin = self.console.input(
             "[green]Enter your stdin arguments by comma:[/green] "
         )
