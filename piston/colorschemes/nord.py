@@ -41,7 +41,6 @@ class NordStyle:
         self.background_color = self.nord0
         self.default = self.nord4
 
-    @staticmethod
     def get_nord(self) -> Style:
         """Configuration for Nord Theme."""
         return style_from_pygments_dict(

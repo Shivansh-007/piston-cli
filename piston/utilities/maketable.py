@@ -5,7 +5,7 @@ class MakeTable:
     """TODO: Write a Docstring here."""
 
     @staticmethod
-    def mktbl(self, cont: list) -> Table:
+    def mktbl(cont: list) -> Table:
         """Make a table list from rich library."""
         l_table = Table(show_header=False)
         l_table.add_column(width=12, justify="center")

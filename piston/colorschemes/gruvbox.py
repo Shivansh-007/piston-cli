@@ -18,7 +18,7 @@ class GruvboxStyle:
         self.background_color = "#282828"
 
     @staticmethod
-    def get_gruvbox(self) -> Style:
+    def get_gruvbox() -> Style:
         """Configuration for Gruvbox Theme."""
         return style_from_pygments_dict(
             {

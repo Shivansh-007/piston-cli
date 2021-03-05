@@ -24,7 +24,7 @@ class DraculaStyle:
         self.default_style = ""
 
     @staticmethod
-    def get_dracula(self) -> Style:
+    def get_dracula() -> Style:
         """Configuration for Dracula Theme."""
         return style_from_pygments_dict(
             {

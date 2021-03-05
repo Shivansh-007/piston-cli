@@ -6,7 +6,7 @@ class Utils:
     """TODO: Write a Docstring here."""
 
     @staticmethod
-    def close(self) -> None:
+    def close() -> None:
         """Exit the program."""
         try:
             sys.exit(1)
@@ -15,7 +15,7 @@ class Utils:
 
     @staticmethod
     def print_msg_box(
-        self, msg: str, indent: int = 1, width: int = 0, title: str = ""
+        msg: str, indent: int = 1, width: int = 0, title: str = ""
     ) -> str:
         """Print message-box with optional title."""
         lines = msg.split("\n")

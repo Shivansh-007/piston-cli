@@ -5,7 +5,7 @@ class Base:
     """TODO: Write a Docstring here."""
 
     @staticmethod
-    def run(self) -> argparse.Namespace:
+    def run() -> argparse.Namespace:
         """TODO: Write a Docstring here."""
         prog = argparse.ArgumentParser(
             prog="piston",
