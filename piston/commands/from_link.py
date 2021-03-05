@@ -113,8 +113,7 @@ class FromLink:
             return "Your code ran without output.", language
 
         result = [
-            f"{i:02d} | {line}"
-            for i, line in enumerate(data["output"].split("\n"), 1)
+            f"{i:02d} | {line}" for i, line in enumerate(data["output"].split("\n"), 1)
         ]
         return "\n".join(result), language
 

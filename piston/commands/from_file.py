@@ -37,8 +37,8 @@ class FromFile:
         stdin = self.get_stdin()
 
         try:
-            code = open(file)
-            code = code.read()
+            with open(file, "r", encoding="utf-8") as f:
+                code = f.read()
 
             if not any(file.endswith("." + ext) for ext in self.extensions):
                 self.console.print(
@@ -70,8 +70,7 @@ class FromFile:
             return "Your code ran without output.", language
 
         result = [
-            f"{i:02d} | {line}"
-            for i, line in enumerate(data["output"].split("\n"), 1)
+            f"{i:02d} | {line}" for i, line in enumerate(data["output"].split("\n"), 1)
         ]
         return "\n".join(result), language
 
