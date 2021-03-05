@@ -7,6 +7,7 @@ import requests
 from piston.colorschemes import scheme_dict, schemes
 from piston.utilities.compilers import languages_
 from piston.utilities.constants import Shell, init_lexers, lexers_dict, spinners
+from piston.utilities.parse_userinput import split_unescape
 from piston.utilities.prompt_continuation import prompt_continuation
 from piston.utilities.utils import Utils
 from prompt_toolkit import PromptSession
@@ -69,14 +70,14 @@ class FromShell:
     def get_args(self) -> List[str]:
         """Prompt the user for the command line arguments."""
         args = self.console.input("[green]Enter your args separated by comma:[/green] ")
-        return [x for x in args.strip().split(",") if x]
+        return split_unescape(args)
 
     def get_stdin(self) -> str:
         """Prompt the user for the standard input."""
         stdin = self.console.input(
             "[green]Enter your stdin arguments by comma:[/green] "
         )
-        return "\n".join([x for x in stdin.strip().split(",") if x])
+        return "\n".join(split_unescape(stdin))
 
     def query_piston(self, payload: PistonQuery) -> dict:
         """Send a post request to the piston API with the code parameter."""

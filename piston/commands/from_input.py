@@ -6,6 +6,7 @@ import requests
 from piston.colorschemes import scheme_dict, schemes
 from piston.utilities.compilers import languages_
 from piston.utilities.constants import init_lexers, lexers_dict, spinners
+from piston.utilities.parse_userinput import split_unescape
 from piston.utilities.utils import Utils
 from prompt_toolkit.lexers import PygmentsLexer
 from prompt_toolkit.shortcuts import prompt
@@ -39,14 +40,14 @@ class FromInput:
     def get_args(self) -> List[str]:
         """Prompt the user for the command line arguments."""
         args = self.console.input("[green]Enter your args separated by comma:[/green] ")
-        return [x for x in args.strip().split(",") if x]
+        return split_unescape(args)
 
     def get_stdin(self) -> str:
         """Prompt the user for the standard input."""
         stdin = self.console.input(
             "[green]Enter your stdin arguments by comma:[/green] "
         )
-        return "\n".join([x for x in stdin.strip().split(",") if x])
+        return "\n".join(split_unescape(stdin))
 
     def askinp(self, theme: str = "solarized-dark") -> Tuple[str, str]:
         """
