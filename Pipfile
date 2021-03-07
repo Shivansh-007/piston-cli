@@ -12,7 +12,7 @@ pygments = "*"
 [dev-packages]
 flake8 = "~=3.8"
 flake8-annotations = "~=2.3"
-flake8-bugbear = "~=20.1"
+flake8-bugbear = "~=21.3.1"
 flake8-docstrings = "~=1.5"
 flake8-import-order = "~=0.18"
 flake8-string-format = "~=0.3"
