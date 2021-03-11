@@ -45,6 +45,17 @@ nix-env -i piston-cli
 # using nix profile (in nixUnstable)
 nix profile install nixpkgs#piston-cli
 ```
+#### For Arch/ArchBased
+##### With yay
+```bash
+yay piston-cli
+```
+##### With paru
+```bash
+paru piston-cli
+```
+
+Or any AUR helper you use with doesn't matter. You get the point.
 
 ### Example usage
 
