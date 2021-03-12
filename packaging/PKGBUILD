@@ -1,36 +1,42 @@
 # Maintainer: Kenee Patel  <patelkenee2804 + aur at gmail <.> com>
-pkgname=piston-cli-git
-_pkgname=piston-cli
-pkgver=r71.094d30a
+pkgname=piston-cli-git # The main package name as showed in the AUR
+_pkgname=piston-cli # this is just a variable used to get the git name
+pkgver=r71.094d30a # the version that will keep syncing because of the pkgver() function below and stay updated with that on git
 pkgrel=1
-pkgdesc="A universal shell supporting 36+ languages, in terminal code editor with syntax highlight, code compiler (36+ languages). It can run code from pastebin links and files too. "
-arch=('any')
-url="https://github.com/Shivansh-007/piston-cli.git"
+pkgdesc="A universal shell supporting 36+ languages, in terminal code editor with syntax highlight, code compiler (36+ languages). It can run code from pastebin links and files too. " # The description of this package that will be shown in AUR.
+arch=('any') # architecture, as this is python based, this can be any.
+url="https://github.com/Shivansh-007/piston-cli.git" # the url to the source on github
 license=('MIT')
+# Depenencies should be mentioned and updated here.
 depends=(	'python-pygments'
 			'python-requests'
 			'python-prompt_toolkit'
 			'python-rich'
 			'python-argparse'
 )
+# Make Depenencies (dependencies that will just be used to make the package and not run) should be mentioned and updated here.
 makedepends=('git' 'python-setuptools')
+# OPtional Dependencies. when it may be needed
 optdepends=()
 provides=('piston-cli')
 conflicts=('piston-cli')
 source=('git'+$url)
 sha256sums=('SKIP')
 
+# the function that will be called in fakeroot environment to see if it will work successfully.
 build() {
 	cd "$_pkgname"
 	python setup.py build
 }
 
+# the function that will be called to install the paackage in their respective directory
 package() {
 	cd "$_pkgname"
 	python setup.py install --root="${pkgdir}/" --optimize=1 --skip-build
 	install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
 
+# function that will maintain the version of the package.
 pkgver() {
     cd "$srcdir/$_pkgname"
     printf "r%s.%s" $(git rev-list --count HEAD) $(git rev-parse --short HEAD)
