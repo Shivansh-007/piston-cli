@@ -19,7 +19,7 @@ def main() -> None:
 
     output = None
 
-    config_loader = ConfigLoader(args.config if args.config else None)
+    config_loader = ConfigLoader(args.config)
     config = config_loader.load_config()
 
     if args.list:
@@ -39,14 +39,14 @@ def main() -> None:
     elif args.shell:
         try:
             commands_dict["from_shell"](
-                args.shell, config["theme"] if not args.theme else args.theme
+                args.shell, config["theme"] or args.theme
             )
         except KeyboardInterrupt:
             pass
 
     else:
         output, language = commands_dict["from_input"](
-            config["theme"] if not args.theme else args.theme
+            config["theme"] or args.theme
         )
 
     if output:

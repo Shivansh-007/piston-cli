@@ -13,22 +13,16 @@ class ConfigLoader:
 
     def __init__(self, path: Optional[str]):
         self.console = Console()
-        self._path = Configuration.configuration_paths[platform.system()]
-        if path is not None:
-            self.set_path(path)
+        self.path = path or Configuration.configurationpaths[platform.system()]
         self._config = {}
-
-    def set_path(self, path: str) -> None:
-        """Sets the path of private variable _path."""
-        self._path = path
 
     def _load_yaml(self) -> None:
         """Loads the keys and values from a yaml file."""
-        expanded_path = os.path.abspath(os.path.expandvars(self._path))
+        expandedpath = os.path.abspath(os.path.expandvars(self.path))
 
-        self.console.print(f"[green]Loading config:[/green] {expanded_path}")
+        self.console.print(f"[green]Loading config:[/green] {expandedpath}")
 
-        with open(expanded_path) as loaded_config:
+        with open(expandedpath) as loaded_config:
             loaded_config = yaml.load(loaded_config, Loader=yaml.FullLoader)
 
         for key, value in loaded_config.items():
@@ -50,9 +44,9 @@ class ConfigLoader:
     def load_config(self) -> dict:
         """Loads the configuration file."""
         if (
-            not os.path.isfile(self._path)
-            and self._path
-            not in Configuration.configuration_paths.values()  # The config was likely passed
+            not os.path.isfile(self.path)
+            and self.path
+            not in Configuration.configurationpaths.values()  # The config was likely passed
         ):
             self.console.print(
                 "[bold red]Error: No configuration file found at that location or "
@@ -61,9 +55,9 @@ class ConfigLoader:
             )
             return Configuration.default_configuration
         elif (
-            not os.path.isfile(self._path)
-            and self._path
-            in Configuration.configuration_paths.values()  # No config was passed - default config in use
+            not os.path.isfile(self.path)
+            and self.path
+            in Configuration.configurationpaths.values()  # No config was passed - default config in use
         ):
             self.console.print(
                 "[bold blue]Info: No default configuration file found on your system, "
