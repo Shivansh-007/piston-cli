@@ -101,9 +101,18 @@ languages_table = zip(iter(languages_), iter(languages_))
 
 class Configuration:
     configuration_paths = {
-        "Windows": os.path.expandvars("%APPDATA%/piston-cli/config.yaml"),
-        "Darwin": os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
-        "Linux": os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
+        "Windows": (
+            os.path.expandvars("%APPDATA%/piston-cli/config.yaml"),
+            os.path.expandvars("%APPDATA%/piston-cli/config.yaml"),
+        ),
+        "Darwin": (
+            os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
+            os.path.expandvars("$HOME/.config/piston-cli/config.yml"),
+        ),
+        "Linux": (
+            os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
+            os.path.expandvars("$HOME/.config/piston-cli/config.yml"),
+        ),
     }
 
     default_configuration = {"theme": "solarized-dark"}
