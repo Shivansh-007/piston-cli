@@ -1,0 +1,39 @@
+# Maintainer: Shivansh <shivansh-007 + aur at outlook <.> com>
+# Contributor: Kenee Patel <patelkenee2804 + aur at gmail <.> com>
+pkgname=piston-cli-git		# Package name to be displayed as title, note git is added because piston cli will be installed from the main github code itself and not from the github latest release.
+_pkgname=piston-cli 		# Package name that will be used to ease out package variable name that follows.
+pkgver=r71.094d30a			# Package latest release version that will get updated with the pkgver() function below to get the latest version.
+pkgrel=1
+pkgdesc="A universal shell supporting 36+ languages, in terminal code editor with syntax highlight, code compiler (36+ languages). It can run code from pastebin links and files too. "	# Package description to be shown below title.
+arch=('any')				# Architecture that will be supported.
+url="https://github.com/Shivansh-007/piston-cli.git"	# The main url to github page.
+license=('MIT')				# License that is applied on this project.
+depends=(					# Dependencies that will be used to run piston-cli.
+	'python-pygments'
+	'python-requests'
+	'python-prompt_toolkit'
+	'python-rich'
+	'python-argparse'
+)
+makedepends=('git' 'python-setuptools')		# Make-Dependencies that will not be used to run piston-cli but will be used to make/install it.
+optdepends=()				# Optional Dependencies none right now.
+provides=('piston-cli')
+conflicts=('piston-cli')
+source=('git'+$url)			# The address to download the source code of the main github page.
+sha256sums=('SKIP')
+
+build() {
+	cd "$_pkgname"
+	python setup.py build
+}
+
+package() {
+	cd "$_pkgname"
+	python setup.py install --root="${pkgdir}/" --optimisze=1 --skip-build
+	install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"		# to install the LICENSE in the correct location.
+}
+
+pkgver() {					# The function that will update the latest version.
+    cd "$srcdir/$_pkgname"
+    printf "r%s.%s" $(git rev-list --count HEAD) $(git rev-parse --short HEAD)
+}
