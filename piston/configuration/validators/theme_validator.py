@@ -28,12 +28,12 @@ class ThemeValidator(Validator):
         if not self.validate_type():
             return False
 
-        if type(self.themes) is str and not ThemeValidator.check_theme_exists(
-            self.themes
+        if isinstance(self.themes, str) and not ThemeValidator.check_theme_exists(
+                self.themes
         ):  # Check the singular theme exists.
             return False
 
-        if type(self.themes) is list:  # Check each theme exists.
+        if isinstance(self.themes, list):  # Check each theme exists.
             for theme in self.themes:
                 if not ThemeValidator.check_theme_exists(theme):
                     return False

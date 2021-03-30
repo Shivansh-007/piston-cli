@@ -46,10 +46,10 @@ class ConfigLoader:
         """Loads the configuration file."""
         path_exists = False
 
-        if type(self.paths) is str:
+        if isinstance(self.paths, str):
             if os.path.isfile(self.paths):
                 path_exists = True
-        elif type(self.paths) is tuple:
+        elif isinstance(self.paths, tuple):
             for path in self.paths:
                 if os.path.isfile(path):
                     path_exists = True
@@ -58,16 +58,16 @@ class ConfigLoader:
 
         if path_exists:
             console.print(
-                "[blue]One or more configuration files was found to exist. "
+                "[blue]One or more configuration files were found to exist. "
                 f"Using the one found at {self.paths}."
             )
 
         if (
-            not path_exists
-            and self.paths
-            # The path is not in a default location,
-            # this means that it is None from an unrecognized system or was manually specified
-            not in Configuration.configuration_paths.values()
+                not path_exists
+                and self.paths
+                # The path is not in a default location,
+                # this means that it is None from an unrecognized system or was manually specified
+                not in Configuration.configuration_paths.values()
         ):
             console.print(
                 "[bold red]Error: No configuration file found at that location or "
@@ -76,10 +76,10 @@ class ConfigLoader:
             )
             return Configuration.default_configuration
         elif (
-            # The path is in a default location, a path was probably not specified,
-            # unless the user pointed to one in the default location
-            not path_exists
-            and self.paths in Configuration.configuration_paths.values()
+                # The path is in a default location, a path was probably not specified,
+                # unless the user pointed to one in the default location
+                not path_exists
+                and self.paths in Configuration.configuration_paths.values()
         ):
             console.print(
                 "[bold blue]Info: No default configuration file found on your system, "
