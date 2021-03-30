@@ -27,7 +27,7 @@ class Validator:
             for item in self.config:
                 if not isinstance(item, self.target_type):
                     console.print(
-                        f'[red]A possible "{self.theme}" in the list of "{self.name}" configurations '
+                        f'[red]A possible "{item}" in the list of "{self.name}" configurations '
                         f"specified has an invalid type, use type {self.target_type.__name__}. "
                         f"not {type(item).__name__}. Using default setting.[/red]"
                     )
