@@ -103,7 +103,7 @@ class Configuration:
     configuration_paths = {
         "Windows": (
             os.path.expandvars("%APPDATA%/piston-cli/config.yaml"),
-            os.path.expandvars("%APPDATA%/piston-cli/config.yaml"),
+            os.path.expandvars("%APPDATA%/piston-cli/config.yml"),
         ),
         "Darwin": (
             os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
