@@ -4,6 +4,7 @@ import os
 import sys
 
 from piston.commands import commands_dict
+from piston.configuration.config_loader import ConfigLoader
 from piston.utilities.constants import languages_table, themes
 from piston.utilities.maketable import MakeTable
 from piston.utilities.utils import Utils
@@ -17,6 +18,9 @@ def main() -> None:
     args = commands_dict["base"]()
 
     output = None
+
+    config_loader = ConfigLoader(args.config)
+    config = config_loader.load_config()
 
     if args.list:
         console.print(MakeTable.mktbl(languages_table))
@@ -34,12 +38,12 @@ def main() -> None:
 
     elif args.shell:
         try:
-            commands_dict["from_shell"](args.shell, args.theme)
+            commands_dict["from_shell"](args.shell, config["theme"] or args.theme)
         except KeyboardInterrupt:
             pass
 
     else:
-        output, language = commands_dict["from_input"](args.theme)
+        output, language = commands_dict["from_input"](config["theme"] or args.theme)
 
     if output:
         width = os.get_terminal_size().columns - 5

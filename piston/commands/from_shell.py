@@ -56,6 +56,9 @@ class FromShell:
             except ClassNotFound:
                 self.style = scheme_dict[theme]()
         else:
+            self.console.print(
+                f"[red]Theme {theme} is not a valid theme, using piston-cli default"
+            )
             self.style = sfpc(get_style_by_name("solarized-dark"))
 
     def set_language(self, language: str) -> None:
