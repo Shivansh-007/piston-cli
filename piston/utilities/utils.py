@@ -5,15 +5,17 @@ import sys
 class Utils:
     """TODO: Write a Docstring here."""
 
-    def close(self) -> None:
+    @staticmethod
+    def close() -> None:
         """Exit the program."""
         try:
             sys.exit(1)
         except SystemExit:
             os._exit(1)
 
+    @staticmethod
     def print_msg_box(
-        self, msg: str, indent: int = 1, width: int = 0, title: str = ""
+        msg: str, indent: int = 1, width: int = 0, title: str = ""
     ) -> str:
         """Print message-box with optional title."""
         lines = msg.split("\n")
