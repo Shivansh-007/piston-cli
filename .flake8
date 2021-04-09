@@ -7,7 +7,8 @@ exclude=constants.py,__pycache__,.cache,
         .md,.svg,.png
         tests,
         venv,.venv,
-        .json
+        .json,
+        media
 
 ignore=
     B311,W503,E226,S311,T000
