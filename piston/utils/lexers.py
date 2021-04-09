@@ -2,6 +2,7 @@ from pygments import lexers
 
 
 def init_lexers() -> None:
+    """Declaring all lexers of the languages supported by piston API."""
     lexers.find_lexer_class_by_name("nasm")
     lexers.find_lexer_class_by_name("awk")
     lexers.find_lexer_class_by_name("bash")

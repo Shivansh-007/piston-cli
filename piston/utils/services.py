@@ -2,11 +2,11 @@ import json
 import random
 
 import requests
+from piston.utils.constants import PistonQuery, SPINNERS
+from rich import Console
 
-from piston.utils.constants import SPINNERS, PistonQuery
 
-
-def query_piston(console, payload: PistonQuery) -> dict:
+def query_piston(console: Console, payload: PistonQuery) -> dict:
     """Send a post request to the piston API with the code parameter."""
     output_json = {
         "language": payload.language,
@@ -20,4 +20,3 @@ def query_piston(console, payload: PistonQuery) -> dict:
             "https://emkc.org/api/v1/piston/execute",
             data=json.dumps(output_json),
         ).json()
-

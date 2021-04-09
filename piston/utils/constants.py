@@ -20,7 +20,7 @@ SPINNERS = [
 ]
 
 themes = list(get_all_styles()) + schemes
-THEMES = [list(themes[style: style + 2]) for style in range(0, len(themes), 2)]
+THEMES = [list(themes[style : style + 2]) for style in range(0, len(themes), 2)]
 
 LANG_TABLE = zip(iter(languages_), iter(languages_))
 

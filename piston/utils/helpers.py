@@ -14,12 +14,7 @@ def close() -> None:
         os._exit(1)
 
 
-def print_msg_box(
-        msg: str,
-        indent: int = 1,
-        width: int = 0,
-        title: str = ""
-) -> str:
+def print_msg_box(msg: str, indent: int = 1, width: int = 0, title: str = "") -> str:
     """Print message-box with optional title."""
     lines = msg.split("\n")
     space = " " * indent
@@ -34,7 +29,7 @@ def print_msg_box(
     return box
 
 
-def get_lang():
+def get_lang() -> str:
     """
     Prompt the user for the programming language.
 
@@ -56,8 +51,5 @@ def get_args() -> List[str]:
 
 def get_stdin() -> str:
     """Prompt the user for the standard input."""
-    stdin = CONSOLE.input(
-        "[green]Enter your stdin arguments by comma:[/green] "
-    )
+    stdin = CONSOLE.input("[green]Enter your stdin arguments by comma:[/green] ")
     return "\n".join([x for x in stdin.strip().split(",") if x])
-

@@ -2,7 +2,7 @@ from typing import Tuple
 
 from piston.colorschemes import scheme_dict, schemes
 from piston.utils import helpers, services
-from piston.utils.constants import PistonQuery, CONSOLE
+from piston.utils.constants import CONSOLE, PistonQuery
 from piston.utils.lexers import lexers_dict
 from prompt_toolkit.lexers import PygmentsLexer
 from prompt_toolkit.shortcuts import prompt
@@ -48,12 +48,7 @@ class FromInput:
             style=style,
             multiline=True,
         )
-        payload = PistonQuery(
-            language=language,
-            args=args,
-            stdin=stdin,
-            code=code
-        )
+        payload = PistonQuery(language=language, args=args, stdin=stdin, code=code)
 
         data = services.query_piston(CONSOLE, payload)
 

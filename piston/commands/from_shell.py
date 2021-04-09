@@ -1,7 +1,7 @@
 from piston.colorschemes import scheme_dict, schemes
 from piston.utils import helpers, services
 from piston.utils.compilers import languages_
-from piston.utils.constants import Shell, CONSOLE, PistonQuery
+from piston.utils.constants import CONSOLE, PistonQuery, Shell
 from piston.utils.lexers import lexers_dict
 from piston.utils.prompt_continuation import prompt_continuation
 from prompt_toolkit import PromptSession
