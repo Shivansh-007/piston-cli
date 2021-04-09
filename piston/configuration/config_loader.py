@@ -63,11 +63,11 @@ class ConfigLoader:
             )
 
         if (
-                not path_exists
-                and self.paths
-                # The path is not in a default location,
-                # this means that it is None from an unrecognized system or was manually specified
-                not in Configuration.configuration_paths.values()
+            not path_exists
+            and self.paths
+            # The path is not in a default location,
+            # this means that it is None from an unrecognized system or was manually specified
+            not in Configuration.configuration_paths.values()
         ):
             CONSOLE.print(
                 "[bold red]Error: No configuration file found at that location or "
@@ -76,10 +76,10 @@ class ConfigLoader:
             )
             return Configuration.default_configuration
         elif (
-                # The path is in a default location, a path was probably not specified,
-                # unless the user pointed to one in the default location
-                not path_exists
-                and self.paths in Configuration.configuration_paths.values()
+            # The path is in a default location, a path was probably not specified,
+            # unless the user pointed to one in the default location
+            not path_exists
+            and self.paths in Configuration.configuration_paths.values()
         ):
             CONSOLE.print(
                 "[bold blue]Info: No default configuration file found on your system, "

@@ -1,8 +1,8 @@
 from typing import Tuple
 
+from piston.utils import helpers, services
 from piston.utils.constants import CONSOLE, PistonQuery
 from piston.utils.lang_extensions import lang_extensions
-from piston.utils import helpers, services
 
 
 class FromFile:

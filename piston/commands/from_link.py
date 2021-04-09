@@ -1,5 +1,5 @@
 import urllib
-from typing import Tuple, Union, Optional
+from typing import Optional, Tuple, Union
 
 import requests
 from piston.colorschemes import schemes
@@ -62,12 +62,7 @@ class FromLink:
         if not code:
             return
 
-        payload = PistonQuery(
-            language=language,
-            args=args,
-            stdin=stdin,
-            code=code
-        )
+        payload = PistonQuery(language=language, args=args, stdin=stdin, code=code)
         data = services.query_piston(CONSOLE, payload)
 
         if len(data["output"]) == 0:
