@@ -1,4 +1,4 @@
-from piston.utilities.constants import Shell
+from piston.utils.constants import Shell
 
 
 def prompt_continuation(*args) -> str:

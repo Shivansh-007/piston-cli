@@ -5,9 +5,9 @@ import sys
 
 from piston.commands import commands_dict
 from piston.configuration.config_loader import ConfigLoader
-from piston.utilities.constants import languages_table, themes
-from piston.utilities.maketable import MakeTable
-from piston.utilities.utils import Utils
+from piston.utils import helpers
+from piston.utils.constants import LANG_TABLE, themes
+from piston.utils.maketable import MakeTable
 from rich.console import Console
 
 
@@ -23,12 +23,12 @@ def main() -> None:
     config = config_loader.load_config()
 
     if args.list:
-        console.print(MakeTable.mktbl(languages_table))
-        Utils.close()
+        console.print(MakeTable.mktbl(LANG_TABLE))
+        helpers.close()
 
     if args.themelist:
         console.print(MakeTable.mktbl(themes))
-        Utils.close()
+        helpers.close()
 
     elif args.file:
         output, language = commands_dict["from_file"](args.file)
@@ -48,7 +48,7 @@ def main() -> None:
     if output:
         width = os.get_terminal_size().columns - 5
         console.print(f"\nHere is your {language} output:", style="green")
-        console.print(Utils.print_msg_box(output, width=width))
+        console.print(helpers.print_msg_box(output, width=width))
 
 
 if __name__ == "__main__":
