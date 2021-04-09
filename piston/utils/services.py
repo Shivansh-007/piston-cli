@@ -3,7 +3,7 @@ import random
 
 import requests
 from piston.utils.constants import PistonQuery, SPINNERS
-from rich import Console
+from rich.console import Console
 
 
 def query_piston(console: Console, payload: PistonQuery) -> dict:
