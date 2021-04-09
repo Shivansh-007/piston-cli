@@ -47,7 +47,7 @@ def main() -> None:
 
     if output:
         width = os.get_terminal_size().columns - 5
-        console.print(f"\nHere is your {language} output:", style="green")
+        console.print(f"\n[green]Here is your {language} output:[/green]")
         console.print(helpers.print_msg_box(output, width=width))
 
 
