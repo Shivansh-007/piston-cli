@@ -6,7 +6,7 @@ import sys
 from piston.commands import commands_dict
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
-from piston.utils.constants import LANG_TABLE, themes
+from piston.utils.constants import LANG_TABLE, THEMES
 from piston.utils.maketable import MakeTable
 from rich.console import Console
 
@@ -27,7 +27,7 @@ def main() -> None:
         helpers.close()
 
     if args.themelist:
-        console.print(MakeTable.mktbl(themes))
+        console.print(MakeTable.mktbl(THEMES))
         helpers.close()
 
     elif args.file:
