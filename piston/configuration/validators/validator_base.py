@@ -1,6 +1,6 @@
 from typing import Any
 
-from piston.utilities.constants import console
+from piston.utils.constants import CONSOLE
 
 
 class Validator:
@@ -17,7 +17,7 @@ class Validator:
     def validate_type(self) -> bool:
         """Validates the type of a given configuration."""
         if self.current_type is not self.target_type and self.current_type is not list:
-            console.print(
+            CONSOLE.print(
                 f'[red]Configuration "{self.config.__name__}" invalid, use type {self.target_type.__name__}, '
                 f"not {self.current_type.__name__}. Using default setting.[/red]"
             )
@@ -26,14 +26,14 @@ class Validator:
         if self.current_type is list:
             for item in self.config:
                 if not isinstance(item, self.target_type):
-                    console.print(
+                    CONSOLE.print(
                         f'[red]A possible "{item}" in the list of "{self.name}" configurations '
                         f"specified has an invalid type, use type {self.target_type.__name__}. "
                         f"not {type(item).__name__}. Using default setting.[/red]"
                     )
                     return False
 
-            console.print(
+            CONSOLE.print(
                 f'[blue]A list of possible configurations was found for the "{self.name}" option. '
                 "Choosing a random one."
             )

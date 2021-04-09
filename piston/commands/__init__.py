@@ -6,9 +6,9 @@ from piston.commands.from_shell import from_shell
 
 
 commands_dict = {
-    "from_file": FromFile.runfile,
-    "from_input": FromInput.askinp,
+    "from_file": FromFile.run_file,
+    "from_input": FromInput.ask_input,
     "base": Base.run,
-    "from_link": FromLink.askinp,
+    "from_link": FromLink.ask_input,
     "from_shell": from_shell.run_shell,
 }
