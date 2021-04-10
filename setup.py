@@ -31,7 +31,7 @@ setup_args = dict(
     },
 )
 
-install_requires = ["rich", "prompt-toolkit", "requests", "pygments"]
+install_requires = ["rich", "prompt-toolkit", "requests", "pygments", "pyyaml"]
 
 if __name__ == "__main__":
     setup(**setup_args, install_requires=install_requires)
