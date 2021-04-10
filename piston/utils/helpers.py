@@ -1,9 +1,17 @@
 import os
+import shlex
 import sys
 from typing import List
 
 from piston.utils.compilers import languages_
 from piston.utils.constants import CONSOLE
+
+
+def parse_string(string: str) -> List[str]:
+    """Parse string like python string parsing with the help of backslash."""
+    parsed_string = shlex.shlex(string, posix=True)
+    parsed_string.escapedquotes = "\"'"
+    return list(parsed_string)
 
 
 def close() -> None:
@@ -45,11 +53,11 @@ def get_lang() -> str:
 
 def get_args() -> List[str]:
     """Prompt the user for the command line arguments."""
-    args = CONSOLE.input("[green]Enter your args separated by comma:[/green] ")
-    return [x for x in args.strip().split(",") if x]
+    args = CONSOLE.input("[green]Enter your args separated:[/green] ")
+    return parse_string(args)
 
 
 def get_stdin() -> str:
     """Prompt the user for the standard input."""
-    stdin = CONSOLE.input("[green]Enter your stdin arguments by comma:[/green] ")
-    return "\n".join([x for x in stdin.strip().split(",") if x])
+    stdin = CONSOLE.input("[green]Enter your stdin arguments:[/green] ")
+    return "\n".join(parse_string(stdin))
