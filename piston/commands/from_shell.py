@@ -1,14 +1,15 @@
+from prompt_toolkit import PromptSession
+from prompt_toolkit.lexers import PygmentsLexer
+from prompt_toolkit.styles.pygments import style_from_pygments_cls as sfpc
+from pygments.styles import get_all_styles, get_style_by_name
+from pygments.util import ClassNotFound
+
 from piston.colorschemes import scheme_dict, schemes
 from piston.utils import helpers, services
 from piston.utils.compilers import languages_
 from piston.utils.constants import CONSOLE, PistonQuery, Shell
 from piston.utils.lexers import lexers_dict
 from piston.utils.prompt_continuation import prompt_continuation
-from prompt_toolkit import PromptSession
-from prompt_toolkit.lexers import PygmentsLexer
-from prompt_toolkit.styles.pygments import style_from_pygments_cls as sfpc
-from pygments.styles import get_all_styles, get_style_by_name
-from pygments.util import ClassNotFound
 
 
 class FromShell:

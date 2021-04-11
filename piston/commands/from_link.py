@@ -2,10 +2,11 @@ import urllib
 from typing import Optional, Tuple, Union
 
 import requests
+from pygments.styles import get_all_styles
+
 from piston.colorschemes import schemes
 from piston.utils import helpers, services
 from piston.utils.constants import CONSOLE, PistonQuery
-from pygments.styles import get_all_styles
 
 
 class FromLink:

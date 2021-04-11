@@ -1,14 +1,15 @@
 from typing import Tuple
 
-from piston.colorschemes import scheme_dict, schemes
-from piston.utils import helpers, services
-from piston.utils.constants import CONSOLE, PistonQuery
-from piston.utils.lexers import lexers_dict
 from prompt_toolkit.lexers import PygmentsLexer
 from prompt_toolkit.shortcuts import prompt
 from prompt_toolkit.styles.pygments import style_from_pygments_cls as sfpc
 from pygments.styles import get_all_styles, get_style_by_name
 from pygments.util import ClassNotFound
+
+from piston.colorschemes import scheme_dict, schemes
+from piston.utils import helpers, services
+from piston.utils.constants import CONSOLE, PistonQuery
+from piston.utils.lexers import lexers_dict
 
 
 class FromInput:

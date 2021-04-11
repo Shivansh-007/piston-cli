@@ -3,9 +3,10 @@ from dataclasses import dataclass
 from typing import List
 
 from pygments.styles import get_all_styles
+from rich.console import Console
+
 from piston.colorschemes import schemes
 from piston.utils.compilers import languages_
-from rich.console import Console
 
 CONSOLE = Console()
 

@@ -3,6 +3,7 @@ import platform
 from typing import Optional, Union
 
 import yaml
+
 from piston.configuration.config_fixer import fix_config
 from piston.utils.constants import CONSOLE, Configuration
 
