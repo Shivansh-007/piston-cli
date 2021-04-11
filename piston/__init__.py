@@ -38,12 +38,12 @@ def main() -> None:
 
     elif args.shell:
         try:
-            commands_dict["from_shell"](args.shell, config["theme"] or args.theme)
+            commands_dict["from_shell"](args.shell, args.theme or config["theme"])
         except KeyboardInterrupt:
             pass
 
     else:
-        output, language = commands_dict["from_input"](config["theme"] or args.theme)
+        output, language = commands_dict["from_input"](args.theme or config["theme"])
 
     if output:
         width = os.get_terminal_size().columns - 5
