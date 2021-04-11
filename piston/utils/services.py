@@ -2,8 +2,9 @@ import json
 import random
 
 import requests
-from piston.utils.constants import PistonQuery, SPINNERS
 from rich.console import Console
+
+from piston.utils.constants import PistonQuery, SPINNERS
 
 
 def query_piston(console: Console, payload: PistonQuery) -> dict:
