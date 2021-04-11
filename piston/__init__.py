@@ -6,15 +6,12 @@ import sys
 from piston.commands import commands_dict
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
-from piston.utils.constants import LANG_TABLE, THEMES
+from piston.utils.constants import LANG_TABLE, THEMES, CONSOLE
 from piston.utils.maketable import MakeTable
-from rich.console import Console
 
 
 def main() -> None:
     """TODO: Write a Docstring here."""
-    console = Console()
-
     args = commands_dict["base"]()
 
     output = None
@@ -22,12 +19,17 @@ def main() -> None:
     config_loader = ConfigLoader(args.config)
     config = config_loader.load_config()
 
+    if args.theme:
+        CONSOLE.print(
+            f"[indian_red]- Theme flag specified, overwriting config: {args.theme}[/indian_red]"
+        )
+
     if args.list:
-        console.print(MakeTable.mktbl(LANG_TABLE))
+        CONSOLE.print(MakeTable.mktbl(LANG_TABLE))
         helpers.close()
 
     if args.themelist:
-        console.print(MakeTable.mktbl(THEMES))
+        CONSOLE.print(MakeTable.mktbl(THEMES))
         helpers.close()
 
     elif args.file:
@@ -47,8 +49,8 @@ def main() -> None:
 
     if output:
         width = os.get_terminal_size().columns - 5
-        console.print(f"\n[green]Here is your {language} output:[/green]")
-        console.print(helpers.print_msg_box(output, width=width))
+        CONSOLE.print(f"\n[green]Here is your {language} output:[/green]")
+        CONSOLE.print(helpers.print_msg_box(output, width=width))
 
 
 if __name__ == "__main__":
