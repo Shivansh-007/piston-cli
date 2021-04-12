@@ -19,7 +19,7 @@ class FromInput:
 
         self.themes = list(get_all_styles()) + schemes
 
-    def ask_input(self, theme: str = "solarized-dark") -> Tuple[str, str]:
+    def ask_input(self, theme: str) -> Tuple[str, str]:
         """
         Make a multiline prompt for code input and send the code to the api.
 
