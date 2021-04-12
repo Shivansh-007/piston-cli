@@ -3,8 +3,14 @@ import shlex
 import sys
 from typing import List
 
+from prompt_toolkit.styles import Style
+from prompt_toolkit.styles.pygments import style_from_pygments_cls as sfpc
+from pygments.styles import get_style_by_name
+from pygments.util import ClassNotFound
+
+from piston.colorschemes import scheme_dict
 from piston.utils.compilers import languages_
-from piston.utils.constants import CONSOLE
+from piston.utils.constants import CONSOLE, themes
 
 
 def parse_string(string: str) -> List[str]:
@@ -61,3 +67,19 @@ def get_stdin() -> str:
     """Prompt the user for the standard input."""
     stdin = CONSOLE.input("[green]Enter your stdin arguments:[/green] ")
     return "\n".join(parse_string(stdin))
+
+
+def set_style(theme: str) -> Style:
+    """Set the theme for prompt_toolkit."""
+    if theme in themes:
+        try:
+            style = sfpc(get_style_by_name(theme))
+        except ClassNotFound:
+            style = scheme_dict[theme]()
+    else:
+        CONSOLE.print(
+            f"[red]Theme {theme} is not a valid theme, using piston-cli default"
+        )
+        style = sfpc(get_style_by_name("solarized-dark"))
+
+    return style
