@@ -1,10 +1,6 @@
 from prompt_toolkit import PromptSession
 from prompt_toolkit.lexers import PygmentsLexer
-from prompt_toolkit.styles.pygments import style_from_pygments_cls as sfpc
-from pygments.styles import get_all_styles, get_style_by_name
-from pygments.util import ClassNotFound
 
-from piston.colorschemes import scheme_dict, schemes
 from piston.utils import helpers, services
 from piston.utils.compilers import languages_
 from piston.utils.constants import CONSOLE, PistonQuery, Shell
@@ -16,7 +12,6 @@ class FromShell:
     """Run code from a shell environment."""
 
     def __init__(self):
-        self.themes = list(get_all_styles()) + schemes
         self.style = None
         self.language = None
         self.prompt_session = None
@@ -30,19 +25,6 @@ class FromShell:
             multiline=True,
             prompt_continuation=prompt_continuation,
         )
-
-    def set_style(self, theme: str) -> None:
-        """Set the theme for prompt_toolkit."""
-        if theme in self.themes:
-            try:
-                self.style = sfpc(get_style_by_name(theme))
-            except ClassNotFound:
-                self.style = scheme_dict[theme]()
-        else:
-            CONSOLE.print(
-                f"[red]Theme {theme} is not a valid theme, using piston-cli default"
-            )
-            self.style = sfpc(get_style_by_name("solarized-dark"))
 
     def set_language(self, language: str) -> None:
         """
@@ -82,7 +64,7 @@ class FromShell:
 
         self.set_language(language)
         self.set_prompt_session()
-        self.set_style(theme)
+        self.style = helpers.set_style(theme)
 
         while True:
             query = self.prompt()
