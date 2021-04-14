@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import os
 import sys
 
 from piston.commands import commands_dict
@@ -51,9 +50,8 @@ def main() -> None:
         output, language = commands_dict["from_input"](args.theme or config["theme"])
 
     if output:
-        width = os.get_terminal_size().columns - 5
-        CONSOLE.print(f"\n[green]Here is your {language} output:[/green]")
-        CONSOLE.print(helpers.print_msg_box(output, width=width))
+        CONSOLE.print("")  # Blank line
+        CONSOLE.print(helpers.print_msg_box(output, title=f"Here is your {language} output:"))
 
 
 if __name__ == "__main__":
