@@ -7,6 +7,8 @@ from prompt_toolkit.styles import Style
 from prompt_toolkit.styles.pygments import style_from_pygments_cls as sfpc
 from pygments.styles import get_style_by_name
 from pygments.util import ClassNotFound
+from rich import box
+from rich.table import Table
 
 from piston.colorschemes import scheme_dict
 from piston.utils.compilers import languages_
@@ -28,19 +30,13 @@ def close() -> None:
         os._exit(1)
 
 
-def print_msg_box(msg: str, indent: int = 1, width: int = 0, title: str = "") -> str:
+def print_msg_box(msg: str, title: str = "Here is your eval output") -> Table:
     """Print message-box with optional title."""
-    lines = msg.split("\n")
-    space = " " * indent
-    if not width:
-        width = max(map(len, lines))
-    box = f'┏{"━" * (width + indent * 2)}┓\n'
-    if title:
-        box += f"┃{space}{title:<{width}}{space}┃\n"
-        box += f'┃{space}{"-" * len(title):<{width}}{space}┃\n'
-    box += "".join([f"┃{space}{line:<{width}}{space}┃\n" for line in lines])
-    box += f'┗{"━" * (width + indent * 2)}┛'
-    return box
+    table = Table(title=title, show_header=False, box=box.HORIZONTALS, title_justify="left")
+    table.add_column("Output")
+    table.add_row(msg)
+
+    return table
 
 
 def get_lang() -> str:
