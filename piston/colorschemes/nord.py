@@ -14,7 +14,7 @@ from pygments.token import (
 
 
 class NordStyle:
-    """Configuration for Nord Theme."""
+    """Configure for Nord Theme."""
 
     def __init__(self) -> None:
         self.nord0 = "#2e3440"

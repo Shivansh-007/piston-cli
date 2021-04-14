@@ -56,10 +56,17 @@ class FromShell:
             except ClassNotFound:
                 self.style = scheme_dict[theme]()
         else:
+            self.console.print(
+                f"[red]Theme {theme} is not a valid theme, using piston-cli default"
+            )
             self.style = sfpc(get_style_by_name("solarized-dark"))
 
     def set_language(self, language: str) -> None:
-        """Prompt the user for the programming language, close program if language not supported."""
+        """
+        Set the language to the option passed by use.
+
+        If language is not supported then exit the CLI.
+        """
         if language not in languages_:
             self.console.print("[bold red]Language is not supported![/bold red]")
             Utils.close()

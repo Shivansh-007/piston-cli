@@ -28,7 +28,11 @@ class FromInput:
         self.themes = list(get_all_styles()) + schemes
 
     def get_lang(self) -> str:
-        """Prompt the user for the programming language, close program if language not supported."""
+        """
+        Prompt the user for the programming language.
+
+        If language is not supported then exit the CLI.
+        """
         language = self.console.input("[green]Enter language:[/green] ").lower()
 
         if language not in self.languages:
@@ -58,16 +62,19 @@ class FromInput:
         args = self.get_args()
         stdin = self.get_stdin()
 
-        self.console.print(
-            "Enter your code, (press esc + enter to run)\n", style="green"
-        )
+        self.console.print("Enter your code, (press esc + enter to run)", style="green")
         if theme in self.themes:
             try:
                 style = sfpc(get_style_by_name(theme))
             except ClassNotFound:
                 style = scheme_dict[theme]()
         else:
+            self.console.print(
+                f"[red]Theme {theme} is not a valid theme, using piston-cli default"
+            )
             style = sfpc(get_style_by_name("solarized-dark"))
+
+        self.console.print()
 
         code = prompt(
             "",
@@ -92,12 +99,11 @@ class FromInput:
 
         if len(data["output"]) == 0:
             return "Your code ran without output.", language
-        else:
-            result = [
-                f"{i:02d} | {line}"
-                for i, line in enumerate(data["output"].split("\n"), 1)
-            ]
-            return "\n".join(result), language
+
+        result = [
+            f"{i:02d} | {line}" for i, line in enumerate(data["output"].split("\n"), 1)
+        ]
+        return "\n".join(result), language
 
 
 FromInput = FromInput()

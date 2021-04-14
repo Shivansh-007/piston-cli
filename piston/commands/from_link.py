@@ -1,7 +1,7 @@
 import json
 import random
 import urllib
-from typing import List, Optional, Tuple, Union
+from typing import List, Tuple, Union
 
 
 import requests
@@ -26,7 +26,11 @@ class FromLink:
         self.themes = list(get_all_styles()) + schemes
 
     def get_lang(self) -> str:
-        """Prompt the user for the programming language, close program if language not supported."""
+        """
+        Prompt the user for the programming language.
+
+        If language is not supported then exit the CLI.
+        """
         language = self.console.input("[green]Enter language:[/green] ").lower()
 
         if language not in self.languages:
@@ -80,7 +84,7 @@ class FromLink:
             return False
         return response.text
 
-    def askinp(self) -> Optional[Tuple[str, str]]:
+    def askinp(self) -> Tuple[str, str]:
         """
         Make a multiline prompt for code input and send the code to the api.
 
@@ -111,12 +115,11 @@ class FromLink:
 
         if len(data["output"]) == 0:
             return "Your code ran without output.", language
-        else:
-            result = [
-                f"{i:02d} | {line}"
-                for i, line in enumerate(data["output"].split("\n"), 1)
-            ]
-            return "\n".join(result), language
+
+        result = [
+            f"{i:02d} | {line}" for i, line in enumerate(data["output"].split("\n"), 1)
+        ]
+        return "\n".join(result), language
 
 
 FromLink = FromLink()

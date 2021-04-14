@@ -20,12 +20,12 @@ class FromFile:
         self.extensions = lang_extensions
 
     def get_args(self) -> List[str]:
-        """Prompt the user for the programming language, close program if language not supported."""
+        """Prompt the user for the command line arguments."""
         args = self.console.input("[green]Enter your args separated by comma:[/green] ")
         return [x for x in args.strip().split(",") if x]
 
     def get_stdin(self) -> str:
-        """Prompt the user for the programming language, close program if language not supported."""
+        """Prompt the user for the standard input."""
         stdin = self.console.input(
             "[green]Enter your stdin arguments by comma:[/green] "
         )
@@ -37,8 +37,8 @@ class FromFile:
         stdin = self.get_stdin()
 
         try:
-            code = open(file)
-            code = code.read()
+            with open(file, "r", encoding="utf-8") as f:
+                code = f.read()
 
             if not any(file.endswith("." + ext) for ext in self.extensions):
                 self.console.print(
@@ -68,12 +68,11 @@ class FromFile:
 
         if len(data["output"]) == 0:
             return "Your code ran without output.", language
-        else:
-            result = [
-                f"{i:02d} | {line}"
-                for i, line in enumerate(data["output"].split("\n"), 1)
-            ]
-            return "\n".join(result), language
+
+        result = [
+            f"{i:02d} | {line}" for i, line in enumerate(data["output"].split("\n"), 1)
+        ]
+        return "\n".join(result), language
 
 
 FromFile = FromFile()
