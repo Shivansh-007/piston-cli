@@ -41,7 +41,7 @@ class MessageBoxValidator(Validator):
 
         return True
 
-    def fix_theme(self) -> str:
+    def fix_box_style(self) -> str:
         """Finds and corrects any errors in a given box or list of boxes, then returns a fixed version."""
         if self.validate_box():
             return choose_config(self.message_boxes)
