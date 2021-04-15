@@ -55,7 +55,7 @@ def main() -> None:
             helpers.print_msg_box(
                 output,
                 title=f"Here is your {language} output:",
-                style=config["message_box"]
+                style=config["message_box"],
             )
         )
 
