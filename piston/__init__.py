@@ -51,7 +51,13 @@ def main() -> None:
 
     if output:
         CONSOLE.print("")  # Blank line
-        CONSOLE.print(helpers.print_msg_box(output, title=f"Here is your {language} output:"))
+        CONSOLE.print(
+            helpers.print_msg_box(
+                output,
+                title=f"Here is your {language} output:",
+                style=config["message_box"]
+            )
+        )
 
 
 if __name__ == "__main__":
