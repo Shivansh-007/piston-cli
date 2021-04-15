@@ -30,7 +30,9 @@ def close() -> None:
         os._exit(1)
 
 
-def print_msg_box(msg: str, title: str = "Here is your eval output", style: str = "HORIZONTALS") -> Table:
+def print_msg_box(
+    msg: str, title: str = "Here is your eval output", style: str = "HORIZONTALS"
+) -> Table:
     """Print message-box with optional title."""
     style = getattr(box, style)
 

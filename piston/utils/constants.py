@@ -24,9 +24,24 @@ themes = list(get_all_styles()) + schemes
 THEMES = [list(themes[style : style + 2]) for style in range(0, len(themes), 2)]
 
 boxes = [
-    "ASCII", "ASCII2", "ASCII_DOUBLE_HEAD", "SQUARE", "SQUARE_DOUBLE_HEAD", "MINIMAL",
-    "MINIMAL_HEAVY_HEAD", "MINIMAL_DOUBLE_HEAD", "SIMPLE", "SIMPLE_HEAD", "SIMPLE_HEAVY",
-    "HORIZONTALS", "ROUNDED", "HEAVY", "HEAVY_EDGE", "HEAVY_HEAD", "DOUBLE", "DOUBLE_EDGE"
+    "ASCII",
+    "ASCII2",
+    "ASCII_DOUBLE_HEAD",
+    "SQUARE",
+    "SQUARE_DOUBLE_HEAD",
+    "MINIMAL",
+    "MINIMAL_HEAVY_HEAD",
+    "MINIMAL_DOUBLE_HEAD",
+    "SIMPLE",
+    "SIMPLE_HEAD",
+    "SIMPLE_HEAVY",
+    "HORIZONTALS",
+    "ROUNDED",
+    "HEAVY",
+    "HEAVY_EDGE",
+    "HEAVY_HEAD",
+    "DOUBLE",
+    "DOUBLE_EDGE",
 ]
 
 LANG_TABLE = zip(iter(languages_), iter(languages_))
@@ -48,10 +63,7 @@ class Configuration:
         ),
     }
 
-    default_configuration = {
-        "theme": "solarized-dark",
-        "message_box": "HORIZONTALS"
-    }
+    default_configuration = {"theme": "solarized-dark", "message_box": "HORIZONTALS"}
 
 
 class Shell:

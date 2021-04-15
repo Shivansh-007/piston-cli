@@ -29,7 +29,9 @@ class MessageBoxValidator(Validator):
             return False
 
         # Check the singular message box exists.
-        if isinstance(self.message_boxes, str) and not self.check_box_exists(self.message_boxes):
+        if isinstance(self.message_boxes, str) and not self.check_box_exists(
+            self.message_boxes
+        ):
             return False
 
         if isinstance(self.message_boxes, list):  # Check each message box exists.
