@@ -4,9 +4,9 @@ from piston.colorschemes.nord import NordStyle
 
 
 scheme_dict = {
-    "nord": NordStyle.get_nord,
-    "gruvbox": GruvboxStyle.get_gruvbox,
-    "dracula": DraculaStyle.get_dracula,
+    "nord": NordStyle,
+    "gruvbox": GruvboxStyle,
+    "dracula": DraculaStyle,
 }
 
 schemes = list(scheme_dict.keys())

@@ -75,7 +75,7 @@ def set_style(theme: str) -> Style:
         try:
             style = sfpc(get_style_by_name(theme))
         except ClassNotFound:
-            style = scheme_dict[theme]()
+            style = sfpc(scheme_dict[theme])
     else:
         CONSOLE.print(
             f"[red]Theme {theme} is not a valid theme, using piston-cli default"
