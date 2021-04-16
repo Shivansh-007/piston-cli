@@ -32,6 +32,7 @@ def main() -> None:
 
     if args.themelist:
         commands_dict["theme_list"]()
+        helpers.close()
 
     elif args.file:
         output, language = commands_dict["from_file"](args.file)
