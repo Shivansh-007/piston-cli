@@ -31,8 +31,7 @@ def main() -> None:
         helpers.close()
 
     if args.themelist:
-        CONSOLE.print(MakeTable.mktbl(THEMES))
-        helpers.close()
+        commands_dict["theme_list"]()
 
     elif args.file:
         output, language = commands_dict["from_file"](args.file)
