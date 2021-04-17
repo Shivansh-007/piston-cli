@@ -9,22 +9,17 @@ from piston.utils.constants import CONSOLE, LANG_TABLE, THEMES
 from piston.utils.lexers import init_lexers
 from piston.utils.maketable import MakeTable
 
+exec(open("piston/__version__.py").read())
+
 
 def main() -> None:
     """TODO: Write a Docstring here."""
-    init_lexers()
 
     args = commands_dict["base"]()
-    output = None
 
-    config_loader = ConfigLoader(args.config)
-    config = config_loader.load_config()
-
-    if args.theme:
-        CONSOLE.print(
-            f"[indian_red]- Theme flag specified, overwriting theme loaded from "
-            f"config: {args.theme}[/indian_red]"
-        )
+    if args.version:
+        print(__version__, flush=True)
+        helpers.close()
 
     if args.list:
         CONSOLE.print(MakeTable.mktbl(LANG_TABLE))
@@ -33,6 +28,17 @@ def main() -> None:
     if args.themelist:
         commands_dict["theme_list"]()
         helpers.close()
+
+    config_loader = ConfigLoader(args.config)
+    config = config_loader.load_config()
+    output = None
+    init_lexers()
+
+    if args.theme:
+        CONSOLE.print(
+            f"[indian_red]- Theme flag specified, overwriting theme loaded from "
+            f"config: {args.theme}[/indian_red]"
+        )
 
     elif args.file:
         output, language = commands_dict["from_file"](args.file)
@@ -58,6 +64,7 @@ def main() -> None:
                 style=config["message_box"],
             )
         )
+        helpers.close()
 
 
 if __name__ == "__main__":

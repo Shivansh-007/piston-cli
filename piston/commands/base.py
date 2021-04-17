@@ -14,6 +14,13 @@ class Base:
         )
 
         prog.add_argument(
+            "-v",
+            "--version",
+            action="store_true",
+            help="Shows the version of piston installed."
+        )
+
+        prog.add_argument(
             "-list",
             "--list",
             action="store_true",
