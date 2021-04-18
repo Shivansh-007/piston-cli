@@ -2,7 +2,7 @@ from typing import Union
 
 from piston.configuration.choose_config import choose_config
 from piston.configuration.validators.validator_base import Validator
-from piston.utils.constants import CONSOLE, Configuration, BOX_STYLES
+from piston.utils.constants import BOX_STYLES, CONSOLE, Configuration
 
 
 class MessageBoxValidator(Validator):
@@ -29,9 +29,8 @@ class MessageBoxValidator(Validator):
             return False
 
         # Check the singular box style exists.
-        if (
-                isinstance(self.box_styles, str)
-                and not self.check_box_exists(self.box_styles)
+        if isinstance(self.box_styles, str) and not self.check_box_exists(
+            self.box_styles
         ):
             return False
 
