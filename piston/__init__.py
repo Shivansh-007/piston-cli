@@ -58,7 +58,7 @@ def main() -> None:
         CONSOLE.print(
             helpers.print_msg_box(
                 output,
-                style=config["message_box"],
+                style=config["box_style"],
             )
         )
         helpers.close()
