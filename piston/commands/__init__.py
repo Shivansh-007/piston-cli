@@ -11,5 +11,5 @@ commands_dict = {
     "base": Base.run,
     "from_link": FromLink.ask_input,
     "from_shell": from_shell.run_shell,
-    "theme_list": theme_list
+    "theme_list": theme_list,
 }
