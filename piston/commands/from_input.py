@@ -11,7 +11,7 @@ from piston.utils.lexers import lexers_dict
 class FromInput:
     """Run code from input."""
 
-    def ask_input(self, theme: str) -> Tuple[str, str]:
+    def ask_input(self, theme: str) -> Tuple[list, str]:
         """
         Make a multiline prompt for code input and send the code to the api.
 
@@ -39,10 +39,7 @@ class FromInput:
         if len(data["output"]) == 0:
             return "Your code ran without output.", language
 
-        result = [
-            f"{i:02d} | {line}" for i, line in enumerate(data["output"].split("\n"), 1)
-        ]
-        return "\n".join(result), language
+        return data["output"].split("\n"), language
 
 
 FromInput = FromInput()

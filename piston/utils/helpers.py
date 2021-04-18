@@ -30,15 +30,16 @@ def close() -> None:
         os._exit(1)
 
 
-def print_msg_box(
-    msg: str, title: str = "Here is your eval output", style: str = "HORIZONTALS"
-) -> Table:
-    """Print message-box with optional title."""
+def print_msg_box(msg: str, style: str = "HORIZONTALS") -> Table:
+    """Print message-box with optional style, passed from user's configuration."""
     style = getattr(box, style)
 
-    table = Table(title=title, show_header=False, box=style, title_justify="left")
+    table = Table(title="", show_header=False, box=style, title_justify="left")
+    table.add_column("Line No.", style="magenta")
     table.add_column("Output")
-    table.add_row(msg)
+
+    for x, line in enumerate(msg, 1):
+        table.add_row(str(x), line)
 
     return table
 

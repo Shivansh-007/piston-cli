@@ -49,7 +49,7 @@ class FromLink:
             return False
         return response.text
 
-    def ask_input(self) -> Optional[Tuple[str, str]]:
+    def ask_input(self) -> Optional[Tuple[list, str]]:
         """
         Make a multiline prompt for code input and send the code to the api.
 
@@ -69,10 +69,7 @@ class FromLink:
         if len(data["output"]) == 0:
             return "Your code ran without output.", language
 
-        result = [
-            f"{i:02d} | {line}" for i, line in enumerate(data["output"].split("\n"), 1)
-        ]
-        return "\n".join(result), language
+        return data["output"].split("\n"), language
 
 
 FromLink = FromLink()
