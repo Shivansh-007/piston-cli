@@ -6,7 +6,7 @@ from piston import __version__
 from piston.commands import commands_dict
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
-from piston.utils.constants import CONSOLE, LANG_TABLE, THEMES
+from piston.utils.constants import CONSOLE, LANG_TABLE
 from piston.utils.lexers import init_lexers
 from piston.utils.maketable import MakeTable
 
