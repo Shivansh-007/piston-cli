@@ -38,7 +38,7 @@ def main() -> None:
             f"config: {args.theme}[/indian_red]"
         )
 
-    elif args.file:
+    if args.file:
         output, language = commands_dict["from_file"](args.file)
 
     elif args.link:

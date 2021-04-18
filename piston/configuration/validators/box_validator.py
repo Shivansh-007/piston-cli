@@ -5,13 +5,13 @@ from piston.configuration.validators.validator_base import Validator
 from piston.utils.constants import BOX_STYLES, CONSOLE, Configuration
 
 
-class MessageBoxValidator(Validator):
+class BoxStyleValidator(Validator):
     """Validates a string or list of box styles by checking multiple criteria."""
 
     def __init__(self, box_styles: Union[str, list]) -> None:
         self.box_styles = box_styles
-        self.default_box = Configuration.default_configuration["box"]
-        super().__init__(box_styles, self.default_box, "box")
+        self.default_box = Configuration.default_configuration["box_style"]
+        super().__init__(box_styles, self.default_box, "box_style")
 
     @staticmethod
     def check_box_exists(box: str) -> bool:
