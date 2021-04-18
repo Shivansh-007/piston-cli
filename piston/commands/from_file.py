@@ -11,7 +11,7 @@ class FromFile:
     def __init__(self) -> None:
         self.extensions = lang_extensions
 
-    def run_file(self, file: str) -> Tuple[str, str]:
+    def run_file(self, file: str) -> Tuple[list, str]:
         """Send code form file to the api and return the response."""
         args = helpers.get_args()
         stdin = helpers.get_stdin()
@@ -44,10 +44,7 @@ class FromFile:
         if len(data["output"]) == 0:
             return "Your code ran without output.", language
 
-        result = [
-            f"{i:02d} | {line}" for i, line in enumerate(data["output"].split("\n"), 1)
-        ]
-        return "\n".join(result), language
+        return data["output"].split("\n"), language
 
 
 FromFile = FromFile()

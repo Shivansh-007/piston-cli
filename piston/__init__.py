@@ -2,6 +2,7 @@
 
 import sys
 
+from piston import __version__
 from piston.commands import commands_dict
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
@@ -9,16 +10,13 @@ from piston.utils.constants import CONSOLE, LANG_TABLE, THEMES
 from piston.utils.lexers import init_lexers
 from piston.utils.maketable import MakeTable
 
-exec(open("piston/__version__.py").read())
-
 
 def main() -> None:
     """TODO: Write a Docstring here."""
-
     args = commands_dict["base"]()
 
     if args.version:
-        print(__version__, flush=True)
+        print(__version__.__version__, flush=True)
         helpers.close()
 
     if args.list:
@@ -56,11 +54,10 @@ def main() -> None:
         output, language = commands_dict["from_input"](args.theme or config["theme"])
 
     if output:
-        CONSOLE.print("")  # Blank line
+        CONSOLE.print(f"\nHere is your {language} output:")
         CONSOLE.print(
             helpers.print_msg_box(
                 output,
-                title=f"Here is your {language} output:",
                 style=config["message_box"],
             )
         )
