@@ -23,7 +23,7 @@ SPINNERS = [
 themes = list(get_all_styles()) + schemes
 THEMES = [list(themes[style : style + 2]) for style in range(0, len(themes), 2)]
 
-boxes = [
+BOX_STYLES = [
     "ASCII",
     "ASCII2",
     "ASCII_DOUBLE_HEAD",
@@ -63,7 +63,7 @@ class Configuration:
         ),
     }
 
-    default_configuration = {"theme": "solarized-dark", "message_box": "HORIZONTALS"}
+    default_configuration = {"theme": "solarized-dark", "box": "HORIZONTALS"}
 
 
 class Shell:
