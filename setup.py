@@ -7,15 +7,14 @@ what versions of python we support.
 
 from setuptools import find_packages, setup
 
-
-exec(open("piston/__version__.py").read())
+from piston import __version__
 
 with open("README.md") as readme_file:
     README = readme_file.read()
 
 setup_args = dict(
     name="piston-cli",
-    version=__version__,
+    version=__version__.__version__,
     description="A cli tool with an terminal editor to compile over "
     "35 languages instantly using the piston api.",
     long_description=README,
