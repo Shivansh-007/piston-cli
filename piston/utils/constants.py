@@ -63,7 +63,7 @@ class Configuration:
         ),
     }
 
-    default_configuration = {"theme": "solarized-dark", "box": "HORIZONTALS"}
+    default_configuration = {"theme": "solarized-dark", "box_style": "HORIZONTALS"}
 
 
 class Shell:
