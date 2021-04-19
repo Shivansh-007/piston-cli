@@ -1,4 +1,5 @@
 import sys
+
 from requests.exceptions import ConnectionError
 
 if not __package__:
