@@ -2,7 +2,7 @@
 
 import sys
 
-from piston import __version__
+from piston import version
 from piston.commands import commands_dict
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
@@ -16,7 +16,7 @@ def main() -> None:
     args = commands_dict["base"]()
 
     if args.version:
-        print(__version__.__version__, flush=True)
+        print(version.get_project_version(), flush=True)
         helpers.close()
 
     if args.list:
