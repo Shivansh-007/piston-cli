@@ -26,7 +26,7 @@ repos:
       - id: flake8
         name: Flake8
         description: Lints this repository using flake8.
-        entry: pipenv run flake8
+        entry: poetry run flake8
         language: python
         types: [ python ]
         require_serial: true
