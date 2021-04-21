@@ -2,7 +2,7 @@
 name = "piston-cli"
 version = "1.4.0"
 description = "A cli tool with an terminal editor to compile over 35 languages instantly using the piston api."
-authors = ["Shivansh-007 <shivansh-007@outlook.com>"]
+authors = ["Shivansh-007 <shivansh-007@outlook.com>", "SuperMaZingCoder <supermazingcoder@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 
