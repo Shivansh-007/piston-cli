@@ -44,7 +44,7 @@ BOX_STYLES = [
     "DOUBLE_EDGE",
 ]
 
-LANG_TABLE = zip(iter(languages_), iter(languages_))
+LANG_TABLE = zip(*(iter(languages_),) * 2)
 
 
 class Configuration:
