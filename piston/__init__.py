@@ -2,13 +2,15 @@
 
 import sys
 
+from more_itertools import grouper
+
 from piston import version
 from piston.commands import commands_dict
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
-from piston.utils.constants import CONSOLE, LANG_TABLE
+from piston.utils.constants import BOX_STYLES, CONSOLE, languages_
 from piston.utils.lexers import init_lexers
-from piston.utils.maketable import MakeTable
+from piston.utils.maketable import make_table
 
 
 def main() -> None:
@@ -20,11 +22,23 @@ def main() -> None:
         helpers.close()
 
     if args.list:
-        CONSOLE.print(MakeTable.mktbl(LANG_TABLE))
-        helpers.close()
+        list_commands = {
+            "themes": commands_dict["theme_list"],
+            "languages": ("Languages", grouper(languages_, 2)),
+            "boxes": ("Box Styles", grouper(BOX_STYLES, 2))
+        }
+        try:
+            if isinstance(list_commands[args.list], tuple):
+                table = make_table(*list_commands[args.list])
+                CONSOLE.print(table)
+            else:
+                list_commands[args.list]()
+        except KeyError:
+            CONSOLE.print(
+                f"[red] Invalid option provided - Valid "
+                f"options include:[/red] [cyan]{', '.join(list_commands.keys())}[/cyan]"
+            )
 
-    if args.themelist:
-        commands_dict["theme_list"]()
         helpers.close()
 
     config_loader = ConfigLoader(args.config)
