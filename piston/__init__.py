@@ -16,7 +16,7 @@ def main() -> None:
     args = commands_dict["base"]()
 
     if args.version:
-        print(version.get_project_version(), flush=True)
+        print(version.__version__, flush=True)
         helpers.close()
 
     if args.list:
