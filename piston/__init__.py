@@ -14,7 +14,7 @@ from piston.utils.maketable import make_table
 
 
 def main() -> None:
-    """TODO: Write a Docstring here."""
+    """Implement the main piston-cli process."""
     args = commands_dict["base"]()
 
     if args.version:

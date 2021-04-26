@@ -10,7 +10,7 @@ from piston.utils.constants import CONSOLE, PistonQuery
 
 
 class FromLink:
-    """TODO: Write a Docstring here."""
+    """Run code from given pastebin link."""
 
     def __init__(self) -> None:
         self.themes = list(get_all_styles()) + schemes
