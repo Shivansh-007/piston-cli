@@ -21,10 +21,11 @@ class Base:
         )
 
         prog.add_argument(
-            "-list",
+            "-l",
             "--list",
-            action="store_true",
-            help="List all the available languages",
+            type=str,
+            help="List all the available <argument>",
+            required=False,
         )
 
         prog.add_argument(
@@ -36,10 +37,10 @@ class Base:
         )
 
         prog.add_argument(
-            "-l",
-            "--link",
+            "-p",
+            "--pastebin",
             action="store_true",
-            help="Run code directly from a link",
+            help="Run code directly from a pastebin link",
         )
 
         prog.add_argument(
@@ -49,13 +50,6 @@ class Base:
             help="Change the default theme (solarized-dark) of code, to see "
             "available themes use -T or --themelist",
             required=False,
-        )
-
-        prog.add_argument(
-            "-T",
-            "--themelist",
-            action="store_true",
-            help="List all the available themes/colorschemes",
         )
 
         prog.add_argument(

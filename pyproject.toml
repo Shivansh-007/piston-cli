@@ -25,6 +25,7 @@ rich = "^10.1.0"
 prompt-toolkit = "^3.0.18"
 requests = "^2.25.1"
 pygments = "^2.8.1"
+more-itertools = "^8.7.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8"
