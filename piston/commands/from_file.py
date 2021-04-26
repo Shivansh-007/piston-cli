@@ -6,7 +6,7 @@ from piston.utils.lang_extensions import lang_extensions
 
 
 class FromFile:
-    """TODO: Write a Docstring here."""
+    """Run code from file."""
 
     def __init__(self) -> None:
         self.extensions = lang_extensions

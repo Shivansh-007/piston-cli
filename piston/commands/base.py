@@ -2,11 +2,11 @@ import argparse
 
 
 class Base:
-    """TODO: Write a Docstring here."""
+    """Parsing command line strings into Python objects."""
 
     @staticmethod
     def run() -> argparse.Namespace:
-        """TODO: Write a Docstring here."""
+        """Configure and add all the commands."""
         prog = argparse.ArgumentParser(
             prog="piston",
             description="Compile code snippets through the piston api "
