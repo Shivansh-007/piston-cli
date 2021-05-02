@@ -55,7 +55,7 @@ def main() -> None:
     if args.file:
         output, language = commands_dict["from_file"](args.file)
 
-    elif args.link:
+    elif args.pastebin:
         output, language = commands_dict["from_link"]()
 
     elif args.shell:
