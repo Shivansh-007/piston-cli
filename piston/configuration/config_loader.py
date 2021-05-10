@@ -88,6 +88,17 @@ class ConfigLoader:
             )
             return Configuration.default_configuration
 
+        elif (
+            path_exists
+            # The config file specified was empty.
+            and os.stat(self.paths).st_size == 0
+        ):
+            CONSOLE.print(
+                "[bold red]Error: Empty configuration file found on your system, "
+                "loading piston-cli defaults.[/bold red]"
+            )
+            return Configuration.default_configuration
+
         self._load_yaml()  # Set config
 
         fix_config(self.config)  # Catch errors and fix the ones found
