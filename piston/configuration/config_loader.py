@@ -60,7 +60,7 @@ class ConfigLoader:
         if path_exists:
             CONSOLE.print(
                 "[blue]One or more configuration files were found to exist. "
-                f"Using the one found at {self.paths}."
+                f"Using the one found at {self.paths}"
             )
 
         if (

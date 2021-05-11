@@ -38,6 +38,9 @@ def print_msg_box(msg: str, style: str = "HORIZONTALS") -> Table:
     table.add_column("Line No.", style="magenta")
     table.add_column("Output")
 
+    if isinstance(msg, str):
+        msg = msg.split("\n")
+
     for x, line in enumerate(msg, 1):
         table.add_row(str(x), line)
 
