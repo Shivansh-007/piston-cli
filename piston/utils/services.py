@@ -17,7 +17,13 @@ def query_piston(console: Console, payload: PistonQuery) -> dict:
     }
 
     with console.status("Compiling", spinner=random.choice(SPINNERS)):
-        return requests.post(
-            "https://emkc.org/api/v1/piston/execute",
-            data=json.dumps(output_json),
-        ).json()
+        try:
+            return requests.post(
+                url="https://emkc.org/api/v1/piston/execute",
+                data=json.dumps(output_json),
+                timeout=3,
+            ).json()
+        except requests.exceptions.Timeout:
+            sys.exit("Connection timed out. Please check your connection and try again.")
+        except requests.exceptions.RequestException as e:
+            raise SystemExit(e)
