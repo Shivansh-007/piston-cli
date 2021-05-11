@@ -1,5 +1,6 @@
 import json
 import random
+import sys
 
 import requests
 from rich.console import Console
@@ -23,8 +24,8 @@ def query_piston(console: Console, payload: PistonQuery) -> dict:
                 data=json.dumps(output_json),
                 timeout=3,
             ).json()
-        except requests.exceptions.Timeout as e:
-            raise e(
+        except requests.exceptions.Timeout:
+            sys.exit(
                 "The request timed out. Please check your connection and try again."
             )
         except requests.exceptions.RequestException as e:
