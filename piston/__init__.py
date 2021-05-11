@@ -25,7 +25,7 @@ def main() -> None:
         list_commands = {
             "themes": commands_dict["theme_list"],
             "languages": ("Languages", grouper(languages_, 2)),
-            "boxes": ("Box Styles", grouper(BOX_STYLES, 2))
+            "boxes": ("Box Styles", grouper(BOX_STYLES, 2)),
         }
         try:
             if isinstance(list_commands[args.list], tuple):
