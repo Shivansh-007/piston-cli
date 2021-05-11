@@ -5,6 +5,7 @@ verify_ssl = true
 
 [packages]
 rich = "*"
+pyaml = "*"
 prompt-toolkit = "*"
 requests = "*"
 pygments = "*"
