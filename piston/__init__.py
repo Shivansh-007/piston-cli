@@ -28,10 +28,12 @@ def main() -> None:
             "boxes": ("Box Styles", grouper(BOX_STYLES, 2)),
         }
         try:
+            # If the value is an tuple i.e. it is formatted for a box.
             if isinstance(list_commands[args.list], tuple):
                 table = make_table(*list_commands[args.list])
                 CONSOLE.print(table)
             else:
+                # Else it is just a callable and we can call it.
                 list_commands[args.list]()
         except KeyError:
             CONSOLE.print(
