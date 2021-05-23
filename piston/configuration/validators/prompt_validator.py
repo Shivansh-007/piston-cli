@@ -1,10 +1,10 @@
 from piston.configuration.choose_config import choose_config
-from piston.utilities.constants import Configuration
 from piston.configuration.validators.validator_base import Validator
+from piston.utilities.constants import Configuration
 
 
 class PromptStartValidator(Validator):
-    """Validates the prompt_start config variable"""
+    """Validates the prompt_start config variable."""
 
     def __init__(self, prompt: str) -> None:
         self.prompt = prompt
@@ -12,6 +12,7 @@ class PromptStartValidator(Validator):
         super().__init__(self.prompt, self.default_prompt, "prompt_start")
 
     def validate_prompt(self) -> bool:
+        """Validates prompt start."""
         if not self.validate_type():
             return False
 
@@ -22,13 +23,14 @@ class PromptStartValidator(Validator):
         return True
 
     def fix_prompt(self) -> str:
+        """Fixes the prompt_start configuration variables."""
         if self.validate_prompt():
             return choose_config(self.prompt)
         return self.default_prompt
 
 
 class PromptContinuationValidator(Validator):
-    """Validates the prompt_continuation config variable"""
+    """Validates the prompt_continuation config variable."""
 
     def __init__(self, prompt: str) -> None:
         self.prompt = prompt
@@ -36,6 +38,7 @@ class PromptContinuationValidator(Validator):
         super().__init__(self.prompt, self.default_prompt, "prompt_continuation")
 
     def validate_prompt(self) -> bool:
+        """Validates prompt continuation."""
         if not self.validate_type():
             return False
 
@@ -46,6 +49,7 @@ class PromptContinuationValidator(Validator):
         return True
 
     def fix_prompt(self) -> str:
+        """Fixes the prompt_continuation configuration variables."""
         if self.validate_prompt():
             return choose_config(self.prompt)
         return self.default_prompt
