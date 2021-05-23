@@ -14,7 +14,7 @@ with open("piston/utils/theme_preview.py", "r", encoding="utf-8") as f:
 def theme_list() -> None:
     """List all available themes with a short code snippet."""
     for theme in themes:
-        CONSOLE.print(f"[b red u]Theme {theme}: [/b red u]\n")
+        CONSOLE.print(f"[bold red underline]Theme {theme}: [/bold red underline]\n")
         try:
             style = get_style_by_name(theme)
         except ClassNotFound:
