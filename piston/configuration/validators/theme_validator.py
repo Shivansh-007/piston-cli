@@ -29,7 +29,7 @@ class ThemeValidator(Validator):
             return False
 
         if isinstance(self.themes, str) and not ThemeValidator.check_theme_exists(
-                self.themes
+            self.themes
         ):  # Check the singular theme exists.
             return False
 

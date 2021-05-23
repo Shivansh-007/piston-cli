@@ -41,7 +41,7 @@ class FromShell:
     def set_prompt_session(self) -> None:
         """Set the prompt session to use for input."""
         self.prompt_session = PromptSession(
-            Shell.promp_start,
+            Shell.prompt_start,
             include_default_pygments_style=False,
             lexer=PygmentsLexer(lexers_dict[self.language]),
             multiline=True,

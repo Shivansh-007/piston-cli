@@ -116,9 +116,13 @@ class Configuration:
         ),
     }
 
-    default_configuration = {"theme": "solarized-dark"}
+    default_configuration = {
+        "theme": "solarized-dark",
+        "prompt_start": ">>>",
+        "prompt_continuation": "...",
+    }
 
 
 class Shell:
-    promp_start = ">>> "
-    promt_continuation = "... "
+    prompt_start = ">>> "
+    prompt_continuation = "... "
