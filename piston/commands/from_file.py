@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Union
 
 from piston.utils import helpers, services
 from piston.utils.constants import CONSOLE, PistonQuery
@@ -11,7 +11,7 @@ class FromFile:
     def __init__(self) -> None:
         self.extensions = lang_extensions
 
-    def run_file(self, file: str) -> Tuple[list, str]:
+    def run_file(self, file: str) -> Union[tuple, str]:
         """Send code form file to the api and return the response."""
         args = helpers.get_args()
         stdin = helpers.get_stdin()

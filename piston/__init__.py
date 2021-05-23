@@ -8,7 +8,8 @@ from piston import version
 from piston.commands import commands_dict
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
-from piston.utils.constants import BOX_STYLES, CONSOLE, languages_
+from piston.utils.compilers import languages_
+from piston.utils.constants import BOX_STYLES, CONSOLE
 from piston.utils.lexers import init_lexers
 from piston.utils.maketable import make_table
 

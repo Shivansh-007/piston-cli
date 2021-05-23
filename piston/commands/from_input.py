@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Union
 
 from prompt_toolkit.lexers import PygmentsLexer
 from prompt_toolkit.shortcuts import prompt
@@ -11,7 +11,7 @@ from piston.utils.lexers import lexers_dict
 class FromInput:
     """Run code from input."""
 
-    def ask_input(self, theme: str) -> Tuple[list, str]:
+    def ask_input(self, theme: str) -> Union[tuple, str]:
         """
         Make a multiline prompt for code input and send the code to the api.
 

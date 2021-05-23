@@ -1,5 +1,5 @@
 import urllib
-from typing import Optional, Tuple, Union
+from typing import Optional, Union
 
 import requests
 from pygments.styles import get_all_styles
@@ -49,7 +49,7 @@ class FromLink:
             return False
         return response.text
 
-    def ask_input(self) -> Optional[Tuple[list, str]]:
+    def ask_input(self) -> Optional[Union[tuple, str]]:
         """
         Make a multiline prompt for code input and send the code to the api.
 

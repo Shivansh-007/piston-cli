@@ -1,7 +1,6 @@
 import os
 import shlex
 import sys
-from typing import List
 
 from prompt_toolkit.styles import Style
 from prompt_toolkit.styles.pygments import style_from_pygments_cls as sfpc
@@ -15,7 +14,7 @@ from piston.utils.compilers import languages_
 from piston.utils.constants import CONSOLE, themes
 
 
-def parse_string(string: str) -> List[str]:
+def parse_string(string: str) -> list[str]:
     """Parse string like python string parsing with the help of backslash."""
     parsed_string = shlex.shlex(string, posix=True)
     parsed_string.escapedquotes = "\"'"
@@ -62,7 +61,7 @@ def get_lang() -> str:
     return language
 
 
-def get_args() -> List[str]:
+def get_args() -> list[str]:
     """Prompt the user for the command line arguments."""
     args = CONSOLE.input("[green]Enter your args separated:[/green] ")
     return parse_string(args)
