@@ -6,8 +6,7 @@ from typing import List
 import requests
 from piston.colorschemes import scheme_dict, schemes
 from piston.utilities.compilers import languages_
-from piston.utilities.constants import Shell, init_lexers, lexers_dict, spinners
-from piston.utilities.prompt_continuation import prompt_continuation
+from piston.utilities.constants import init_lexers, lexers_dict, spinners
 from piston.utilities.utils import Utils
 from prompt_toolkit import PromptSession
 from prompt_toolkit.lexers import PygmentsLexer
@@ -38,10 +37,10 @@ class FromShell:
         self.language = None
         self.prompt_session = None
 
-    def set_prompt_session(self) -> None:
+    def set_prompt_session(self, prompt_start: str, prompt_continuation: str) -> None:
         """Set the prompt session to use for input."""
         self.prompt_session = PromptSession(
-            Shell.prompt_start,
+            prompt_start,
             include_default_pygments_style=False,
             lexer=PygmentsLexer(lexers_dict[self.language]),
             multiline=True,
@@ -115,7 +114,9 @@ class FromShell:
             stdin=stdin,
         )
 
-    def run_shell(self, language: str, theme: str) -> None:
+    def run_shell(
+        self, language: str, theme: str, prompt_start: str, prompt_continuation: str
+    ) -> None:
         """Run the shell."""
         self.console.print(
             "[bold blue]NOTE: stdin and args will be prompted after code. "
@@ -124,7 +125,7 @@ class FromShell:
         )
 
         self.set_language(language)
-        self.set_prompt_session()
+        self.set_prompt_session(prompt_start, prompt_continuation)
         self.set_style(theme)
 
         while True:
