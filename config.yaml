@@ -1,2 +1,2 @@
-theme:
-        - fake
+theme: emacs
+box_style: ASCII

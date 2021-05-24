@@ -1,6 +1,6 @@
 from piston.configuration.choose_config import choose_config
 from piston.configuration.validators.validator_base import Validator
-from piston.utilities.constants import Configuration
+from piston.utils.constants import Configuration
 
 
 class PromptStartValidator(Validator):

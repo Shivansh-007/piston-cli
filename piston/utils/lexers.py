@@ -2,15 +2,13 @@ import os
 
 from pygments import lexers
 from pygments.styles import get_all_styles
+
 from piston.colorschemes import schemes
-from piston.utilities.compilers import languages_
-from rich.console import Console
-
-
-console = Console()
+from piston.utils.compilers import languages_
 
 
 def init_lexers() -> None:
+    """Declaring all lexers of the languages supported by piston API."""
     lexers.find_lexer_class_by_name("nasm")
     lexers.find_lexer_class_by_name("awk")
     lexers.find_lexer_class_by_name("bash")
@@ -101,6 +99,8 @@ languages_table = zip(iter(languages_), iter(languages_))
 
 
 class Configuration:
+    """Holds static default config details."""
+
     configuration_paths = {
         "Windows": (
             os.path.expandvars("%APPDATA%/piston-cli/config.yaml"),
@@ -121,8 +121,3 @@ class Configuration:
         "prompt_start": ">>>",
         "prompt_continuation": "...",
     }
-
-
-class Shell:
-    prompt_start = ">>> "
-    prompt_continuation = "... "

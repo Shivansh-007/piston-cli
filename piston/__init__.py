@@ -1,39 +1,64 @@
 #!/usr/bin/env python3
 
-import os
 import sys
 
+from more_itertools import grouper
+
+from piston import version
 from piston.commands import commands_dict
 from piston.configuration.config_loader import ConfigLoader
-from piston.utilities.constants import languages_table, themes
-from piston.utilities.maketable import MakeTable
-from piston.utilities.utils import Utils
-from rich.console import Console
+from piston.utils import helpers
+from piston.utils.compilers import languages_
+from piston.utils.constants import BOX_STYLES, CONSOLE
+from piston.utils.lexers import init_lexers
+from piston.utils.maketable import make_table
 
 
 def main() -> None:
-    """TODO: Write a Docstring here."""
-    console = Console()
-
+    """Implement the main piston-cli process."""
     args = commands_dict["base"]()
 
-    output = None
+    if args.version:
+        print(version.__version__, flush=True)
+        helpers.close()
+
+    if args.list:
+        list_commands = {
+            "themes": commands_dict["theme_list"],
+            "languages": ("Languages", grouper(languages_, 2)),
+            "boxes": ("Box Styles", grouper(BOX_STYLES, 2)),
+        }
+        try:
+            # If the value is an tuple i.e. it is formatted for a box.
+            if isinstance(list_commands[args.list], tuple):
+                table = make_table(*list_commands[args.list])
+                CONSOLE.print(table)
+            else:
+                # Else it is just a callable and we can call it.
+                list_commands[args.list]()
+        except KeyError:
+            CONSOLE.print(
+                f"[red] Invalid option provided - Valid "
+                f"options include:[/red] [cyan]{', '.join(list_commands.keys())}[/cyan]"
+            )
+
+        helpers.close()
 
     config_loader = ConfigLoader(args.config)
     config = config_loader.load_config()
+    output = None
+    init_lexers()
 
-    if args.list:
-        console.print(MakeTable.mktbl(languages_table))
-        Utils.close()
+    if args.theme:
+        CONSOLE.print(
+            f"[indian_red]- Theme flag specified, overwriting theme loaded from "
+            f"config: {args.theme}[/indian_red]"
+        )
 
-    if args.themelist:
-        console.print(MakeTable.mktbl(themes))
-        Utils.close()
-
-    elif args.file:
+    if args.file:
         output, language = commands_dict["from_file"](args.file)
 
-    elif args.link:
+    elif args.pastebin:
         output, language = commands_dict["from_link"]()
 
     elif args.shell:
@@ -48,12 +73,17 @@ def main() -> None:
             pass
 
     else:
-        output, language = commands_dict["from_input"](config["theme"] or args.theme)
+        output, language = commands_dict["from_input"](args.theme or config["theme"])
 
     if output:
-        width = os.get_terminal_size().columns - 5
-        console.print(f"\nHere is your {language} output:", style="green")
-        console.print(Utils.print_msg_box(output, width=width))
+        CONSOLE.print(f"\nHere is your {language} output:")
+        CONSOLE.print(
+            helpers.print_msg_box(
+                output,
+                style=config["box_style"],
+            )
+        )
+        helpers.close()
 
 
 if __name__ == "__main__":

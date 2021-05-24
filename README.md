@@ -15,7 +15,7 @@ A cli tool which uses the [piston api](https://github.com/engineer-man/piston), 
 
 ```bash
 # Installing the package
-pip3.8 install piston-cli -U
+pip install piston-cli -U
 # Help Command
 piston -h
 ```
@@ -85,17 +85,17 @@ piston --list
 
 ```shell
 # This will install the development and project dependencies.
-pipenv sync --dev
+poetry install
 
 # This will install the pre-commit hooks.
-pipenv run precommit
+poetry run task precommit
 
 # Optionally: run pre-commit hooks to initialize them.
 # You can start working on the feature after this.
-pipenv run pre-commit run --all-files
+poetry run task pre-commit run --all-files
 
 # Run it
-pipenv run start
+poetry run task start --help
 ```
 
 ## Contributing

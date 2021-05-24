@@ -1,3 +1,4 @@
+from piston.configuration.validators.box_validator import BoxStyleValidator
 from piston.configuration.validators.prompt_validator import (
     PromptContinuationValidator,
     PromptStartValidator,
@@ -14,3 +15,4 @@ def fix_config(config: dict) -> None:
     config["prompt_continuation"] = PromptContinuationValidator(
         config["prompt_continuation"]
     ).fix_prompt()
+    config["box_style"] = BoxStyleValidator(config["box_style"]).fix_box_style()
