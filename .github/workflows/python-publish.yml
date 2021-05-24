@@ -42,9 +42,9 @@ jobs:
         run: poetry build
 
       - name: Publish package with Poetry
-        run: poetry publish
-        env:
-          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          poetry config http-basic.pypi "__token__" "${{ secrets.PYPI_TOKEN }}"	
+          poetry publish
 
   publish_notification:
     name: Publish notification to Discord
