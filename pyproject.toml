@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 packages = [
-    { include = "piston " },
+    { include = "piston" },
 ]
 
 # Links
