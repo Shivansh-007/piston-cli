@@ -43,7 +43,7 @@ jobs:
 
       - name: Publish package with Poetry
         run: |
-          poetry config http-basic.pypi "__token__" "${{ secrets.PYPI_TOKEN }}"	
+          poetry config http-basic.pypi "__token__" "${{ secrets.PYPI_TOKEN }}"
           poetry publish
 
   publish_notification:
