@@ -2,12 +2,14 @@
 max-line-length=110
 docstring-convention=all
 import-order-style=pycharm
+application_import_names=piston
 exclude=constants.py,__pycache__,.cache,
         .git,
         .md,.svg,.png
         tests,
         venv,.venv,
-        .json
+        .json,
+        media
 
 ignore=
     B311,W503,E226,S311,T000

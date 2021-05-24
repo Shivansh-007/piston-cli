@@ -2,7 +2,7 @@ from typing import Union
 
 from piston.configuration.choose_config import choose_config
 from piston.configuration.validators.validator_base import Validator
-from piston.utilities.constants import Configuration, console, themes
+from piston.utils.constants import CONSOLE, Configuration, themes
 
 
 class ThemeValidator(Validator):
@@ -17,7 +17,7 @@ class ThemeValidator(Validator):
     def check_theme_exists(theme: str) -> bool:
         """Ensures that a given theme exists."""
         if theme not in themes:
-            console.print(
+            CONSOLE.print(
                 f'[red]Theme invalid, "{theme}" not recognized. Using default theme.[/red]'
             )
             return False
@@ -29,7 +29,7 @@ class ThemeValidator(Validator):
             return False
 
         if isinstance(self.themes, str) and not ThemeValidator.check_theme_exists(
-                self.themes
+            self.themes
         ):  # Check the singular theme exists.
             return False
 

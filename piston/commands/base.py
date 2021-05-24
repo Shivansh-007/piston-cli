@@ -2,11 +2,11 @@ import argparse
 
 
 class Base:
-    """TODO: Write a Docstring here."""
+    """Parsing command line strings into Python objects."""
 
     @staticmethod
     def run() -> argparse.Namespace:
-        """TODO: Write a Docstring here."""
+        """Configure and add all the commands."""
         prog = argparse.ArgumentParser(
             prog="piston",
             description="Compile code snippets through the piston api "
@@ -14,10 +14,18 @@ class Base:
         )
 
         prog.add_argument(
-            "-list",
-            "--list",
+            "-v",
+            "--version",
             action="store_true",
-            help="List all the available languages",
+            help="Shows the version of piston installed.",
+        )
+
+        prog.add_argument(
+            "-l",
+            "--list",
+            type=str,
+            help="List all the available <argument>",
+            required=False,
         )
 
         prog.add_argument(
@@ -29,10 +37,10 @@ class Base:
         )
 
         prog.add_argument(
-            "-l",
-            "--link",
+            "-p",
+            "--pastebin",
             action="store_true",
-            help="Run code directly from a link",
+            help="Run code directly from a pastebin link",
         )
 
         prog.add_argument(
@@ -42,13 +50,6 @@ class Base:
             help="Change the default theme (solarized-dark) of code, to see "
             "available themes use -T or --themelist",
             required=False,
-        )
-
-        prog.add_argument(
-            "-T",
-            "--themelist",
-            action="store_true",
-            help="List all the available themes/colorschemes",
         )
 
         prog.add_argument(

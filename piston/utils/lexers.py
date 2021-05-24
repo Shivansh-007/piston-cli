@@ -1,16 +1,8 @@
-import os
-
 from pygments import lexers
-from pygments.styles import get_all_styles
-from piston.colorschemes import schemes
-from piston.utilities.compilers import languages_
-from rich.console import Console
-
-
-console = Console()
 
 
 def init_lexers() -> None:
+    """Declaring all lexers of the languages supported by piston API."""
     lexers.find_lexer_class_by_name("nasm")
     lexers.find_lexer_class_by_name("awk")
     lexers.find_lexer_class_by_name("bash")
@@ -83,42 +75,3 @@ lexers_dict = {
     "typescript": lexers.javascript.TypeScriptLexer,
     "lua": lexers.scripting.LuaLexer,
 }
-
-spinners = [
-    "point",
-    "dots",
-    "dots12",
-    "dots9",
-    "dots2",
-    "simpleDotsScrolling",
-    "bouncingBall",
-]
-
-themes = list(get_all_styles()) + schemes
-themes = [list(themes[style : style + 2]) for style in range(0, len(themes), 2)]
-
-languages_table = zip(iter(languages_), iter(languages_))
-
-
-class Configuration:
-    configuration_paths = {
-        "Windows": (
-            os.path.expandvars("%APPDATA%/piston-cli/config.yaml"),
-            os.path.expandvars("%APPDATA%/piston-cli/config.yml"),
-        ),
-        "Darwin": (
-            os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
-            os.path.expandvars("$HOME/.config/piston-cli/config.yml"),
-        ),
-        "Linux": (
-            os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
-            os.path.expandvars("$HOME/.config/piston-cli/config.yml"),
-        ),
-    }
-
-    default_configuration = {"theme": "solarized-dark"}
-
-
-class Shell:
-    promp_start = ">>> "
-    promt_continuation = "... "
