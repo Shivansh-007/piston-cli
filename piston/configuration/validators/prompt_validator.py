@@ -27,8 +27,8 @@ class PromptStartValidator(Validator):
         if self.validate_prompt():
             return choose_config(self.prompt)
         CONSOLE.print(
-            f"""[red]Prompt start invalid. "{self.prompt}" contains a new \
-                line character. Using default prompt start instead.[/red]"""
+            f"[red]Prompt start invalid. {repr(self.prompt)} contains a new"
+            "line character. Using default prompt start instead.[/red]"
         )
         return self.default_prompt
 
@@ -57,7 +57,7 @@ class PromptContinuationValidator(Validator):
         if self.validate_prompt():
             return choose_config(self.prompt)
         CONSOLE.print(
-            f"""[red]Prompt continuation invalid. "{self.prompt}" contains a new \
-                line character. Using default prompt continuation instead.[/red]"""
+            f"[red]Prompt continuation invalid. {repr(self.prompt)} contains a "
+            "newline character. Using default prompt continuation instead.[/red]"
         )
         return self.default_prompt
