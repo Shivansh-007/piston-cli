@@ -65,7 +65,7 @@ def main() -> None:
         try:
             commands_dict["from_shell"](
                 args.shell,
-                config["theme"] or args.theme,
+                args.theme or config["theme"],
                 config["prompt_start"],
                 config["prompt_continuation"],
             )
