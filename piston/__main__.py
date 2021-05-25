@@ -1,7 +1,6 @@
 import sys
 
 if not __package__:
-    print("here")
     sys.path[0] = sys.path[0][: sys.path[0].rfind("/")]
 
 import piston
