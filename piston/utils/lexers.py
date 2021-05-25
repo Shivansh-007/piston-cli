@@ -1,7 +1,5 @@
 from pygments import lexers
 
-from piston.utils.compilers import languages_
-
 
 def init_lexers() -> None:
     """Declaring all lexers of the languages supported by piston API."""
@@ -77,15 +75,3 @@ lexers_dict = {
     "typescript": lexers.javascript.TypeScriptLexer,
     "lua": lexers.scripting.LuaLexer,
 }
-
-spinners = [
-    "point",
-    "dots",
-    "dots12",
-    "dots9",
-    "dots2",
-    "simpleDotsScrolling",
-    "bouncingBall",
-]
-
-languages_table = zip(iter(languages_), iter(languages_))
