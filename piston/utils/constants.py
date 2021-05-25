@@ -59,7 +59,12 @@ class Configuration:
         ),
     }
 
-    default_configuration = {"theme": "solarized-dark", "box_style": "HORIZONTALS"}
+    default_configuration = {
+        "theme": "solarized-dark",
+        "box_style": "HORIZONTALS",
+        "prompt_start": ">>>",
+        "prompt_continuation": "...",
+    }
 
 
 class Shell:
