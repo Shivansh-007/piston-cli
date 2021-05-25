@@ -92,32 +92,4 @@ spinners = [
     "bouncingBall",
 ]
 
-themes = list(get_all_styles()) + schemes
-themes = [list(themes[style : style + 2]) for style in range(0, len(themes), 2)]
-
 languages_table = zip(iter(languages_), iter(languages_))
-
-
-class Configuration:
-    """Holds static default config details."""
-
-    configuration_paths = {
-        "Windows": (
-            os.path.expandvars("%APPDATA%/piston-cli/config.yaml"),
-            os.path.expandvars("%APPDATA%/piston-cli/config.yml"),
-        ),
-        "Darwin": (
-            os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
-            os.path.expandvars("$HOME/.config/piston-cli/config.yml"),
-        ),
-        "Linux": (
-            os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
-            os.path.expandvars("$HOME/.config/piston-cli/config.yml"),
-        ),
-    }
-
-    default_configuration = {
-        "theme": "solarized-dark",
-        "prompt_start": ">>>",
-        "prompt_continuation": "...",
-    }
