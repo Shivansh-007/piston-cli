@@ -1,9 +1,5 @@
-import os
-
 from pygments import lexers
-from pygments.styles import get_all_styles
 
-from piston.colorschemes import schemes
 from piston.utils.compilers import languages_
 
 

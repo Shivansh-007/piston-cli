@@ -1,6 +1,6 @@
 from piston.configuration.choose_config import choose_config
 from piston.configuration.validators.validator_base import Validator
-from piston.utils.constants import Configuration
+from piston.utils.constants import CONSOLE, Configuration
 
 
 class PromptStartValidator(Validator):
@@ -26,6 +26,10 @@ class PromptStartValidator(Validator):
         """Fixes the prompt_start configuration variables."""
         if self.validate_prompt():
             return choose_config(self.prompt)
+        CONSOLE.print(
+            f"""[red]Prompt start invalid. "{self.prompt}" contains a new \
+                line character. Using default prompt start instead.[/red]"""
+        )
         return self.default_prompt
 
 
@@ -52,4 +56,8 @@ class PromptContinuationValidator(Validator):
         """Fixes the prompt_continuation configuration variables."""
         if self.validate_prompt():
             return choose_config(self.prompt)
+        CONSOLE.print(
+            f"""[red]Prompt continuation invalid. "{self.prompt}" contains a new \
+                line character. Using default prompt continuation instead.[/red]"""
+        )
         return self.default_prompt

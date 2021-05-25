@@ -1,6 +1,7 @@
 import sys
 
 if not __package__:
+    print("here")
     sys.path[0] = sys.path[0][: sys.path[0].rfind("/")]
 
 import piston
@@ -13,3 +14,6 @@ if __name__ == "__main__":
         sys.exit("\nGoodbye!")
     except Exception as e:
         print(f"Error: \n{e}")
+        import traceback
+
+        print(traceback.format_exc())
