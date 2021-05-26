@@ -35,7 +35,6 @@ def input_prompt(text: str) -> str:
         user_input = CONSOLE.input(text)
         return user_input
     except KeyboardInterrupt:
-        CONSOLE.print("\n[red]Keyboard interrupt[/red]")
         close()
 
 
