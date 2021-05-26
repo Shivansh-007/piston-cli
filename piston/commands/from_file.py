@@ -18,7 +18,7 @@ class FromFile:
         stdin = helpers.get_stdin()
 
         if not os.path.isfile(file):
-            CONSOLE.print("Path is invalid; File not found", style="bold red")
+            CONSOLE.print("[bold red]Path is invalid; File not found[/bold red]")
             helpers.close()
 
         with open(file, "r", encoding="utf-8") as f:
