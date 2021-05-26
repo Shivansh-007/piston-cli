@@ -5,10 +5,7 @@ from pygments.styles import get_style_by_name
 from pygments.util import ClassNotFound
 
 from piston.colorschemes import scheme_dict
-from piston.utils.constants import CONSOLE, themes
-
-with open("piston/utils/theme_preview.py", "r", encoding="utf-8") as f:
-    code = f.read()
+from piston.utils.constants import CONSOLE, THEME_PREVIEW, themes
 
 
 def theme_list() -> None:
@@ -20,4 +17,8 @@ def theme_list() -> None:
         except ClassNotFound:
             style = scheme_dict[theme]
         finally:
-            print(highlight(code, Python3Lexer(), Terminal256Formatter(style=style)))
+            print(
+                highlight(
+                    THEME_PREVIEW, Python3Lexer(), Terminal256Formatter(style=style)
+                )
+            )
