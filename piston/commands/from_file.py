@@ -1,5 +1,5 @@
-from typing import Union
 import os
+from typing import Union
 
 from piston.utils import helpers, services
 from piston.utils.constants import CONSOLE, PistonQuery
@@ -21,13 +21,11 @@ class FromFile:
             CONSOLE.print("Path is invalid; File not found", style="bold red")
             helpers.close()
 
-        with open(file, 'r' ,encoding="utf-8") as f:
+        with open(file, "r", encoding="utf-8") as f:
             code = f.read()
 
         if not any(file.endswith("." + ext) for ext in self.extensions):
-            CONSOLE.print(
-                "File Extension language is not supported!", style="bold red"
-            )            
+            CONSOLE.print("File Extension language is not supported!", style="bold red")
             helpers.close()
 
         # try:

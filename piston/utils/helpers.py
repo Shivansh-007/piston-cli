@@ -28,13 +28,16 @@ def close() -> None:
     except SystemExit:
         os._exit(1)
 
-def input_prompt(text:str) -> str:
+
+def input_prompt(text: str) -> str:
+    """Prompt the user."""
     try:
         user_input = CONSOLE.input(text)
         return user_input
     except KeyboardInterrupt:
         CONSOLE.print("\n[red]Keyboard interrupt[/red]")
         close()
+
 
 def print_msg_box(msg: str, style: str = "HORIZONTALS") -> Table:
     """Print message-box with optional style, passed from user's configuration."""
