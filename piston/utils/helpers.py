@@ -28,6 +28,13 @@ def close() -> None:
     except SystemExit:
         os._exit(1)
 
+def input_prompt(text:str) -> str:
+    try:
+        user_input = CONSOLE.input(text)
+        return user_input
+    except KeyboardInterrupt:
+        CONSOLE.print("\n[red]Keyboard interrupt[/red]")
+        close()
 
 def print_msg_box(msg: str, style: str = "HORIZONTALS") -> Table:
     """Print message-box with optional style, passed from user's configuration."""
@@ -53,7 +60,7 @@ def get_lang() -> str:
 
     If language is not supported then exit the CLI.
     """
-    language = CONSOLE.input("[green]Enter language:[/green] ").lower()
+    language = input_prompt("[green]Enter language:[/green] ").lower()
 
     if language not in languages_:
         CONSOLE.print("[bold red]Language is not supported![/bold red]")
@@ -63,13 +70,13 @@ def get_lang() -> str:
 
 def get_args() -> list[str]:
     """Prompt the user for the command line arguments."""
-    args = CONSOLE.input("[green]Enter your args separated:[/green] ")
+    args = input_prompt("[green]Enter your args separated:[/green] ")
     return parse_string(args)
 
 
 def get_stdin() -> str:
     """Prompt the user for the standard input."""
-    stdin = CONSOLE.input("[green]Enter your stdin arguments:[/green] ")
+    stdin = input_prompt("[green]Enter your stdin arguments:[/green] ")
     return "\n".join(parse_string(stdin))
 
 
