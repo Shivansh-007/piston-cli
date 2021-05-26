@@ -27,21 +27,7 @@ class FromFile:
         if not any(file.endswith("." + ext) for ext in self.extensions):
             CONSOLE.print("File Extension language is not supported!", style="bold red")
             helpers.close()
-
-        # try:
-        #     with open(file, "r", encoding="utf-8") as f:
-        #         code = f.read()
-
-        #     if not any(file.endswith("." + ext) for ext in self.extensions):
-        #         CONSOLE.print(
-        #             "File Extension language is not supported!", style="bold red"
-        #         )
-        #         helpers.close()
-
-        # except FileNotFoundError:
-        #     CONSOLE.print("Path is invalid; File not found", style="bold red")
-        #     helpers.close()
-
+            
         language = self.extensions[file[file.rfind(".") + 1 :]]
 
         payload = PistonQuery(
