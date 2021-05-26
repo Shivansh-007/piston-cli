@@ -25,7 +25,7 @@ class FromFile:
             code = f.read()
 
         if not any(file.endswith("." + ext) for ext in self.extensions):
-            CONSOLE.print("File Extension language is not supported!", style="bold red")
+            CONSOLE.print("[bold red]File Extension language is not supported![/bold red]")
             helpers.close()
             
         language = self.extensions[file[file.rfind(".") + 1 :]]
