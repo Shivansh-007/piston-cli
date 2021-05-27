@@ -130,3 +130,7 @@ dmypy.json
 
 .idea/
 .vscode/
+
+# Nix
+/result*
+*direnv*
