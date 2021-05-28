@@ -29,6 +29,7 @@ prompt-toolkit = "^3.0.18"
 requests = "^2.25.1"
 pygments = "^2.8.1"
 more-itertools = "^8.7.0"
+PyYAML = "^5.4.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8"
