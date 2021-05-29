@@ -1,6 +1,8 @@
 import os
 import shlex
 import sys
+from random import choice
+from signal import SIGINT
 
 from prompt_toolkit.styles import Style
 from prompt_toolkit.styles.pygments import style_from_pygments_cls as sfpc
@@ -87,3 +89,22 @@ def set_style(theme: str) -> Style:
         style = sfpc(get_style_by_name("solarized-dark"))
 
     return style
+
+
+def signal_handler(sig: int, frame: any) -> None:
+    """
+    Handles Signals (E.g. SIGINT).
+
+    :param sig: Signal
+    :param frame: Signal Frame
+    """
+    if sig == SIGINT:  # If SIGINT - Close application
+        messages = ["Goodbye!", "See you next time!", "Bye bye!"]
+        CONSOLE.print(f"\n\n{choice(messages)}\n")
+        sys.exit(0)
+    else:  # If an unhandled signal is received - Shut down with relevant information.
+        CONSOLE.print(
+            f"\n\n[red]Unexpected signal received - Shutting down.[/red]"
+            f"\nSignal: {sig}\n"
+        )
+        sys.exit(sig)
