@@ -7,7 +7,8 @@
   outputs = { self, nixpkgs, flake-compat }:
     let
       supportedSystems = [ "x86_64-linux" "i686-linux" "aarch64-linux" "x86_64-darwin" ];
-      forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
+      forAllSystems = f: forAllSystems' supportedSystems f;
+      forAllSystems' = systems: f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     {
       overlay = final: prev:
@@ -40,5 +41,9 @@
           ]) ++ (with pkgs; [ nixpkgs-fmt git ]);
         }
       );
+
+      hydraJobs = forAllSystems' [ "x86_64-linux" ] (system: {
+        build = self.defaultPackage.${system};
+      });
     };
 }
