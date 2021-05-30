@@ -1,7 +1,7 @@
 import os
+import random
 import shlex
 import sys
-from random import choice
 from signal import SIGINT
 
 from prompt_toolkit.styles import Style
@@ -98,13 +98,12 @@ def signal_handler(sig: int, frame: any) -> None:
     :param sig: Signal
     :param frame: Signal Frame
     """
+    messages = ["Goodbye!", "See you next time!", "Bye bye!"]
     if sig == SIGINT:  # If SIGINT - Close application
-        messages = ["Goodbye!", "See you next time!", "Bye bye!"]
-        CONSOLE.print(f"\n\n{choice(messages)}\n")
+        CONSOLE.print(f"\n\n{random.choice(messages)}\n")
         sys.exit(0)
     else:  # If an unhandled signal is received - Shut down with relevant information.
         CONSOLE.print(
-            f"\n\n[red]Unexpected signal received - Shutting down.[/red]"
-            f"\nSignal: {sig}\n"
+            f"\n\n[red]Unexpected signal ({sig}) received - {random.choice(messages)}\n[/red]"
         )
         sys.exit(sig)
