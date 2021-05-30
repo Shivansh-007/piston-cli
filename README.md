@@ -2,7 +2,6 @@
 
 [![](https://img.shields.io/github/license/Shivansh-007/piston-cli?style=for-the-badge)]()
 [![](https://img.shields.io/github/issues/Shivansh-007/piston-cli?style=for-the-badge)]()
-[![](https://img.shields.io/github/issues-pr/Shivansh-007/piston-cli?style=for-the-badge)]()
 [![](https://img.shields.io/github/workflow/status/Shivansh-007/piston-cli/Linting/main?style=for-the-badge)]()
 [![](https://img.shields.io/pypi/pyversions/piston-cli?style=for-the-badge)]()
 [![](https://img.shields.io/pypi/v/piston-cli?style=for-the-badge)]()
