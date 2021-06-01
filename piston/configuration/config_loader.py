@@ -63,9 +63,6 @@ class ConfigLoader:
                 f"Using the one found at {existing_paths[0]}."
             )
 
-        # Choose the first path which is loaded
-        self.path_loaded = existing_paths[0]
-
         if (
             not existing_paths
             # The path is not in a default location,
@@ -91,8 +88,10 @@ class ConfigLoader:
             )
             return Configuration.default_configuration
 
-        self._load_yaml()  # Set config
+        # Choose the first path which is loaded
+        self.path_loaded = existing_paths[0]
 
+        self._load_yaml()  # Set config
         fix_config(self.config)  # Catch errors and fix the ones found
 
         return self.config
