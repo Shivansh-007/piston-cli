@@ -63,7 +63,12 @@ def main() -> None:
 
     elif args.shell:
         try:
-            commands_dict["from_shell"](args.shell, args.theme or config["theme"])
+            commands_dict["from_shell"](
+                args.shell,
+                args.theme or config["theme"],
+                config["prompt_start"],
+                config["prompt_continuation"],
+            )
         except KeyboardInterrupt:
             pass
 

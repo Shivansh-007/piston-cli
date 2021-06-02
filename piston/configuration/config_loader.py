@@ -18,9 +18,11 @@ class ConfigLoader:
             self.paths = Configuration.configuration_paths[platform.system()]
         self.config = {}
 
+        self.path_loaded = None
+
     def _load_yaml(self) -> None:
         """Loads the keys and values from a yaml file."""
-        expanded_path = os.path.abspath(os.path.expandvars(self.paths))
+        expanded_path = os.path.abspath(os.path.expandvars(self.path_loaded))
 
         CONSOLE.print(f"[green]Loading config:[/green] {expanded_path}")
 
@@ -45,30 +47,27 @@ class ConfigLoader:
 
     def load_config(self) -> dict:
         """Loads the configuration file."""
-        path_exists = False
+        existing_paths = []
 
         if isinstance(self.paths, str):
             if os.path.isfile(self.paths):
-                path_exists = True
+                existing_paths.append(self.paths)
         elif isinstance(self.paths, tuple):
             for path in self.paths:
                 if os.path.isfile(path):
-                    path_exists = True
-                    self.paths = path
-                    break
+                    existing_paths.append(path)
 
-        if path_exists:
+        if len(existing_paths) > 1:
             CONSOLE.print(
                 "[blue]One or more configuration files were found to exist. "
-                f"Using the one found at {self.paths}."
+                f"Using the one found at {existing_paths[0]}."
             )
 
         if (
-            not path_exists
-            and self.paths
+            not existing_paths
             # The path is not in a default location,
             # this means that it is None from an unrecognized system or was manually specified
-            not in Configuration.configuration_paths.values()
+            and self.paths not in Configuration.configuration_paths.values()
         ):
             CONSOLE.print(
                 "[bold red]Error: No configuration file found at that location or "
@@ -76,10 +75,11 @@ class ConfigLoader:
                 "loading piston-cli defaults.[/bold red]"
             )
             return Configuration.default_configuration
+
         elif (
             # The path is in a default location, a path was probably not specified,
             # unless the user pointed to one in the default location
-            not path_exists
+            not existing_paths
             and self.paths in Configuration.configuration_paths.values()
         ):
             CONSOLE.print(
@@ -88,8 +88,10 @@ class ConfigLoader:
             )
             return Configuration.default_configuration
 
-        self._load_yaml()  # Set config
+        # Choose the first path which is loaded
+        self.path_loaded = existing_paths[0]
 
+        self._load_yaml()  # Set config
         fix_config(self.config)  # Catch errors and fix the ones found
 
         return self.config

@@ -2,10 +2,10 @@
 
 [![](https://img.shields.io/github/license/Shivansh-007/piston-cli?style=for-the-badge)]()
 [![](https://img.shields.io/github/issues/Shivansh-007/piston-cli?style=for-the-badge)]()
-[![](https://img.shields.io/github/issues-pr/Shivansh-007/piston-cli?style=for-the-badge)]()
 [![](https://img.shields.io/github/workflow/status/Shivansh-007/piston-cli/Linting/main?style=for-the-badge)]()
 [![](https://img.shields.io/pypi/pyversions/piston-cli?style=for-the-badge)]()
 [![](https://img.shields.io/pypi/v/piston-cli?style=for-the-badge)]()
+[![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
 A cli tool which uses the [piston api](https://github.com/engineer-man/piston), developed by Engineerman and his team to compile over 35 languages instantly. Accepts files, paste.pythondiscord.com links and input.
 
@@ -21,30 +21,30 @@ piston -h
 ```
 #### With Nix/NixOS
 
-Add this to your configuration.nix
+`piston-cli` is available in [nixpkgs](https://github.com/nixos/nixpkgs) through the unstable channels.
+
+You can install it with `nix-env`, or in a declarative way with configuration.nix or similar.
+
+##### Flake support
+
+`piston-cli` is a flake, that means you can easily add it to your flake based configuration:
+Disclaimer: this also means you're using the development version, you could encounter bugs. If you want to use the stable version, install it from nixpkgs.
 
 ```nix
-  environment.systemPackages = with pkgs; [
-     piston-cli
-  ];
+{
+	inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+	inputs.piston-cli.url = "github:piston-cli/piston-cli";
+
+	outputs = { nixpkgs, piston-cli }:
+	let
+		pkgs = import nixpkgs { system = "x86_64-linux"; overlays = [ piston-cli.overlay ]; };
+	in
+	 {
+		 # use pkgs.piston-cli-unstable here
+	 };
+}
 ```
 
-Or if you're using [home-manager](https://github.com/nix-community/home-manager)
-
-```nix
-  home.packages = with pkgs; [
-     piston-cli
-  ];
-```
-
-And finally using nix-env or nix profile
-
-```bash
-# using nix-env
-nix-env -i piston-cli
-# using nix profile (in nixUnstable)
-nix profile install nixpkgs#piston-cli
-```
 #### For Arch/ArchBased
 ##### With yay
 ```bash
