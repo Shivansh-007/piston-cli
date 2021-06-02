@@ -3,8 +3,8 @@ class PistonCli < Formula
 
   desc "Universal shell supporting code highlighting, files, and interpretation."
   homepage "https://github.com/Shivansh-007/piston-cli"
-  url "https://files.pythonhosted.org/packages/a5/80/83475f26286ad60d69d0a9722463bdc06d027bb64246d198d9e46f78315c/piston-cli-1.4.2.tar.gz"
-  sha256 "3598f7594e150779171afe2d1d21b2730f726d4da0092af20493cf0d4b24dad2"
+  url "https://files.pythonhosted.org/packages/1c/ed/a264ad9fe2c4ec70a018affa88627e84eed850bfe8fe2a4ae83ee33886ff/piston-cli-1.4.3.tar.gz"
+  sha256 "aaf0c654971a31751a8dd5105a5e16d5da2cb7c9343ec4bd5d7fe8f2e42bb5f6"
   license "MIT"
 
   depends_on "python@3.9"
@@ -84,6 +84,6 @@ class PistonCli < Formula
   end
 
   test do
-    assert_match "1.4.2", shell_output("#{bin}/piston --version")
+    assert_match "1.4.3", shell_output("#{bin}/piston --version")
   end
 end

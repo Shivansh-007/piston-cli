@@ -104,7 +104,7 @@ def main() -> None:
     # add tests
     print()
     print("  test do")
-    print('    assert_match "1.4.2", shell_output("#{bin}/piston --version")')
+    print('    assert_match "1.4.3", shell_output("#{bin}/piston --version")')
     print("  end")
 
     print("end")
