@@ -75,11 +75,13 @@ Or any AUR helper you use with doesn't matter. You get the point.
 
 ![example link usage](media/piston-cli-link.png)
 
-### Languages
+#### Languages
 
-```bash
-piston --list
-```
+![example link usage](media/languags_list.png)
+
+#### Themes
+
+![example link usage](media/themes_list.png)
 
 ## How to run it? (Contributing)
 
