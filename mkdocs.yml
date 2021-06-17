@@ -22,7 +22,7 @@ theme:
     toggle:
       icon: material/lightbulb
       name: Switch to dark mode
-  
+
   # Default values, taken from mkdocs_theme.yml
   features:
     - content.tabs.link
@@ -74,8 +74,8 @@ markdown_extensions:
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: "!!python/name:materialx.emoji.twemoji"
+      emoji_generator: "!!python/name:materialx.emoji.to_svg"
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.keys
@@ -89,7 +89,7 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid-experimental
-          format: !!python/name:pymdownx.superfences.fence_code_format
+          format: "!!python/name:pymdownx.superfences.fence_code_format"
   - pymdownx.tabbed
   - pymdownx.tasklist:
       custom_checkbox: true
@@ -104,4 +104,4 @@ extra:
     link: https://discord.gg/c7dZ4zdGQT
 
 extra_css:
-- stylesheets/custom.css 
+- stylesheets/custom.css
