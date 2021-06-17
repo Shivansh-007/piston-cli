@@ -270,6 +270,17 @@ python-versions = ">=3.6"
 testing = ["coverage", "pyyaml"]
 
 [[package]]
+name = "markdown-include"
+version = "0.6.0"
+description = "This is an extension to Python-Markdown which provides an \"include\" function, similar to that found in LaTeX (and also the C pre-processor and Fortran). I originally wrote it for my FORD Fortran auto-documentation generator."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+markdown = "*"
+
+[[package]]
 name = "markupsafe"
 version = "2.0.1"
 description = "Safely add untrusted strings to HTML/XML markup."
@@ -315,6 +326,18 @@ watchdog = ">=2.0"
 
 [package.extras]
 i18n = ["babel (>=2.9.0)"]
+
+[[package]]
+name = "mkdocs-markdownextradata-plugin"
+version = "0.2.4"
+description = "A MkDocs plugin that injects the mkdocs.yml extra variables into the markdown template"
+category = "main"
+optional = false
+python-versions = ">=2.7.9,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
+
+[package.dependencies]
+mkdocs = "*"
+pyyaml = "*"
 
 [[package]]
 name = "mkdocs-material"
@@ -650,7 +673,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9.4"
-content-hash = "0674fc194a77ac563cbbb0e6d878d6f0a4569b2f001c210653c41ce8a380eccd"
+content-hash = "d1b238cd77a20bf01f68380c2e2ff1d92ef7547407fc3cd21c7ab9a18d57810b"
 
 [metadata.files]
 appdirs = [
@@ -751,6 +774,9 @@ markdown = [
     {file = "Markdown-3.3.4-py3-none-any.whl", hash = "sha256:96c3ba1261de2f7547b46a00ea8463832c921d3f9d6aba3f255a6f71386db20c"},
     {file = "Markdown-3.3.4.tar.gz", hash = "sha256:31b5b491868dcc87d6c24b7e3d19a0d730d59d3e46f4eea6430a321bed387a49"},
 ]
+markdown-include = [
+    {file = "markdown-include-0.6.0.tar.gz", hash = "sha256:6f5d680e36f7780c7f0f61dca53ca581bd50d1b56137ddcd6353efafa0c3e4a2"},
+]
 markupsafe = [
     {file = "MarkupSafe-2.0.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:f9081981fe268bd86831e5c75f7de206ef275defcb82bc70740ae6dc507aee51"},
     {file = "MarkupSafe-2.0.1-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:0955295dd5eec6cb6cc2fe1698f4c6d84af2e92de33fbcac4111913cd100a6ff"},
@@ -798,6 +824,9 @@ mergedeep = [
 mkdocs = [
     {file = "mkdocs-1.2.1-py3-none-any.whl", hash = "sha256:11141126e5896dd9d279b3e4814eb488e409a0990fb638856255020406a8e2e7"},
     {file = "mkdocs-1.2.1.tar.gz", hash = "sha256:6e0ea175366e3a50d334597b0bc042b8cebd512398cdd3f6f34842d0ef524905"},
+]
+mkdocs-markdownextradata-plugin = [
+    {file = "mkdocs_markdownextradata_plugin-0.2.4-py3-none-any.whl", hash = "sha256:9acf1860488e8e990c77de2af2e575b36dfc2a24c46ac63789315f78d2a3b709"},
 ]
 mkdocs-material = [
     {file = "mkdocs-material-7.1.8.tar.gz", hash = "sha256:e555c66ece5eab7023c4733270dc7627280e707e5082dab278d6a7a4881d2435"},
