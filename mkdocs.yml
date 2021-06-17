@@ -65,7 +65,7 @@ markdown_extensions:
   - meta
   - md_in_html
   - toc:
-      permalink: true
+      permalink: 🔗
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.betterem:
