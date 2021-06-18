@@ -1,0 +1,58 @@
+name: Publish Docs
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      # Configure pip to cache dependencies and do a user install
+      PIP_NO_CACHE_DIR: false
+      PIP_USER: 1
+
+      # Disable Poetry virtualenv creation
+      POETRY_VIRTUALENVS_CREATE: false
+
+      # Specify explicit paths for python dependencies and the pre-commit
+      # environment so we know which directories to cache
+      PYTHONUSERBASE: ${{ github.workspace }}/.cache/py-user-base
+
+    steps:
+      - name: Add custom PYTHONUSERBASE to PATH
+        run: echo '${{ env.PYTHONUSERBASE }}/bin/' >> $GITHUB_PATH
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup python
+        id: python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      # This step caches our Python dependencies. To make sure we
+      # only restore a cache when the dependencies, the python version,
+      # the runner operating system, and the dependency location haven't
+      # changed, we create a cache key that is a composite of those states.
+      #
+      # Only when the context is exactly the same, we will restore the cache.
+      - name: Python Dependency Caching
+        uses: actions/cache@v2
+        id: python_cache
+        with:
+          path: ${{ env.PYTHONUSERBASE }}
+          key: "python-0-${{ runner.os }}-${{ env.PYTHONUSERBASE }}-\
+          ${{ steps.python.outputs.python-version }}-\
+          ${{ hashFiles('./pyproject.toml', './poetry.lock') }}"
+
+      # Install our dependencies if we did not restore a dependency cache
+      - name: Install dependencies using poetry
+        if: steps.python_cache.outputs.cache-hit != 'true'
+        run: |
+          pip install poetry
+          poetry install
+
+      - name: Deploy site
+        run: mkdocs gh-deploy --force

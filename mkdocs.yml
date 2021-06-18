@@ -1,7 +1,7 @@
 # Project information
 site_name: Piston-CLI
 site_description: Piston CLI, a universal shell supporting code highlighting, files, and interpretation without the need to download a language.
-site_url: https://example.com/
+site_url: https://shivansh-007.github.io/piston-cli/
 
 # Copyright
 copyright: Copyright &copy; 2021, Maintained by the Piston-CLI Team.
