@@ -94,7 +94,7 @@ poetry run task precommit
 
 # Optionally: run pre-commit hooks to initialize them.
 # You can start working on the feature after this.
-poetry run task pre-commit run --all-files
+poetry run pre-commit run --all-files
 
 # Run it
 poetry run task start --help
