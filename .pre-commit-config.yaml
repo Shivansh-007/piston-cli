@@ -2,31 +2,47 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1
     hooks:
-      - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml
-        args: [ --unsafe ]
+        exclude: 'mkdocs.yml' # Exclude all mkdocs.yml as they use tags i.e. `!!!`
+      - id: pretty-format-json
+        args: [--indent=4, --autofix]
       - id: end-of-file-fixer
       - id: mixed-line-ending
-        args: [ --fix=lf ]
+        args: [--fix=lf]
       - id: trailing-whitespace
-
-  - repo: https://github.com/psf/black
-    rev: 20.8b1
-    hooks:
-      - id: black
-        language_version: python3
+        args: [--markdown-linebreak-ext=md]
 
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.9.0
     hooks:
       - id: python-check-blanket-noqa
+      - id: python-check-blanket-type-ignore
+      - id: python-use-type-annotations
+
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.9.3
+    hooks:
+      - id: isort
+
+  - repo: https://github.com/asottile/blacken-docs
+    rev: v1.11.0
+    hooks:
+      - id: blacken-docs
+        additional_dependencies:
+          - black
+
+  - repo: https://github.com/psf/black
+    rev: 21.8b0
+    hooks:
+      - id: black
+        language_version: python3
 
   - repo: local
     hooks:
       - id: flake8
-        name: Flake8
-        description: Lints this repository using flake8.
+        name: flake8
+        description: '`flake8` is a command-line utility for enforcing style consistency across Python projects.'
         entry: poetry run flake8
         language: python
         types: [ python ]
