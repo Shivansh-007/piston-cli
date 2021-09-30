@@ -4,12 +4,22 @@ import sys
 
 import requests
 from rich.console import Console
+from requests_cache import CachedSession
+from requests_cache.backends import FileCache
 
-from piston.utils.constants import SPINNERS, PistonQuery
+from piston import __version__
+from piston.utils.constants import REQUEST_CACHE_DURATION, REQUEST_CACHE_LOCATION, SPINNERS, PistonQuery
 
 
 def query_piston(console: Console, payload: PistonQuery) -> dict:
     """Send a post request to the piston API with the code parameter."""
+    http_session = CachedSession(
+        # To avoid caching conflicts
+        f"piston-v{__version__}",
+        backend=FileCache(REQUEST_CACHE_LOCATION),
+        expire_after=REQUEST_CACHE_DURATION,
+    )
+
     output_json = {
         "language": payload.language,
         "source": payload.code,
@@ -19,7 +29,7 @@ def query_piston(console: Console, payload: PistonQuery) -> dict:
 
     with console.status("Compiling", spinner=random.choice(SPINNERS)):
         try:
-            return requests.post(
+            return http_session.post(
                 url="https://emkc.org/api/v1/piston/execute",
                 data=json.dumps(output_json),
                 timeout=3,
@@ -28,3 +38,5 @@ def query_piston(console: Console, payload: PistonQuery) -> dict:
             sys.exit("Connection timed out. Please check your connection and try again.")
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
+
+    http_session.close()

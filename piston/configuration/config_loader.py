@@ -1,5 +1,4 @@
 import os
-import platform
 from typing import Optional, Union
 
 import yaml
@@ -14,8 +13,8 @@ class ConfigLoader:
     def __init__(self, paths: Optional[Union[str, tuple]]):
         if paths:
             self.paths = paths
-        elif platform.system() in Configuration.configuration_paths:
-            self.paths = Configuration.configuration_paths[platform.system()]
+        else:
+            self.paths = Configuration.configuration_path
         self.config = {}
 
         self.path_loaded = None
@@ -63,7 +62,7 @@ class ConfigLoader:
             not existing_paths
             # The path is not in a default location,
             # this means that it is None from an unrecognized system or was manually specified
-            and self.paths not in Configuration.configuration_paths.values()
+            and self.paths not in Configuration.configuration_path
         ):
             CONSOLE.print(
                 "[bold red]Error: No configuration file found at that location or "
@@ -76,7 +75,7 @@ class ConfigLoader:
             # The path is in a default location, a path was probably not specified,
             # unless the user pointed to one in the default location
             not existing_paths
-            and self.paths in Configuration.configuration_paths.values()
+            and self.paths in Configuration.configuration_path
         ):
             CONSOLE.print(
                 "[bold blue]Info: No default configuration file found on your system, "
