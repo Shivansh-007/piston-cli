@@ -35,7 +35,7 @@ def run_file(ctx: click.Context, file: str, args: list[str] = None) -> Union[lis
         stdin=stdin,
     )
 
-    data = services.query_piston(console, payload)
+    data = services.query_piston(ctx, console, payload)
 
     if len(data["output"]) == 0:
         return "Your code ran without output."

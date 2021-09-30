@@ -6,7 +6,6 @@ from pathlib import Path
 
 import coloredlogs
 from appdirs import user_cache_dir
-from rich.logging import RichHandler
 
 
 def setup(log_level: int = logging.INFO) -> None:
@@ -22,13 +21,12 @@ def setup(log_level: int = logging.INFO) -> None:
     root_log = logging.getLogger()
     root_log.setLevel(log_level)
     root_log.addHandler(file_handler)
-    root_log.addHandler(RichHandler(rich_tracebacks=True))
 
     if "COLOREDLOGS_LEVEL_STYLES" not in os.environ:
         coloredlogs.DEFAULT_LEVEL_STYLES = {
             **coloredlogs.DEFAULT_LEVEL_STYLES,
             "critical": {"background": "red"},
-            "debug": coloredlogs.DEFAULT_LEVEL_STYLES["info"],
+            "debug": {"color": "blue"},
         }
 
     if "COLOREDLOGS_LOG_FORMAT" not in os.environ:
@@ -36,5 +34,10 @@ def setup(log_level: int = logging.INFO) -> None:
 
     if "COLOREDLOGS_LOG_LEVEL" not in os.environ:
         coloredlogs.DEFAULT_LOG_LEVEL = log_level
+
+    logging.getLogger("requests_cache").setLevel(logging.WARNING)
+    logging.getLogger("urllib3").setLevel(logging.WARNING)
+    # Set back to the default of INFO even if asyncio's debug mode is enabled.
+    logging.getLogger("asyncio").setLevel(logging.INFO)
 
     coloredlogs.install(logger=root_log, stream=sys.stdout)

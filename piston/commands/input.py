@@ -32,7 +32,7 @@ def user_input(ctx: click.Context, theme: str, language: str) -> Union[tuple, st
     )
     payload = PistonQuery(language=language, args=args, stdin=stdin, code=code)
 
-    data = services.query_piston(console, payload)
+    data = services.query_piston(ctx, console, payload)
 
     if len(data["output"]) == 0:
         return "Your code ran without output.", language

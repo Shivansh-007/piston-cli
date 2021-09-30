@@ -70,7 +70,7 @@ class Shell:
 
         while True:
             query = self.prompt()
-            data = services.query_piston(self.console, query)
+            data = services.query_piston(self.ctx, self.console, query)
 
             if len(data["output"]) == 0:
                 self.console.print("Your code ran without output.")
