@@ -1,4 +1,7 @@
+import glob
+import json
 import logging
+import os
 from typing import Optional
 
 import click
@@ -11,8 +14,9 @@ from piston.commands import Shell, run_file, run_link, theme_list
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
 from piston.utils.compilers import languages_
-from piston.utils.constants import BOX_STYLES, themes
+from piston.utils.constants import BOX_STYLES, CACHE_LOCATION, PistonQuery, themes
 from piston.utils.maketable import make_table
+from piston.utils.services import query_piston
 
 LIST_COMMANDS = {
     "themes": theme_list,
@@ -179,6 +183,40 @@ def cli_interpreter(ctx: click.Context, src: str, args: tuple[str]) -> None:
 
     output = run_file(ctx, src, list(args))
     ctx.obj["console"].print(f"\nHere is your output for {src}:")
+    ctx.obj["console"].print(
+        helpers.print_msg_box(
+            output,
+            style=config["box_style"],
+        )
+    )
+
+
+@cli_app.command("cache")
+@click.argument("timeline", default=1, type=int, required=False)
+@click.option(
+    "--cache_file",
+    type=click.Path(exists=True, file_okay=True, dir_okay=True, readable=True, allow_dash=True),
+    is_eager=True,
+    required=False,
+)
+@click.pass_context
+def cli_failed_request_cache(ctx: click.Context, timeline: int, cache_file: Optional[str] = None) -> None:
+    config = ctx.obj["config"]
+
+    ordered_cache_files = list(glob.glob(str(CACHE_LOCATION) + "/*"))
+    ordered_cache_files = [file for file in ordered_cache_files if file.endswith(".json")]
+    ordered_cache_files.sort(key=lambda x: os.path.getmtime(x))
+
+    cache_file = cache_file or ordered_cache_files[timeline - 1]  # Python has zero-based indexing
+
+    with open(cache_file, "r") as fp:
+        data = json.load(fp)
+
+    query = PistonQuery(data["language"], data["source"], data["args"], data["stdin"])
+    data = query_piston(ctx, ctx.obj["console"], query, cache_run=True)
+    output = [data["output"].split("\n"), "Your code ran without output."][len(data["output"]) == 0]
+
+    ctx.obj["console"].print(f"\nHere is your output for {cache_file.__str__()}:")
     ctx.obj["console"].print(
         helpers.print_msg_box(
             output,

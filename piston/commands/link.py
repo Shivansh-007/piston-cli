@@ -53,7 +53,7 @@ def run_link(ctx: click.Context, link: str, language: str) -> Optional[Union[lis
         return
 
     payload = PistonQuery(language=language, args=args, stdin=stdin, code=code)
-    data = services.query_piston(console, payload)
+    data = services.query_piston(ctx, console, payload)
 
     if len(data["output"]) == 0:
         return "Your code ran without output."

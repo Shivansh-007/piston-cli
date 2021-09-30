@@ -45,7 +45,8 @@ def print_square(num: int = 20) -> str:
     return f"The square of {num:.2} is {result:.2}."
 '''
 
-REQUEST_CACHE_LOCATION = Path(user_cache_dir("piston-cli"), ".piston_cache")
+CACHE_LOCATION = Path(user_cache_dir("piston-cli"))
+REQUEST_CACHE_LOCATION = Path(CACHE_LOCATION, ".piston_cache")
 REQUEST_CACHE_DURATION = 60 * 60 * 24
 
 
