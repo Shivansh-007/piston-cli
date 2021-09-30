@@ -11,7 +11,6 @@ from pygments.util import ClassNotFound
 from rich import box
 from rich.table import Table
 
-from piston.colorschemes import scheme_dict
 from piston.utils.compilers import languages_
 from piston.utils.constants import CONSOLE, themes
 
@@ -81,11 +80,10 @@ def set_style(theme: str) -> Style:
         try:
             style = sfpc(get_style_by_name(theme))
         except ClassNotFound:
-            style = sfpc(scheme_dict[theme])
+            CONSOLE.print(f"[red]Theme {theme} is not a valid theme, using piston-cli default")
+            style = sfpc(get_style_by_name("solarized-dark"))
     else:
-        CONSOLE.print(
-            f"[red]Theme {theme} is not a valid theme, using piston-cli default"
-        )
+        CONSOLE.print(f"[red]Theme {theme} is not a valid theme, using piston-cli default")
         style = sfpc(get_style_by_name("solarized-dark"))
 
     return style
@@ -103,7 +101,5 @@ def signal_handler(sig: int, frame: any) -> None:
         CONSOLE.print(f"\n\n{random.choice(messages)}\n")
         sys.exit(0)
     else:  # If an unhandled signal is received - Shut down with relevant information.
-        CONSOLE.print(
-            f"\n\n[red]Unexpected signal ({sig}) received - {random.choice(messages)}\n[/red]"
-        )
+        CONSOLE.print(f"\n\n[red]Unexpected signal ({sig}) received - {random.choice(messages)}\n[/red]")
         sys.exit(sig)

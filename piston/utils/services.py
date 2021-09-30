@@ -5,7 +5,7 @@ import sys
 import requests
 from rich.console import Console
 
-from piston.utils.constants import PistonQuery, SPINNERS
+from piston.utils.constants import SPINNERS, PistonQuery
 
 
 def query_piston(console: Console, payload: PistonQuery) -> dict:
@@ -25,8 +25,6 @@ def query_piston(console: Console, payload: PistonQuery) -> dict:
                 timeout=3,
             ).json()
         except requests.exceptions.Timeout:
-            sys.exit(
-                "Connection timed out. Please check your connection and try again."
-            )
+            sys.exit("Connection timed out. Please check your connection and try again.")
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)

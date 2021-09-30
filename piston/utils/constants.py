@@ -5,8 +5,6 @@ from typing import List
 from pygments.styles import get_all_styles
 from rich.console import Console
 
-from piston.colorschemes import schemes
-
 CONSOLE = Console()
 
 SPINNERS = [
@@ -19,7 +17,7 @@ SPINNERS = [
     "bouncingBall",
 ]
 
-themes = list(get_all_styles()) + schemes
+themes = list(set(get_all_styles()))
 
 BOX_STYLES = [
     "ASCII",
