@@ -22,7 +22,7 @@ def run_file(file: str) -> Union[list, str]:
         CONSOLE.print("Path is invalid; File not found", style="bold red")
         helpers.close()
 
-    language = lang_extensions[file[file.rfind(".") + 1:]]
+    language = lang_extensions[file[file.rfind(".") + 1 :]]
 
     payload = PistonQuery(
         language=language,
@@ -37,4 +37,3 @@ def run_file(file: str) -> Union[list, str]:
         return "Your code ran without output."
 
     return data["output"].split("\n")
-

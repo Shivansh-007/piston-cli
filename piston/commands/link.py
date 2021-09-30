@@ -7,7 +7,6 @@ from pygments.styles import get_all_styles
 from piston.utils import helpers, services
 from piston.utils.constants import CONSOLE, PistonQuery
 
-
 THEMES = list(get_all_styles())
 
 
@@ -57,4 +56,3 @@ def run_link(link: str, language: str) -> Optional[Union[list, str]]:
         return "Your code ran without output."
 
     return data["output"].split("\n")
-
