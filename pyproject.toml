@@ -2,7 +2,7 @@
 name = "piston-cli"
 version = "1.4.3"
 description = "A cli tool with an terminal editor to compile over 35 languages instantly using the piston api."
-authors = ["Shivansh-007 <shivansh-007@outlook.com>", "SuperMaZingCoder <supermazingcoder@gmail.com>"]
+authors = ["Shivansh-007 <shivansh-007@outlook.com>"]
 license = "MIT"
 readme = "README.md"
 
@@ -23,38 +23,55 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9.4"
+python = "^3.9"
 rich = "^10.1.0"
 prompt-toolkit = "^3.0.18"
 requests = "^2.25.1"
 pygments = "^2.8.1"
 more-itertools = "^8.7.0"
 PyYAML = "^5.4.1"
-mkdocs-material = "^7.1.8"
-mkdocs-markdownextradata-plugin = "^0.2.4"
-markdown-include = "^0.6.0"
-mkdocs = "^1.2.1"
+click = "^8.0.1"
 
 [tool.poetry.dev-dependencies]
-flake8 = "^3.8"
-flake8-annotations = "^2.3"
-flake8-bugbear = "^21.4.3"
-flake8-docstrings = "^1.5"
-flake8-import-order = "^0.18"
-flake8-string-format = "^0.3"
-flake8-tidy-imports = "^4.1"
-flake8-todo = "^0.7"
-pep8-naming = "^0.11"
-pre-commit = "^2.1"
+# always needed
+pre-commit = "~=2.1"
 taskipy = "^1.6.0"
+# linting
+black = "^21.7b0"
+flake8 = "~=3.8"
+flake8-annotations = "~=2.3"
+flake8-bandit = "^2.1.2"
+flake8-bugbear = "~=20.1"
+flake8-docstrings = "~=1.5"
+flake8-isort = "^4.0.0"
+flake8-string-format = "~=0.3"
+flake8-tidy-imports = "~=4.1"
+flake8-todo = "~=0.7"
+isort = "^5.9.2"
+pep8-naming = "~=0.11"
+# Documentation
+mkdocs = ">=1.1.2,<2.0.0"
+mkdocs-material = ">=7.1.9,<8.0.0"
+mkdocs-markdownextradata-plugin = ">=0.1.7,<0.2.0"
+
+[tool.black]
+line-length = 110
+target-version = ['py38']
+include = '\.pyi?$'
 
 [tool.poetry.scripts]
 piston = "piston:main"
 
 [tool.taskipy.tasks]
-start = "python -m piston"
-lint = "pre-commit run --all-files"
-precommit = "pre-commit install"
+# Documentation
+docs = { cmd = "mkdocs serve", help = "Run the docs on a local automatically reloading server" }
+# Bot
+start = { cmd = "python -m piston", help = "Run the CLI" }
+# Linting
+precommit = { cmd = "pre-commit install --install-hooks", help = "Installs the precommit hook" }
+black = { cmd = "black --check .", help = "dry run of black" }
+flake8 = { cmd = "python -m flake8", help = "Lints code with flake8" }
+lint = { cmd = "pre-commit run --all-files", help = "Checks all files for CI errors" }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
