@@ -8,7 +8,7 @@ from piston.utils.constants import CONSOLE, PistonQuery
 from piston.utils.lexers import lexers_dict
 
 
-def fallback_input(theme: str, language: str) -> Union[tuple, str]:
+def user_input(theme: str, language: str) -> Union[tuple, str]:
     """
     Make a multiline prompt for code input and send the code to the api.
 

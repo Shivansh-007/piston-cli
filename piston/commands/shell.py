@@ -1,3 +1,4 @@
+import click
 from prompt_toolkit import PromptSession
 from prompt_toolkit.lexers import PygmentsLexer
 
@@ -10,7 +11,8 @@ from piston.utils.lexers import lexers_dict
 class Shell:
     """Run code from a shell environment."""
 
-    def __init__(self):
+    def __init__(self, ctx: click.Context):
+        self.ctx = ctx
         self.style = None
         self.language = None
         self.prompt_session = None
@@ -33,7 +35,7 @@ class Shell:
         """
         if language not in languages_:
             CONSOLE.print("[bold red]Language is not supported![/bold red]")
-            helpers.close()
+            self.ctx.exit()
 
         self.language = language
 
@@ -76,6 +78,3 @@ class Shell:
                 CONSOLE.print(
                     "\n".join([f"{i:02d} | {line}" for i, line in enumerate(data["output"].split("\n"), 1)])
                 )
-
-
-shell = Shell()

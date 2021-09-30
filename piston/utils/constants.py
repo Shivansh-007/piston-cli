@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List
 
-from appdirs import user_config_dir, user_cache_dir
+from appdirs import user_cache_dir, user_config_dir
 from pygments.styles import get_all_styles
 from rich.console import Console
 
@@ -56,7 +56,7 @@ REQUEST_CACHE_DURATION = 60 * 60 * 24
 class Configuration:
     configuration_path = (
         Path(user_config_dir("piston-cli"), "config.yaml"),
-        Path(user_config_dir("piston-cli"), "config.yml")
+        Path(user_config_dir("piston-cli"), "config.yml"),
     )
 
     default_configuration = {
