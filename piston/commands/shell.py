@@ -53,9 +53,7 @@ class FromShell:
             stdin=stdin,
         )
 
-    def run_shell(
-        self, language: str, theme: str, prompt_start: str, prompt_continuation: str
-    ) -> None:
+    def run_shell(self, language: str, theme: str, prompt_start: str, prompt_continuation: str) -> None:
         """Run the shell."""
         CONSOLE.print(
             "[bold blue]NOTE: stdin and args will be prompted after code. "
@@ -76,12 +74,7 @@ class FromShell:
                 CONSOLE.print("Your code ran without output.")
             else:
                 CONSOLE.print(
-                    "\n".join(
-                        [
-                            f"{i:02d} | {line}"
-                            for i, line in enumerate(data["output"].split("\n"), 1)
-                        ]
-                    )
+                    "\n".join([f"{i:02d} | {line}" for i, line in enumerate(data["output"].split("\n"), 1)])
                 )
 
 
