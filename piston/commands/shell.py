@@ -7,7 +7,7 @@ from piston.utils.constants import CONSOLE, PistonQuery
 from piston.utils.lexers import lexers_dict
 
 
-class FromShell:
+class Shell:
     """Run code from a shell environment."""
 
     def __init__(self):
@@ -78,4 +78,4 @@ class FromShell:
                 )
 
 
-from_shell = FromShell()
+shell = Shell()

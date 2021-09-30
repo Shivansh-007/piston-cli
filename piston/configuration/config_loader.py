@@ -27,23 +27,19 @@ class ConfigLoader:
         CONSOLE.print(f"[green]Loading config:[/green] {expanded_path}")
 
         with open(expanded_path) as loaded_config:
-            loaded_config = yaml.load(loaded_config, Loader=yaml.FullLoader)
+            loaded_config = yaml.load(loaded_config, Loader=yaml.FullLoader)  # noqa: S506
 
         for key, value in loaded_config.items():
             if key in Configuration.default_configuration:
                 self.config[key] = value
                 CONSOLE.print(f"[green]- Loaded {key}(s): {value}[/green]")
             else:
-                CONSOLE.print(
-                    f"[red]- Skipped {key}: {value} -- not a configurable value[/red]"
-                )
+                CONSOLE.print(f"[red]- Skipped {key}: {value} -- not a configurable value[/red]")
 
         for key, value in Configuration.default_configuration.items():
             if key not in self.config:
                 self.config[key] = value
-                CONSOLE.print(
-                    f"[green]- Loaded default {key}: {value} -- not specified"
-                )
+                CONSOLE.print(f"[green]- Loaded default {key}: {value} -- not specified")
 
     def load_config(self) -> dict:
         """Loads the configuration file."""

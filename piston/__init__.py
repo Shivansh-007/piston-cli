@@ -1,93 +1,159 @@
-#!/usr/bin/env python3
+from typing import Optional
 
-import sys
-
+import click
 from more_itertools import grouper
 
 from piston import version
-from piston.commands import commands_dict
+from piston.commands import *
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
 from piston.utils.compilers import languages_
-from piston.utils.constants import BOX_STYLES, CONSOLE
+from piston.utils.constants import BOX_STYLES, CONSOLE, themes
 from piston.utils.lexers import init_lexers
 from piston.utils.maketable import make_table
 
+LIST_COMMANDS = {
+    "themes": theme_list,
+    "languages": ("Languages", grouper(languages_, 2)),
+    "boxes": ("Box Styles", grouper(BOX_STYLES, 2)),
+}
+VALID_THEMES = [theme.lower() for theme in themes]
 
-def main() -> None:
-    """Implement the main piston-cli process."""
-    args = commands_dict["base"]()
 
-    if args.version:
-        print(version.__version__, flush=True)
-        helpers.close()
-
-    if args.list:
-        list_commands = {
-            "themes": commands_dict["theme_list"],
-            "languages": ("Languages", grouper(languages_, 2)),
-            "boxes": ("Box Styles", grouper(BOX_STYLES, 2)),
-        }
-        try:
-            # If the value is an tuple i.e. it is formatted for a box.
-            if isinstance(list_commands[args.list], tuple):
-                table = make_table(*list_commands[args.list])
-                CONSOLE.print(table)
-            else:
-                # Else it is just a callable and we can call it.
-                list_commands[args.list]()
-        except KeyError:
-            CONSOLE.print(
-                f"[red] Invalid option provided - Valid "
-                f"options include:[/red] [cyan]{', '.join(list_commands.keys())}[/cyan]"
-            )
-
-        helpers.close()
-
-    config_loader = ConfigLoader(args.config)
-    config = config_loader.load_config()
-    output = None
-    init_lexers()
-
-    if args.theme:
+@click.group(context_settings=dict(help_option_names=["-h", "--help"]), invoke_without_command=True)
+@click.version_option(version=version.__version__)
+@click.option(
+    "-t",
+    "--theme",
+    # type=click.Option(VALID_THEMES),
+    type=str,
+    default=None,
+    help="Change the default theme (solarized-dark) of code, to see available themes use -T or --theme-list",
+)
+@click.option(
+    "--config",
+    type=click.Path(
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        readable=True,
+        allow_dash=False,
+        path_type=str,
+    ),
+    is_eager=True,
+    help=(
+        "Path to the piston-cli config file, "
+        "leave blank if your config is in the system default location specified in the README"
+    ),
+)
+@click.pass_context
+def cli_app(ctx: click.Context, theme: Optional[str], config: Optional[str]):
+    if theme:
         CONSOLE.print(
             f"[indian_red]- Theme flag specified, overwriting theme loaded from "
-            f"config: {args.theme}[/indian_red]"
+            f"config: {theme}[/indian_red]"
         )
 
-    if args.file:
-        output, language = commands_dict["from_file"](args.file)
+    # ensure that ctx.obj exists and is a dict (in case `cli()` is called
+    # by means other than the `if` block below)
+    ctx.ensure_object(dict)
 
-    elif args.pastebin:
-        output, language = commands_dict["from_link"]()
-
-    elif args.shell:
-        try:
-            commands_dict["from_shell"](
-                args.shell,
-                args.theme or config["theme"],
-                config["prompt_start"],
-                config["prompt_continuation"],
-            )
-        except KeyboardInterrupt:
-            pass
-
-    else:
-        output, language = commands_dict["from_input"](args.theme or config["theme"])
-
-    if output:
-        CONSOLE.print(f"\nHere is your {language} output:")
-        CONSOLE.print(
-            helpers.print_msg_box(
-                output,
-                style=config["box_style"],
-            )
-        )
-        helpers.close()
+    config_loader = ConfigLoader(config)
+    ctx.obj["config"] = config_loader.load_config()
+    ctx.obj["theme"] = theme or ctx.obj["config"]["theme"]
 
 
-if __name__ == "__main__":
+@cli_app.command("theme-list")
+@click.argument(
+    "value",
+    type=click.Choice([t.lower() for t in LIST_COMMANDS.keys()]),
+    required=True,
+)
+@click.pass_context
+def cli_theme_list(ctx: click.Context, value: str):
+    print("Here...")
     try:
-        sys.exit(main())
-    except Exception as e:
-        print(f"Error:\n{e}")
+        # If the value is an tuple i.e. it is formatted for a box.
+        if isinstance(LIST_COMMANDS[value], tuple):
+            table = make_table(*LIST_COMMANDS[value])
+            CONSOLE.print(table)
+        else:
+            # Else it is just a callable and we can call it.
+            LIST_COMMANDS[value]()
+    except KeyError:
+        CONSOLE.print(
+            f"[red] Invalid option provided - Valid "
+            f"options include:[/red] [cyan]{', '.join(LIST_COMMANDS.keys())}[/cyan]"
+        )
+
+
+@cli_app.command("file")
+@click.argument(
+    "src",
+    type=click.Path(exists=True, file_okay=True, dir_okay=True, readable=True, allow_dash=True),
+    is_eager=True,
+    metavar="SRC ...",
+    required=True,
+)
+@click.pass_context
+def cli_file(ctx: click.Context, src: str):
+    config = ctx.obj["config"]
+
+    output = run_file(src)
+    CONSOLE.print(f"\nHere is your output for {src}:")
+    CONSOLE.print(
+        helpers.print_msg_box(
+            output,
+            style=config["box_style"],
+        )
+    )
+
+
+@cli_app.command("pastebin")
+@click.argument(
+    "link",
+    type=str,
+    required=True,
+)
+@click.option(
+    "--language",
+    type=str,
+    required=True,
+)
+@click.pass_context
+def cli_pastebin(ctx: click.Context, link: str, language: str):
+    config = ctx.obj["config"]
+
+    output = run_link(link, language)
+    CONSOLE.print(f"\nHere is your {language} output:")
+    CONSOLE.print(
+        helpers.print_msg_box(
+            output,
+            style=config["box_style"],
+        )
+    )
+
+
+@cli_app.command("shell")
+@click.argument(
+    "language",
+    type=str,
+    required=True,
+)
+@click.pass_context
+def cli_shell(ctx: click.Context, language: str):
+    config = ctx.obj["config"]
+
+    output = shell.run_shell(
+        language,
+        ctx.obj["theme"],
+        config["prompt_start"],
+        config["prompt_continuation"],
+    )
+    CONSOLE.print(f"\nHere is your {language} output:")
+    CONSOLE.print(
+        helpers.print_msg_box(
+            output,
+            style=config["box_style"],
+        )
+    )

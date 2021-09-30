@@ -17,9 +17,7 @@ class ThemeValidator(Validator):
     def check_theme_exists(theme: str) -> bool:
         """Ensures that a given theme exists."""
         if theme not in themes:
-            CONSOLE.print(
-                f'[red]Theme invalid, "{theme}" not recognized. Using default theme.[/red]'
-            )
+            CONSOLE.print(f'[red]Theme invalid, "{theme}" not recognized. Using default theme.[/red]')
             return False
         return True
 

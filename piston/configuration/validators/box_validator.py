@@ -17,9 +17,7 @@ class BoxStyleValidator(Validator):
     def check_box_exists(box: str) -> bool:
         """Ensures that a given box style exists."""
         if box not in BOX_STYLES:
-            CONSOLE.print(
-                f'[red]Box Style invalid, "{box}" not recognized. Using default box style.[/red]'
-            )
+            CONSOLE.print(f'[red]Box Style invalid, "{box}" not recognized. Using default box style.[/red]')
             return False
         return True
 
@@ -29,9 +27,7 @@ class BoxStyleValidator(Validator):
             return False
 
         # Check the singular box style exists.
-        if isinstance(self.box_styles, str) and not self.check_box_exists(
-            self.box_styles
-        ):
+        if isinstance(self.box_styles, str) and not self.check_box_exists(self.box_styles):
             return False
 
         if isinstance(self.box_styles, list):  # Check each box style exists.
