@@ -1,4 +1,3 @@
-import os
 import random
 import shlex
 import sys
@@ -11,7 +10,6 @@ from pygments.util import ClassNotFound
 from rich import box
 from rich.table import Table
 
-from piston.utils.compilers import languages_
 from piston.utils.constants import CONSOLE, themes
 
 
@@ -20,14 +18,6 @@ def parse_string(string: str) -> list[str]:
     parsed_string = shlex.shlex(string, posix=True)
     parsed_string.escapedquotes = "\"'"
     return list(parsed_string)
-
-
-def close() -> None:
-    """Exit the program."""
-    try:
-        sys.exit(1)
-    except SystemExit:
-        os._exit(1)
 
 
 def print_msg_box(msg: str, style: str = "HORIZONTALS") -> Table:
@@ -46,20 +36,6 @@ def print_msg_box(msg: str, style: str = "HORIZONTALS") -> Table:
         table.add_row(str(x), line)
 
     return table
-
-
-def get_lang() -> str:
-    """
-    Prompt the user for the programming language.
-
-    If language is not supported then exit the CLI.
-    """
-    language = CONSOLE.input("[green]Enter language:[/green] ").lower()
-
-    if language not in languages_:
-        CONSOLE.print("[bold red]Language is not supported![/bold red]")
-        close()
-    return language
 
 
 def get_args() -> list[str]:
