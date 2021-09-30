@@ -4,7 +4,7 @@ from prompt_toolkit.lexers import PygmentsLexer
 
 from piston.utils import helpers, services
 from piston.utils.compilers import languages_
-from piston.utils.constants import CONSOLE, PistonQuery
+from piston.utils.constants import PistonQuery
 from piston.utils.lexers import lexers_dict
 
 
@@ -13,6 +13,7 @@ class Shell:
 
     def __init__(self, ctx: click.Context):
         self.ctx = ctx
+        self.console = ctx.obj["console"]
         self.style = None
         self.language = None
         self.prompt_session = None
@@ -34,7 +35,7 @@ class Shell:
         If language is not supported then exit the CLI.
         """
         if language not in languages_:
-            CONSOLE.print("[bold red]Language is not supported![/bold red]")
+            self.console.print("[bold red]Language is not supported![/bold red]")
             self.ctx.exit()
 
         self.language = language
@@ -45,8 +46,8 @@ class Shell:
             style=self.style,
         )
 
-        args = helpers.get_args()
-        stdin = helpers.get_stdin()
+        args = helpers.get_args(self.console)
+        stdin = helpers.get_stdin(self.console)
 
         return PistonQuery(
             language=self.language,
@@ -57,7 +58,7 @@ class Shell:
 
     def run_shell(self, language: str, theme: str, prompt_start: str, prompt_continuation: str) -> None:
         """Run the shell."""
-        CONSOLE.print(
+        self.console.print(
             "[bold blue]NOTE: stdin and args will be prompted after code. "
             "Use escape + enter to finish writing the code. "
             "To quit, use ctrl + c. [/bold blue]"
@@ -65,16 +66,15 @@ class Shell:
 
         self.set_language(language)
         self.set_prompt_session(prompt_start, prompt_continuation)
-        self.style = helpers.set_style(theme)
+        self.style = helpers.set_style(self.console, theme)
 
         while True:
             query = self.prompt()
-
-            data = services.query_piston(CONSOLE, query)
+            data = services.query_piston(self.console, query)
 
             if len(data["output"]) == 0:
-                CONSOLE.print("Your code ran without output.")
+                self.console.print("Your code ran without output.")
             else:
-                CONSOLE.print(
+                self.console.print(
                     "\n".join([f"{i:02d} | {line}" for i, line in enumerate(data["output"].split("\n"), 1)])
                 )

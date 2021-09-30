@@ -1,13 +1,9 @@
-import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import List
 
 from appdirs import user_cache_dir, user_config_dir
 from pygments.styles import get_all_styles
-from rich.console import Console
-
-CONSOLE = Console()
 
 SPINNERS = [
     "point",

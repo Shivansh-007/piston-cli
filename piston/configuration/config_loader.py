@@ -1,16 +1,18 @@
 import os
 from typing import Optional, Union
 
+import rich
 import yaml
 
 from piston.configuration.config_fixer import fix_config
-from piston.utils.constants import CONSOLE, Configuration
+from piston.utils.constants import Configuration
 
 
 class ConfigLoader:
     """Loads yaml config files to customize piston-cli."""
 
-    def __init__(self, paths: Optional[Union[str, tuple]]):
+    def __init__(self, console: rich.console.Console, paths: Optional[Union[str, tuple]]):
+        self.console = console
         if paths:
             self.paths = paths
         else:
@@ -23,7 +25,7 @@ class ConfigLoader:
         """Loads the keys and values from a yaml file."""
         expanded_path = os.path.abspath(os.path.expandvars(self.path_loaded))
 
-        CONSOLE.print(f"[green]Loading config:[/green] {expanded_path}")
+        self.console.print(f"[green]Loading config:[/green] {expanded_path}")
 
         with open(expanded_path) as loaded_config:
             loaded_config = yaml.load(loaded_config, Loader=yaml.FullLoader)  # noqa: S506
@@ -31,14 +33,14 @@ class ConfigLoader:
         for key, value in loaded_config.items():
             if key in Configuration.default_configuration:
                 self.config[key] = value
-                CONSOLE.print(f"[green]- Loaded {key}(s): {value}[/green]")
+                self.console.print(f"[green]- Loaded {key}(s): {value}[/green]")
             else:
-                CONSOLE.print(f"[red]- Skipped {key}: {value} -- not a configurable value[/red]")
+                self.console.print(f"[red]- Skipped {key}: {value} -- not a configurable value[/red]")
 
         for key, value in Configuration.default_configuration.items():
             if key not in self.config:
                 self.config[key] = value
-                CONSOLE.print(f"[green]- Loaded default {key}: {value} -- not specified")
+                self.console.print(f"[green]- Loaded default {key}: {value} -- not specified")
 
     def load_config(self) -> dict:
         """Loads the configuration file."""
@@ -53,7 +55,7 @@ class ConfigLoader:
                     existing_paths.append(path)
 
         if len(existing_paths) > 1:
-            CONSOLE.print(
+            self.console.print(
                 "[blue]One or more configuration files were found to exist. "
                 f"Using the one found at {existing_paths[0]}."
             )
@@ -64,7 +66,7 @@ class ConfigLoader:
             # this means that it is None from an unrecognized system or was manually specified
             and self.paths not in Configuration.configuration_path
         ):
-            CONSOLE.print(
+            self.console.print(
                 "[bold red]Error: No configuration file found at that location or "
                 "you are using a system with an unknown default configuration file location, "
                 "loading piston-cli defaults.[/bold red]"
@@ -77,7 +79,7 @@ class ConfigLoader:
             not existing_paths
             and self.paths in Configuration.configuration_path
         ):
-            CONSOLE.print(
+            self.console.print(
                 "[bold blue]Info: No default configuration file found on your system, "
                 "loading piston-cli defaults.[/bold blue]"
             )
@@ -87,6 +89,6 @@ class ConfigLoader:
         self.path_loaded = existing_paths[0]
 
         self._load_yaml()  # Set config
-        fix_config(self.config)  # Catch errors and fix the ones found
+        fix_config(self.console, self.config)  # Catch errors and fix the ones found
 
         return self.config

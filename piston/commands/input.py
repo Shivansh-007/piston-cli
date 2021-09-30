@@ -1,26 +1,28 @@
 from typing import Union
 
+import click
 from prompt_toolkit.lexers import PygmentsLexer
 from prompt_toolkit.shortcuts import prompt
 
 from piston.utils import helpers, services
-from piston.utils.constants import CONSOLE, PistonQuery
+from piston.utils.constants import PistonQuery
 from piston.utils.lexers import lexers_dict
 
 
-def user_input(theme: str, language: str) -> Union[tuple, str]:
+def user_input(ctx: click.Context, theme: str, language: str) -> Union[tuple, str]:
     """
     Make a multiline prompt for code input and send the code to the api.
 
     The compiled output from the api is returned.
     """
-    args = helpers.get_args()
-    stdin = helpers.get_stdin()
+    console = ctx.obj["console"]
+    args = helpers.get_args(console)
+    stdin = helpers.get_stdin(console)
 
-    CONSOLE.print("[green]Enter your code, (press esc + enter to run)[/green]")
-    style = helpers.set_style(theme)
+    console.print("[green]Enter your code, (press esc + enter to run)[/green]")
+    style = helpers.set_style(console, theme)
 
-    CONSOLE.print()
+    console.print()
     code = prompt(
         "",
         lexer=PygmentsLexer(lexers_dict[language]),
@@ -30,7 +32,7 @@ def user_input(theme: str, language: str) -> Union[tuple, str]:
     )
     payload = PistonQuery(language=language, args=args, stdin=stdin, code=code)
 
-    data = services.query_piston(CONSOLE, payload)
+    data = services.query_piston(console, payload)
 
     if len(data["output"]) == 0:
         return "Your code ran without output.", language

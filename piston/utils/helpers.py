@@ -3,6 +3,7 @@ import shlex
 import sys
 from signal import SIGINT
 
+import rich
 from prompt_toolkit.styles import Style
 from prompt_toolkit.styles.pygments import style_from_pygments_cls as sfpc
 from pygments.styles import get_style_by_name
@@ -10,7 +11,7 @@ from pygments.util import ClassNotFound
 from rich import box
 from rich.table import Table
 
-from piston.utils.constants import CONSOLE, themes
+from piston.utils.constants import themes
 
 
 def parse_string(string: str) -> list[str]:
@@ -38,44 +39,39 @@ def print_msg_box(msg: str, style: str = "HORIZONTALS") -> Table:
     return table
 
 
-def get_args() -> list[str]:
+def get_args(console: rich.console.Console) -> list[str]:
     """Prompt the user for the command line arguments."""
-    args = CONSOLE.input("[green]Enter your args separated:[/green] ")
+    args = console.input("[green]Enter your args separated:[/green] ")
     return parse_string(args)
 
 
-def get_stdin() -> str:
+def get_stdin(console: rich.console.Console) -> str:
     """Prompt the user for the standard input."""
-    stdin = CONSOLE.input("[green]Enter your stdin arguments:[/green] ")
+    stdin = console.input("[green]Enter your stdin arguments:[/green] ")
     return "\n".join(parse_string(stdin))
 
 
-def set_style(theme: str) -> Style:
+def set_style(console: rich.console.Console, theme: str) -> Style:
     """Set the theme for prompt_toolkit."""
     if theme in themes:
         try:
             style = sfpc(get_style_by_name(theme))
         except ClassNotFound:
-            CONSOLE.print(f"[red]Theme {theme} is not a valid theme, using piston-cli default")
+            console.print(f"[red]Theme {theme} is not a valid theme, using piston-cli default")
             style = sfpc(get_style_by_name("solarized-dark"))
     else:
-        CONSOLE.print(f"[red]Theme {theme} is not a valid theme, using piston-cli default")
+        console.print(f"[red]Theme {theme} is not a valid theme, using piston-cli default")
         style = sfpc(get_style_by_name("solarized-dark"))
 
     return style
 
 
-def signal_handler(sig: int, frame: any) -> None:
-    """
-    Handles Signals (E.g. SIGINT).
-
-    :param sig: Signal
-    :param frame: Signal Frame
-    """
+def signal_handler(console: rich.console.Console, sig: int, frame: any) -> None:
+    """Handles Signals (E.g. SIGINT)."""
     messages = ["Goodbye!", "See you next time!", "Bye bye!"]
     if sig == SIGINT:  # If SIGINT - Close application
-        CONSOLE.print(f"\n\n{random.choice(messages)}\n")
+        console.print(f"\n\n{random.choice(messages)}\n")
         sys.exit(0)
     else:  # If an unhandled signal is received - Shut down with relevant information.
-        CONSOLE.print(f"\n\n[red]Unexpected signal ({sig}) received - {random.choice(messages)}\n[/red]")
+        console.print(f"\n\n[red]Unexpected signal ({sig}) received - {random.choice(messages)}\n[/red]")
         sys.exit(sig)
