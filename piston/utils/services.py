@@ -3,9 +3,9 @@ import random
 import sys
 
 import requests
-from rich.console import Console
 from requests_cache import CachedSession
 from requests_cache.backends import FileCache
+from rich.console import Console
 
 from piston import __version__
 from piston.utils.constants import REQUEST_CACHE_DURATION, REQUEST_CACHE_LOCATION, SPINNERS, PistonQuery

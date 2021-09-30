@@ -4,7 +4,8 @@ import click
 from more_itertools import grouper
 
 from piston import __version__
-from piston.commands import fallback_input, run_file, run_link, shell, theme_list
+from piston._custom_click import DefaultCommandGroup
+from piston.commands import Shell, run_file, run_link, theme_list
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
 from piston.utils.compilers import languages_
@@ -19,7 +20,11 @@ LIST_COMMANDS = {
 VALID_THEMES = [theme.lower() for theme in themes]
 
 
-@click.group(context_settings=dict(help_option_names=["-h", "--help"]), invoke_without_command=True)
+@click.group(
+    cls=DefaultCommandGroup,
+    context_settings=dict(help_option_names=["-h", "--help"]),
+    invoke_without_command=True,
+)
 @click.version_option(version=__version__)
 @click.option(
     "-t",
@@ -44,13 +49,12 @@ VALID_THEMES = [theme.lower() for theme in themes]
         "leave blank if your config is in the system default location specified in the README"
     ),
 )
-@click.option(
-    "--language",
-    type=str,
-    required=False,
-)
 @click.pass_context
-def cli_app(ctx: click.Context, theme: Optional[str], config: Optional[str], language: Optional[str]) -> None:
+def cli_app(
+    ctx: click.Context,
+    theme: Optional[str],
+    config: Optional[str],
+) -> None:
     if theme:
         CONSOLE.print(
             f"[indian_red]- Theme flag specified, overwriting theme loaded from "
@@ -64,10 +68,6 @@ def cli_app(ctx: click.Context, theme: Optional[str], config: Optional[str], lan
     config_loader = ConfigLoader(config)
     ctx.obj["config"] = config_loader.load_config()
     ctx.obj["theme"] = theme or ctx.obj["config"]["theme"]
-
-    if language:
-        fallback_input(ctx.obj["theme"], language)
-        ctx.exit()
 
 
 @cli_app.command("theme-list")
@@ -98,14 +98,13 @@ def cli_theme_list(_ctx: click.Context, value: str) -> None:
     "src",
     type=click.Path(exists=True, file_okay=True, dir_okay=True, readable=True, allow_dash=True),
     is_eager=True,
-    metavar="SRC ...",
     required=True,
 )
 @click.pass_context
 def cli_file(ctx: click.Context, src: str) -> None:
     config = ctx.obj["config"]
 
-    output = run_file(src)
+    output = run_file(ctx, src)
     CONSOLE.print(f"\nHere is your output for {src}:")
     CONSOLE.print(
         helpers.print_msg_box(
@@ -150,13 +149,28 @@ def cli_pastebin(ctx: click.Context, link: str, language: str) -> None:
 def cli_shell(ctx: click.Context, language: str) -> None:
     config = ctx.obj["config"]
 
-    output = shell.run_shell(
+    Shell(ctx).run_shell(
         language,
         ctx.obj["theme"],
         config["prompt_start"],
         config["prompt_continuation"],
     )
-    CONSOLE.print(f"\nHere is your {language} output:")
+
+
+@cli_app.command(default_command=True)
+@click.argument(
+    "src",
+    type=click.Path(exists=True, file_okay=True, dir_okay=True, readable=True, allow_dash=True),
+    is_eager=True,
+    required=True,
+)
+@click.argument("args", nargs=-1)
+@click.pass_context
+def cli_interpreter(ctx: click.Context, src: str, args: tuple[str]) -> None:
+    config = ctx.obj["config"]
+
+    output = run_file(ctx, src, list(args))
+    CONSOLE.print(f"\nHere is your output for {src}:")
     CONSOLE.print(
         helpers.print_msg_box(
             output,

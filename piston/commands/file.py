@@ -1,13 +1,16 @@
 from typing import Union
 
+import click
+
 from piston.utils import helpers, services
 from piston.utils.constants import CONSOLE, PistonQuery
 from piston.utils.lang_extensions import lang_extensions
 
 
-def run_file(file: str) -> Union[list, str]:
+def run_file(ctx: click.Context, file: str, args: list[str] = None) -> Union[list, str]:
     """Send code form file to the api and return the response."""
-    args = helpers.get_args()
+    if not args:
+        args = helpers.get_args()
     stdin = helpers.get_stdin()
 
     try:
@@ -16,11 +19,11 @@ def run_file(file: str) -> Union[list, str]:
 
         if not any(file.endswith("." + ext) for ext in lang_extensions):
             CONSOLE.print("File Extension language is not supported!", style="bold red")
-            helpers.close()
+            ctx.exit()
 
     except FileNotFoundError:
         CONSOLE.print("Path is invalid; File not found", style="bold red")
-        helpers.close()
+        ctx.exit()
 
     language = lang_extensions[file[file.rfind(".") + 1 :]]
 
