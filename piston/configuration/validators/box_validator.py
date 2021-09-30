@@ -1,23 +1,27 @@
 from typing import Union
 
+import rich
+
 from piston.configuration.choose_config import choose_config
 from piston.configuration.validators.validator_base import Validator
-from piston.utils.constants import BOX_STYLES, CONSOLE, Configuration
+from piston.utils.constants import BOX_STYLES, Configuration
 
 
 class BoxStyleValidator(Validator):
     """Validates a string or list of box styles by checking multiple criteria."""
 
-    def __init__(self, box_styles: Union[str, list]) -> None:
+    def __init__(self, console: rich.console.Console, box_styles: Union[str, list]) -> None:
+        self.console = console
         self.box_styles = box_styles
         self.default_box = Configuration.default_configuration["box_style"]
-        super().__init__(box_styles, self.default_box, "box_style")
+        super().__init__(console, box_styles, self.default_box, "box_style")
 
-    @staticmethod
-    def check_box_exists(box: str) -> bool:
+    def check_box_exists(self, box: str) -> bool:
         """Ensures that a given box style exists."""
         if box not in BOX_STYLES:
-            CONSOLE.print(f'[red]Box Style invalid, "{box}" not recognized. Using default box style.[/red]')
+            self.console.print(
+                f'[red]Box Style invalid, "{box}" not recognized. Using default box style.[/red]'
+            )
             return False
         return True
 
@@ -40,5 +44,5 @@ class BoxStyleValidator(Validator):
     def fix_box_style(self) -> str:
         """Finds and corrects any errors in a given box or list of boxes, then returns a fixed version."""
         if self.validate_box_style():
-            return choose_config(self.box_styles)
+            return choose_config(self.console, self.box_styles)
         return self.default_box

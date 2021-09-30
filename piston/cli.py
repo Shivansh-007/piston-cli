@@ -1,15 +1,17 @@
+import logging
 from typing import Optional
 
 import click
 from more_itertools import grouper
+from rich.console import Console
 
-from piston import __version__
+from piston import __version__, log
 from piston._custom_click import DefaultCommandGroup
 from piston.commands import Shell, run_file, run_link, theme_list
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
 from piston.utils.compilers import languages_
-from piston.utils.constants import BOX_STYLES, CONSOLE, themes
+from piston.utils.constants import BOX_STYLES, themes
 from piston.utils.maketable import make_table
 
 LIST_COMMANDS = {
@@ -49,25 +51,31 @@ VALID_THEMES = [theme.lower() for theme in themes]
         "leave blank if your config is in the system default location specified in the README"
     ),
 )
+@click.option("-v", "--verbose", is_flag=True, help="Enables verbose mode")
 @click.pass_context
 def cli_app(
     ctx: click.Context,
+    verbose: bool,
     theme: Optional[str],
     config: Optional[str],
 ) -> None:
-    if theme:
-        CONSOLE.print(
-            f"[indian_red]- Theme flag specified, overwriting theme loaded from "
-            f"config: {theme}[/indian_red]"
-        )
+    log.setup(logging.DEBUG if verbose else logging.INFO)
 
     # ensure that ctx.obj exists and is a dict (in case `cli()` is called
     # by means other than the `if` block below)
     ctx.ensure_object(dict)
 
-    config_loader = ConfigLoader(config)
+    console = Console()
+    config_loader = ConfigLoader(console, config)
     ctx.obj["config"] = config_loader.load_config()
     ctx.obj["theme"] = theme or ctx.obj["config"]["theme"]
+    ctx.obj["console"] = console
+
+    if theme:
+        ctx.obj["console"].print(
+            f"[indian_red]- Theme flag specified, overwriting theme loaded from "
+            f"config: {theme}[/indian_red]"
+        )
 
 
 @cli_app.command("theme-list")
@@ -77,17 +85,17 @@ def cli_app(
     required=True,
 )
 @click.pass_context
-def cli_theme_list(_ctx: click.Context, value: str) -> None:
+def cli_theme_list(ctx: click.Context, value: str) -> None:
     try:
         # If the value is an tuple i.e. it is formatted for a box.
         if isinstance(LIST_COMMANDS[value], tuple):
             table = make_table(*LIST_COMMANDS[value])
-            CONSOLE.print(table)
+            ctx.obj["console"].print(table)
         else:
             # Else it is just a callable and we can call it.
-            LIST_COMMANDS[value]()
+            LIST_COMMANDS[value](ctx)
     except KeyError:
-        CONSOLE.print(
+        ctx.obj["console"].print(
             f"[red] Invalid option provided - Valid "
             f"options include:[/red] [cyan]{', '.join(LIST_COMMANDS.keys())}[/cyan]"
         )
@@ -105,8 +113,8 @@ def cli_file(ctx: click.Context, src: str) -> None:
     config = ctx.obj["config"]
 
     output = run_file(ctx, src)
-    CONSOLE.print(f"\nHere is your output for {src}:")
-    CONSOLE.print(
+    ctx.obj["console"].print(f"\nHere is your output for {src}:")
+    ctx.obj["console"].print(
         helpers.print_msg_box(
             output,
             style=config["box_style"],
@@ -129,9 +137,9 @@ def cli_file(ctx: click.Context, src: str) -> None:
 def cli_pastebin(ctx: click.Context, link: str, language: str) -> None:
     config = ctx.obj["config"]
 
-    output = run_link(link, language)
-    CONSOLE.print(f"\nHere is your {language} output:")
-    CONSOLE.print(
+    output = run_link(ctx, link, language)
+    ctx.obj["console"].print(f"\nHere is your {language} output:")
+    ctx.obj["console"].print(
         helpers.print_msg_box(
             output,
             style=config["box_style"],
@@ -170,8 +178,8 @@ def cli_interpreter(ctx: click.Context, src: str, args: tuple[str]) -> None:
     config = ctx.obj["config"]
 
     output = run_file(ctx, src, list(args))
-    CONSOLE.print(f"\nHere is your output for {src}:")
-    CONSOLE.print(
+    ctx.obj["console"].print(f"\nHere is your output for {src}:")
+    ctx.obj["console"].print(
         helpers.print_msg_box(
             output,
             style=config["box_style"],

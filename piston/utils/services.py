@@ -1,4 +1,5 @@
 import json
+import logging
 import random
 import sys
 
@@ -9,6 +10,8 @@ from rich.console import Console
 
 from piston import __version__
 from piston.utils.constants import REQUEST_CACHE_DURATION, REQUEST_CACHE_LOCATION, SPINNERS, PistonQuery
+
+log = logging.getLogger("rich")
 
 
 def query_piston(console: Console, payload: PistonQuery) -> dict:
@@ -28,6 +31,7 @@ def query_piston(console: Console, payload: PistonQuery) -> dict:
     }
 
     with console.status("Compiling", spinner=random.choice(SPINNERS)):
+        logging.debug(f"Requests emkc v1 API with payload: {output_json}")
         try:
             return http_session.post(
                 url="https://emkc.org/api/v1/piston/execute",

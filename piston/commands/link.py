@@ -1,16 +1,18 @@
 import urllib
 from typing import Optional, Union
 
+import click
 import requests
+import rich
 from pygments.styles import get_all_styles
 
 from piston.utils import helpers, services
-from piston.utils.constants import CONSOLE, PistonQuery
+from piston.utils.constants import PistonQuery
 
 THEMES = list(get_all_styles())
 
 
-def get_code(link: str) -> Union[bool, str]:
+def get_code(console: rich.console.Console, link: str) -> Union[bool, str]:
     """Prompt the user for the pastebin link."""
     base_url = urllib.parse.quote_plus(link.split(" ")[-1][5:].strip("/"), safe=";/?:@&=$,><-[]")
 
@@ -23,34 +25,35 @@ def get_code(link: str) -> Union[bool, str]:
             token = token[: token.rfind(".")]  # removes extension
         url = f"https://paste.pythondiscord.com/raw/{token}"
     else:
-        CONSOLE.print("[red]Can only accept links from paste.pythondiscord.com.[/red]")
+        console.print("[red]Can only accept links from paste.pythondiscord.com.[/red]")
         return False
 
     response = requests.get(url)
     if response.status_code == 404:
-        CONSOLE.print("[red]Nothing found. Check your link[/red]")
+        console.print("[red]Nothing found. Check your link[/red]")
         return False
     elif response.status_code != 200:
-        CONSOLE.print(f"[red]An error occurred (status code: {response.status_code}).[/red]")
+        console.print(f"[red]An error occurred (status code: {response.status_code}).[/red]")
         return False
     return response.text
 
 
-def run_link(link: str, language: str) -> Optional[Union[list, str]]:
+def run_link(ctx: click.Context, link: str, language: str) -> Optional[Union[list, str]]:
     """
     Make a multiline prompt for code input and send the code to the api.
 
     The compiled output from the api is returned.
     """
-    args = helpers.get_args()
-    stdin = helpers.get_stdin()
-    code = get_code(link)
+    console = ctx.obj["console"]
+    args = helpers.get_args(console)
+    stdin = helpers.get_stdin(console)
+    code = get_code(console, link)
 
     if not code:
         return
 
     payload = PistonQuery(language=language, args=args, stdin=stdin, code=code)
-    data = services.query_piston(CONSOLE, payload)
+    data = services.query_piston(console, payload)
 
     if len(data["output"]) == 0:
         return "Your code ran without output."

@@ -1,15 +1,18 @@
+import rich
+
 from piston.configuration.choose_config import choose_config
 from piston.configuration.validators.validator_base import Validator
-from piston.utils.constants import CONSOLE, Configuration
+from piston.utils.constants import Configuration
 
 
 class PromptStartValidator(Validator):
     """Validates the prompt_start config variable."""
 
-    def __init__(self, prompt: str) -> None:
+    def __init__(self, console: rich.console.Console, prompt: str) -> None:
+        self.console = console
         self.prompt = prompt
         self.default_prompt = Configuration.default_configuration["prompt_start"]
-        super().__init__(self.prompt, self.default_prompt, "prompt_start")
+        super().__init__(self.console, self.prompt, self.default_prompt, "prompt_start")
 
     def validate_prompt(self) -> bool:
         """Validates prompt start."""
@@ -25,8 +28,8 @@ class PromptStartValidator(Validator):
     def fix_prompt(self) -> str:
         """Fixes the prompt_start configuration variables."""
         if self.validate_prompt():
-            return choose_config(self.prompt)
-        CONSOLE.print(
+            return choose_config(self.console, self.prompt)
+        self.console.print(
             f"[red]Prompt start invalid. {repr(self.prompt)} contains a new"
             "line character. Using default prompt start instead.[/red]"
         )
@@ -36,10 +39,11 @@ class PromptStartValidator(Validator):
 class PromptContinuationValidator(Validator):
     """Validates the prompt_continuation config variable."""
 
-    def __init__(self, prompt: str) -> None:
+    def __init__(self, console: rich.console.Console, prompt: str) -> None:
+        self.console = console
         self.prompt = prompt
         self.default_prompt = Configuration.default_configuration["prompt_continuation"]
-        super().__init__(self.prompt, self.default_prompt, "prompt_continuation")
+        super().__init__(self.console, self.prompt, self.default_prompt, "prompt_continuation")
 
     def validate_prompt(self) -> bool:
         """Validates prompt continuation."""
@@ -55,8 +59,8 @@ class PromptContinuationValidator(Validator):
     def fix_prompt(self) -> str:
         """Fixes the prompt_continuation configuration variables."""
         if self.validate_prompt():
-            return choose_config(self.prompt)
-        CONSOLE.print(
+            return choose_config(self.console, self.prompt)
+        self.console.print(
             f"[red]Prompt continuation invalid. {repr(self.prompt)} contains a "
             "newline character. Using default prompt continuation instead.[/red]"
         )
