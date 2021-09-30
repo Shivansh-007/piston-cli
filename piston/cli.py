@@ -4,7 +4,7 @@ import click
 from more_itertools import grouper
 
 from piston import __version__
-from piston.commands import run_file, run_link, shell, theme_list
+from piston.commands import fallback_input, run_file, run_link, shell, theme_list
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
 from piston.utils.compilers import languages_
@@ -44,8 +44,13 @@ VALID_THEMES = [theme.lower() for theme in themes]
         "leave blank if your config is in the system default location specified in the README"
     ),
 )
+@click.option(
+    "--language",
+    type=str,
+    required=False,
+)
 @click.pass_context
-def cli_app(ctx: click.Context, theme: Optional[str], config: Optional[str]) -> None:
+def cli_app(ctx: click.Context, theme: Optional[str], config: Optional[str], language: Optional[str]) -> None:
     if theme:
         CONSOLE.print(
             f"[indian_red]- Theme flag specified, overwriting theme loaded from "
@@ -60,6 +65,10 @@ def cli_app(ctx: click.Context, theme: Optional[str], config: Optional[str]) -> 
     ctx.obj["config"] = config_loader.load_config()
     ctx.obj["theme"] = theme or ctx.obj["config"]["theme"]
 
+    if language:
+        fallback_input(ctx.obj["theme"], language)
+        ctx.exit()
+
 
 @cli_app.command("theme-list")
 @click.argument(
@@ -69,7 +78,6 @@ def cli_app(ctx: click.Context, theme: Optional[str], config: Optional[str]) -> 
 )
 @click.pass_context
 def cli_theme_list(_ctx: click.Context, value: str) -> None:
-    print("Here...")
     try:
         # If the value is an tuple i.e. it is formatted for a box.
         if isinstance(LIST_COMMANDS[value], tuple):
