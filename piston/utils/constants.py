@@ -1,7 +1,9 @@
 import os
 from dataclasses import dataclass
+from pathlib import Path
 from typing import List
 
+from appdirs import user_config_dir, user_cache_dir
 from pygments.styles import get_all_styles
 from rich.console import Console
 
@@ -47,22 +49,15 @@ def print_square(num: int = 20) -> str:
     return f"The square of {num:.2} is {result:.2}."
 '''
 
+REQUEST_CACHE_LOCATION = Path(user_cache_dir("piston-cli"), ".piston_cache")
+REQUEST_CACHE_DURATION = 60 * 60 * 24
+
 
 class Configuration:
-    configuration_paths = {
-        "Windows": (
-            os.path.expandvars("%APPDATA%/piston-cli/config.yaml"),
-            os.path.expandvars("%APPDATA%/piston-cli/config.yml"),
-        ),
-        "Darwin": (
-            os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
-            os.path.expandvars("$HOME/.config/piston-cli/config.yml"),
-        ),
-        "Linux": (
-            os.path.expandvars("$HOME/.config/piston-cli/config.yaml"),
-            os.path.expandvars("$HOME/.config/piston-cli/config.yml"),
-        ),
-    }
+    configuration_path = (
+        Path(user_config_dir("piston-cli"), "config.yaml"),
+        Path(user_config_dir("piston-cli"), "config.yml")
+    )
 
     default_configuration = {
         "theme": "solarized-dark",
