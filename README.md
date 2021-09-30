@@ -1,105 +1,17 @@
 # Piston CLI
 
-[![](https://img.shields.io/github/license/Shivansh-007/piston-cli?style=for-the-badge)]()
-[![](https://img.shields.io/github/issues/Shivansh-007/piston-cli?style=for-the-badge)]()
-[![](https://img.shields.io/github/workflow/status/Shivansh-007/piston-cli/Linting/main?style=for-the-badge)]()
-[![](https://img.shields.io/pypi/pyversions/piston-cli?style=for-the-badge)]()
-[![](https://img.shields.io/pypi/v/piston-cli?style=for-the-badge)]()
-[![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
+[![Lint & Test](https://img.shields.io/github/workflow/status/Shivansh-007/piston-cli/Lint%20&%20Test/main?label=Lint&logo=github&style=flat)](https://github.com/discord-modmail/modmail/actions/workflows/linting.yml "Lint")
+[![Python](https://img.shields.io/static/v1?label=Python&message=3.9&color=blue&logo=Python&style=flat)](https://www.python.org/downloads/ "Python 3.8 | 3.9")
+[![License](https://img.shields.io/github/license/discord-modmail/modmail?style=flat&label=License)](./LICENSE "License file")
+[![Code Style](https://img.shields.io/static/v1?label=Code%20Style&message=black&color=000000&style=flat)](https://github.com/psf/black "The uncompromising python formatter"))
+______________________________________________________________________
 
-A cli tool which uses the [piston api](https://github.com/engineer-man/piston), developed by Engineerman and his team to compile over 35 languages instantly. Accepts files, paste.pythondiscord.com links and input.
+**Documentation**: <a href="https://shivansh-007.github.io/piston-cli/" target="_blank">https://shivansh-007.github.io/piston-cli/</a>
 
-### Installation
+**Source Code**: <a href="https://github.com/Shivansh-007/piston-cli" target="_blank">https://github.com/Shivansh-007/piston-cli</a>
 
-#### With pip
+______________________________________________________________________
 
-```bash
-# Installing the package
-pip install piston-cli -U
-# Help Command
-piston -h
-```
-#### With Nix/NixOS
+## License
 
-`piston-cli` is available in [nixpkgs](https://github.com/nixos/nixpkgs) through the unstable channels.
-
-You can install it with `nix-env`, or in a declarative way with configuration.nix or similar.
-
-##### Flake support
-
-`piston-cli` is a flake, that means you can easily add it to your flake based configuration:
-Disclaimer: this also means you're using the development version, you could encounter bugs. If you want to use the stable version, install it from nixpkgs.
-
-```nix
-{
-	inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-	inputs.piston-cli.url = "github:piston-cli/piston-cli";
-
-	outputs = { nixpkgs, piston-cli }:
-	let
-		pkgs = import nixpkgs { system = "x86_64-linux"; overlays = [ piston-cli.overlay ]; };
-	in
-	 {
-		 # use pkgs.piston-cli-unstable here
-	 };
-}
-```
-
-#### For Arch/ArchBased
-##### With yay
-```bash
-yay piston-cli
-```
-##### With paru
-```bash
-paru piston-cli
-```
-
-Or any AUR helper you use with doesn't matter. You get the point.
-
-### Example usage
-
-#### Default
-
-![example usage](media/piston-cli.png)
-
-#### Shell
-
-![example shell usage](media/piston-cli-shell.png)
-
-#### File
-
-![example file usage](media/piston-cli-file.png)
-
-#### Link
-
-![example link usage](media/piston-cli-link.png)
-
-#### Languages
-
-![example link usage](media/languags_list.png)
-
-#### Themes
-
-![example link usage](media/themes_list.png)
-
-## How to run it? (Contributing)
-
-```shell
-# This will install the development and project dependencies.
-poetry install
-
-# This will install the pre-commit hooks.
-poetry run task precommit
-
-# Optionally: run pre-commit hooks to initialize them.
-# You can start working on the feature after this.
-poetry run pre-commit run --all-files
-
-# Run it
-poetry run task start --help
-```
-
-## Contributing
-
-You can comment on the issues you would like to work on.
+This project is licensed under the terms of the MIT license.

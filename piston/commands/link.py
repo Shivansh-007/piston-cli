@@ -4,7 +4,6 @@ from typing import Optional, Union
 import requests
 from pygments.styles import get_all_styles
 
-from piston.colorschemes import schemes
 from piston.utils import helpers, services
 from piston.utils.constants import CONSOLE, PistonQuery
 
@@ -13,16 +12,12 @@ class FromLink:
     """Run code from given pastebin link."""
 
     def __init__(self) -> None:
-        self.themes = list(get_all_styles()) + schemes
+        self.themes = list(get_all_styles())
 
     @staticmethod
-    def get_code() -> Union[bool, str]:
+    def get_code(link: str) -> Union[bool, str]:
         """Prompt the user for the pastebin link."""
-        link = CONSOLE.input("[green]Enter the link:[/green] ").lower()
-
-        base_url = urllib.parse.quote_plus(
-            link.split(" ")[-1][5:].strip("/"), safe=";/?:@&=$,><-[]"
-        )
+        base_url = urllib.parse.quote_plus(link.split(" ")[-1][5:].strip("/"), safe=";/?:@&=$,><-[]")
 
         domain = base_url.split("/")[2]
         if domain == "paste.pythondiscord.com":
@@ -33,9 +28,7 @@ class FromLink:
                 token = token[: token.rfind(".")]  # removes extension
             url = f"https://paste.pythondiscord.com/raw/{token}"
         else:
-            CONSOLE.print(
-                "[red]Can only accept links from paste.pythondiscord.com.[/red]"
-            )
+            CONSOLE.print("[red]Can only accept links from paste.pythondiscord.com.[/red]")
             return False
 
         response = requests.get(url)
@@ -43,13 +36,11 @@ class FromLink:
             CONSOLE.print("[red]Nothing found. Check your link[/red]")
             return False
         elif response.status_code != 200:
-            CONSOLE.print(
-                f"[red]An error occurred (status code: {response.status_code}).[/red]"
-            )
+            CONSOLE.print(f"[red]An error occurred (status code: {response.status_code}).[/red]")
             return False
         return response.text
 
-    def ask_input(self) -> Optional[Union[tuple, str]]:
+    def ask_input(self, link) -> Optional[Union[tuple, str]]:
         """
         Make a multiline prompt for code input and send the code to the api.
 
@@ -58,7 +49,7 @@ class FromLink:
         language = helpers.get_lang()
         args = helpers.get_args()
         stdin = helpers.get_stdin()
-        code = self.get_code()
+        code = self.get_code(link)
 
         if not code:
             return

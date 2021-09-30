@@ -21,9 +21,7 @@ class FromFile:
                 code = f.read()
 
             if not any(file.endswith("." + ext) for ext in self.extensions):
-                CONSOLE.print(
-                    "File Extension language is not supported!", style="bold red"
-                )
+                CONSOLE.print("File Extension language is not supported!", style="bold red")
                 helpers.close()
 
         except FileNotFoundError:

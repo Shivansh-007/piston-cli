@@ -3,50 +3,50 @@ site_name: Piston-CLI
 site_description: Piston CLI, a universal shell supporting code highlighting, files, and interpretation without the need to download a language.
 site_url: https://shivansh-007.github.io/piston-cli/
 
+# Repository
+repo_name: Shivansh-007/piston-cli/
+repo_url: https://github.com/Shivansh-007/piston-cli/
+edit_uri: "edit/main/docs/"
+
 # Copyright
-copyright: Copyright &copy; 2021, Maintained by the Piston-CLI Team.
+copyright: Copyright &copy; 2021 Shivansh-007
+
+# Dev Configuration
+dev_addr: 127.0.0.1:8008
 
 # Configuration
 theme:
   name: material
+  locale: en
 
+  # Colorscheme for the docs
   palette:
-  - scheme: default
-    accent: amber
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: blue
+    accent: purple
     toggle:
-      icon: material/lightbulb-outline
-      name: Switch to light mode
-  - scheme: slate
-    accent: amber
-    toggle:
-      icon: material/lightbulb
+      icon: material/weather-night
       name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: blue
+    accent: purple
+    toggle:
+      icon: material/weather-sunny
+      name: Switch to light mode
 
-  # Default values, taken from mkdocs_theme.yml
+  # Enabled mkdocs features for the site
   features:
-    - content.tabs.link
-    # - navigation.instant
-    - navigation.sections
-    - navigation.tabs
-    - navigation.tracking
-    - search.highlight
-    - search.share
-    - search.suggest
-
-  font:
-    text: Roboto
-    code: Roboto Mono
-
+  - navigation.top
+  - navigation.instant
+  - search.suggest
+  - search.highlight
   icon:
     repo: fontawesome/brands/github-alt
-  logo: 'imgs/icon.png'
-  favicon: 'imgs/favicon.png'
+  logo: assets/logo.png
+  favicon: assets/favicon.png
   language: en
-  highlightjs: true
-
-# Repository
-repo_name: Piston-CLI/piston-cli
-repo_url: https://github.com/Piston-CLI/piston-cli
 
 # Plugins
 plugins:
@@ -54,45 +54,25 @@ plugins:
 - markdownextradata:
     data: data
 
+# Page tree
+nav:
+- Home: index.md
+
 # Extensions
 markdown_extensions:
-  - admonition
-  - abbr
-  - attr_list
-  - def_list
-  - footnotes
-  - meta
-  - md_in_html
-  - toc:
-      permalink: 🔗
-  - pymdownx.arithmatex:
-      generic: true
-  - pymdownx.betterem:
-      smart_enable: all
-  - pymdownx.caret
-  - pymdownx.critic
-  - pymdownx.details
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - pymdownx.highlight
-  - pymdownx.inlinehilite
-  - pymdownx.keys
-  - pymdownx.magiclink:
-      repo_url_shorthand: true
-      user: squidfunk
-      repo: mkdocs-material
-  - pymdownx.mark
-  - pymdownx.smartsymbols
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid-experimental
-          format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.tabbed
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.tilde
+- toc:
+    permalink: true
+- markdown.extensions.codehilite:
+    guess_lang: false
+- admonition
+- codehilite
+- extra
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+      format: !!python/name:pymdownx.superfences.fence_div_format ''
+- pymdownx.tabbed
 
 # Customization
 extra:
@@ -102,5 +82,13 @@ extra:
   - icon: fontawesome/brands/discord
     link: https://discord.gg/c7dZ4zdGQT
 
+# Custom css for the site
 extra_css:
-- stylesheets/custom.css
+- css/termynal.css
+- css/custom.css
+
+# Custom javascript for the site
+extra_javascript:
+- https://unpkg.com/mermaid@8.4.6/dist/mermaid.min.js
+- js/termynal.js
+- js/custom.js
