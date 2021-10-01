@@ -15,7 +15,7 @@ from piston.commands import Shell, run_file, run_link, theme_list
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
 from piston.utils.compilers import languages_
-from piston.utils.constants import BOX_STYLES, CACHE_LOCATION, PistonQuery, themes, SPINNERS
+from piston.utils.constants import BOX_STYLES, CACHE_LOCATION, SPINNERS, PistonQuery, themes
 from piston.utils.maketable import make_table
 from piston.utils.services import query_piston
 
@@ -244,16 +244,8 @@ def cli_interpreter(ctx: click.Context, src: str, args: tuple[str]) -> None:
         "\n\n$ piston cache --cache-file ~/.cache/piston-cli/cachefile.json"
     ),
 )
-@click.option(
-    "--clear-cache",
-    is_flag=True,
-    help="Clear piston-cli cache"
-)
-@click.option(
-    "--cache-path",
-    is_flag=True,
-    help="Show piston-cli cache path"
-)
+@click.option("--clear-cache", is_flag=True, help="Clear piston-cli cache")
+@click.option("--cache-path", is_flag=True, help="Show piston-cli cache path")
 @click.pass_context
 def cli_failed_request_cache(
     ctx: click.Context, timeline: int, clear_cache: bool, cache_path: bool, cache_file: Optional[str] = None
