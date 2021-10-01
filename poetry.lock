@@ -472,7 +472,7 @@ i18n = ["babel (>=2.9.0)"]
 
 [[package]]
 name = "mkdocs-markdownextradata-plugin"
-version = "0.1.9"
+version = "0.2.4"
 description = "A MkDocs plugin that injects the mkdocs.yml extra variables into the markdown template"
 category = "dev"
 optional = false
@@ -953,7 +953,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "1272b53fff108e75af2c7a2aa5852068616a158f49eac14fda13f867e6a52b91"
+content-hash = "43f729acc321047e7a4a0b991f0d01cbc3b64c60dece613fa5b28d6a72b0b33e"
 
 [metadata.files]
 appdirs = [
@@ -1163,8 +1163,7 @@ mkdocs = [
     {file = "mkdocs-1.2.2.tar.gz", hash = "sha256:a334f5bd98ec960638511366eb8c5abc9c99b9083a0ed2401d8791b112d6b078"},
 ]
 mkdocs-markdownextradata-plugin = [
-    {file = "mkdocs-markdownextradata-plugin-0.1.9.tar.gz", hash = "sha256:0147ce850b9c54ded307a6739f8027828eff83baf332d4b28eb7d3e664f71af0"},
-    {file = "mkdocs_markdownextradata_plugin-0.1.9-py3-none-any.whl", hash = "sha256:1e8f17d43ebef424af09992290507abb82eed84ff2b3ac28c342d57053843409"},
+    {file = "mkdocs_markdownextradata_plugin-0.2.4-py3-none-any.whl", hash = "sha256:9acf1860488e8e990c77de2af2e575b36dfc2a24c46ac63789315f78d2a3b709"},
 ]
 mkdocs-material = [
     {file = "mkdocs-material-7.3.0.tar.gz", hash = "sha256:07db0580fa96c3473aee99ec3fb4606a1a5a1e4f4467e64c0cd1ba8da5b6476e"},
