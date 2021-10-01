@@ -249,9 +249,14 @@ def cli_interpreter(ctx: click.Context, src: str, args: tuple[str]) -> None:
     is_flag=True,
     help="Clear piston-cli cache"
 )
+@click.option(
+    "--cache-path",
+    is_flag=True,
+    help="Show piston-cli cache path"
+)
 @click.pass_context
 def cli_failed_request_cache(
-        ctx: click.Context, timeline: int, clear_cache: bool, cache_file: Optional[str] = None
+    ctx: click.Context, timeline: int, clear_cache: bool, cache_path: bool, cache_file: Optional[str] = None
 ) -> None:
     """
     This command allows you to run cached piston-cli queries.
@@ -268,17 +273,24 @@ def cli_failed_request_cache(
     $ piston cache 2
     """
     config = ctx.obj["config"]
-    cache_path = glob.glob(str(CACHE_LOCATION) + "/*")
+    cache_glob = glob.glob(str(CACHE_LOCATION) + "/*")
+    console = ctx.obj["console"]
+
+    if cache_path:
+        console.print(
+            f"[blue]Your piston-cli cache is stored at "
+            f"[link={CACHE_LOCATION.as_uri()}]{CACHE_LOCATION}[/]"
+        )
+        ctx.exit()
 
     if clear_cache:
-        console = ctx.obj["console"]
         with console.status("Aye Aye! Cleaning your cache", spinner=random.choice(SPINNERS)):
-            for f in cache_path:
+            for f in cache_glob:
                 os.remove(f)
         console.print("[blue]Your cache has been clean![/]")
         ctx.exit()
 
-    ordered_cache_files = list(cache_path)
+    ordered_cache_files = list(cache_glob)
     ordered_cache_files = [file for file in ordered_cache_files if file.endswith(".json")]
     ordered_cache_files.sort(key=lambda x: os.path.getmtime(x))
 
@@ -288,11 +300,11 @@ def cli_failed_request_cache(
         data = json.load(fp)
 
     query = PistonQuery(data["language"], data["source"], data["args"], data["stdin"])
-    data = query_piston(ctx, ctx.obj["console"], query, cache_run=True)
+    data = query_piston(ctx, console, query, cache_run=True)
     output = [data["output"].split("\n"), "Your code ran without output."][len(data["output"]) == 0]
 
-    ctx.obj["console"].print(f"\nHere is your output for {cache_file.__str__()}:")
-    ctx.obj["console"].print(
+    console.print(f"\nHere is your output for {cache_file.__str__()}:")
+    console.print(
         helpers.print_msg_box(
             output,
             style=config["box_style"],
