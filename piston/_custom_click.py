@@ -17,7 +17,7 @@ class DefaultCommandGroup(Group):
         """
         default_command = kwargs.pop("default_command", False)
         if default_command and not args:
-            kwargs["name"] = kwargs.get("name", "<>")
+            kwargs["name"] = kwargs.get("name", "<default_command>")
         decorator = super(DefaultCommandGroup, self).command(*args, **kwargs)
 
         if default_command:

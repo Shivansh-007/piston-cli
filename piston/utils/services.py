@@ -23,6 +23,7 @@ log = logging.getLogger("rich")
 
 
 def cache_query(payload: dict[str, ...]) -> str:
+    """Create a normalized cache key from uuid and write `payload` to the CACHE with that filename."""
     key = uuid4()
     filename = Path(CACHE_LOCATION, f"{key}.json")
     filename.parent.mkdir(exist_ok=True)

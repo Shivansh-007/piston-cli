@@ -28,7 +28,7 @@ VALID_THEMES = [theme.lower() for theme in themes]
 
 @click.group(
     cls=DefaultCommandGroup,
-    context_settings=dict(help_option_names=["-h", "--help"]),
+    context_settings=dict(help_option_names=["-h", "--help"], max_content_width=400),
     invoke_without_command=True,
 )
 @click.version_option(version=__version__)
@@ -37,7 +37,11 @@ VALID_THEMES = [theme.lower() for theme in themes]
     "--theme",
     type=str,
     default=None,
-    help="Change the default theme (solarized-dark) of code, to see available themes use -T or --theme-list",
+    help=(
+        "Set the theme for syntax highlighting. Use 'piston list themes' to"
+        "see all available themes. To set a default theme, add the"
+        "'theme=\"...\"' option to the configuration file"
+    ),
 )
 @click.option(
     "--config",
@@ -63,6 +67,18 @@ def cli_app(
     theme: Optional[str],
     config: Optional[str],
 ) -> None:
+    """
+    Piston CLI!
+
+    It is a universal shell supporting code highlighting, files, interpretation and a lot more without the
+    need to download a language.
+
+    -- Default Command
+    If no commands are specified, it by default runs the interpreter command, this feature allows piston to
+    act like an interpreter, the design of this is inspired from python. For example:
+
+    Instead of calling `python code.rb a b c d` you can call --> `piston python code.rb a b c d`
+    """
     log.setup(logging.DEBUG if verbose else logging.INFO)
 
     # ensure that ctx.obj exists and is a dict (in case `cli()` is called
@@ -82,14 +98,15 @@ def cli_app(
         )
 
 
-@cli_app.command("theme-list")
+@cli_app.command("list")
 @click.argument(
     "value",
     type=click.Choice([t.lower() for t in LIST_COMMANDS.keys()]),
     required=True,
 )
 @click.pass_context
-def cli_theme_list(ctx: click.Context, value: str) -> None:
+def cli_list(ctx: click.Context, value: str) -> None:
+    """Display the list of <value> supported by piston-cli."""
     try:
         # If the value is an tuple i.e. it is formatted for a box.
         if isinstance(LIST_COMMANDS[value], tuple):
@@ -114,6 +131,7 @@ def cli_theme_list(ctx: click.Context, value: str) -> None:
 )
 @click.pass_context
 def cli_file(ctx: click.Context, src: str) -> None:
+    """Run code from the specified file."""
     config = ctx.obj["config"]
 
     output = run_file(ctx, src)
@@ -136,9 +154,15 @@ def cli_file(ctx: click.Context, src: str) -> None:
     "--language",
     type=str,
     required=True,
+    help=(
+        "Set the language for running the piston query (pastebins aren't accurate). The language can be "
+        "specified as a name (like 'C++' or 'python'). Use 'piston list languages' to show all "
+        "supported language names."
+    ),
 )
 @click.pass_context
 def cli_pastebin(ctx: click.Context, link: str, language: str) -> None:
+    """Run code from a pastebin link, currently only paste.pythondiscord.com is supported."""
     config = ctx.obj["config"]
 
     output = run_link(ctx, link, language)
@@ -156,9 +180,19 @@ def cli_pastebin(ctx: click.Context, link: str, language: str) -> None:
     "language",
     type=str,
     required=True,
+    help=(
+        "Set the language for running the piston query and syntax highlighting. The language can be "
+        "specified as a name (like 'C++' or 'python'). Use 'piston list languages' to show all "
+        "supported language names."
+    ),
 )
 @click.pass_context
 def cli_shell(ctx: click.Context, language: str) -> None:
+    """
+    Run code in a shell, just like the place you are running this command from.
+
+    With continuous support for the supported language.
+    """
     config = ctx.obj["config"]
 
     Shell(ctx).run_shell(
@@ -169,7 +203,7 @@ def cli_shell(ctx: click.Context, language: str) -> None:
     )
 
 
-@cli_app.command(default_command=True)
+@cli_app.command("interpreter", default_command=True)
 @click.argument(
     "src",
     type=click.Path(exists=True, file_okay=True, dir_okay=True, readable=True, allow_dash=True),
@@ -179,6 +213,11 @@ def cli_shell(ctx: click.Context, language: str) -> None:
 @click.argument("args", nargs=-1)
 @click.pass_context
 def cli_interpreter(ctx: click.Context, src: str, args: tuple[str]) -> None:
+    """
+    This allows piston to act like an interpreter, the design of this is inspired from python. For example.
+
+    Instead of calling `python code.rb a b c d` you can call --> `piston python code.rb a b c d`
+    """
     config = ctx.obj["config"]
 
     output = run_file(ctx, src, list(args))
@@ -192,15 +231,39 @@ def cli_interpreter(ctx: click.Context, src: str, args: tuple[str]) -> None:
 
 
 @cli_app.command("cache")
-@click.argument("timeline", default=1, type=int, required=False)
+@click.argument(
+    "timeline",
+    default=1,
+    type=int,
+    required=False,
+)
 @click.option(
-    "--cache_file",
+    "--cache-file",
     type=click.Path(exists=True, file_okay=True, dir_okay=True, readable=True, allow_dash=True),
     is_eager=True,
     required=False,
+    help=(
+        "Sometimes, you don't remember how long back in timeline was the cache file, or you want to run a"
+        " specific JSON file. This option makes this possible. For example:"
+        "\n\n$ piston cache --cache-file ~/.cache/piston-cli/cachefile.json"
+    ),
 )
 @click.pass_context
 def cli_failed_request_cache(ctx: click.Context, timeline: int, cache_file: Optional[str] = None) -> None:
+    """
+    This command allows you to run cached piston-cli queries.
+
+    In case of connection timeout, or network connection relation problems, piston-cli stores
+    the query which is being sent to the piston API in cache, currently this is default according
+    to the operating system and cannot be changed. You can view the path of the caching directory
+    by specifying **--cache-path** option to this command, remember not the root cli group.
+
+    Just got back your internet, and want to run your last piston-cli query. You can use the timeline argument
+    it allows you to specify the 'timeline' of the query you want to run, say you want to run your second last
+    query, remember this is in respect of request error queries, you can specify it as `2`. For example:
+
+    $ piston cache 2
+    """
     config = ctx.obj["config"]
 
     ordered_cache_files = list(glob.glob(str(CACHE_LOCATION) + "/*"))
