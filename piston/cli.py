@@ -2,6 +2,7 @@ import glob
 import json
 import logging
 import os
+import random
 from typing import Optional
 
 import click
@@ -14,7 +15,7 @@ from piston.commands import Shell, run_file, run_link, theme_list
 from piston.configuration.config_loader import ConfigLoader
 from piston.utils import helpers
 from piston.utils.compilers import languages_
-from piston.utils.constants import BOX_STYLES, CACHE_LOCATION, PistonQuery, themes
+from piston.utils.constants import BOX_STYLES, CACHE_LOCATION, PistonQuery, themes, SPINNERS
 from piston.utils.maketable import make_table
 from piston.utils.services import query_piston
 
@@ -180,11 +181,6 @@ def cli_pastebin(ctx: click.Context, link: str, language: str) -> None:
     "language",
     type=str,
     required=True,
-    help=(
-        "Set the language for running the piston query and syntax highlighting. The language can be "
-        "specified as a name (like 'C++' or 'python'). Use 'piston list languages' to show all "
-        "supported language names."
-    ),
 )
 @click.pass_context
 def cli_shell(ctx: click.Context, language: str) -> None:
@@ -248,8 +244,15 @@ def cli_interpreter(ctx: click.Context, src: str, args: tuple[str]) -> None:
         "\n\n$ piston cache --cache-file ~/.cache/piston-cli/cachefile.json"
     ),
 )
+@click.option(
+    "--clear-cache",
+    is_flag=True,
+    help="Clear piston-cli cache"
+)
 @click.pass_context
-def cli_failed_request_cache(ctx: click.Context, timeline: int, cache_file: Optional[str] = None) -> None:
+def cli_failed_request_cache(
+        ctx: click.Context, timeline: int, clear_cache: bool, cache_file: Optional[str] = None
+) -> None:
     """
     This command allows you to run cached piston-cli queries.
 
@@ -265,8 +268,17 @@ def cli_failed_request_cache(ctx: click.Context, timeline: int, cache_file: Opti
     $ piston cache 2
     """
     config = ctx.obj["config"]
+    cache_path = glob.glob(str(CACHE_LOCATION) + "/*")
 
-    ordered_cache_files = list(glob.glob(str(CACHE_LOCATION) + "/*"))
+    if clear_cache:
+        console = ctx.obj["console"]
+        with console.status("Aye Aye! Cleaning your cache", spinner=random.choice(SPINNERS)):
+            for f in cache_path:
+                os.remove(f)
+        console.print("[blue]Your cache has been clean![/]")
+        ctx.exit()
+
+    ordered_cache_files = list(cache_path)
     ordered_cache_files = [file for file in ordered_cache_files if file.endswith(".json")]
     ordered_cache_files.sort(key=lambda x: os.path.getmtime(x))
 
