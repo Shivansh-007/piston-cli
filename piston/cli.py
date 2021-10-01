@@ -199,7 +199,7 @@ def cli_shell(ctx: click.Context, language: str) -> None:
     )
 
 
-@cli_app.command("interpreter", default_command=True)
+@cli_app.command(default_command=True)
 @click.argument(
     "src",
     type=click.Path(exists=True, file_okay=True, dir_okay=True, readable=True, allow_dash=True),
