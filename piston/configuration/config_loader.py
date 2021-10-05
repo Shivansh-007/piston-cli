@@ -28,7 +28,7 @@ class ConfigLoader:
         self.console.print(f"[green]Loading config:[/green] {expanded_path}")
 
         with open(expanded_path) as loaded_config:
-            loaded_config = yaml.load(loaded_config, Loader=yaml.FullLoader)  # noqa: S506
+            loaded_config = yaml.load(loaded_config, Loader=yaml.SafeLoader)  # noqa: S506
 
         for key, value in loaded_config.items():
             if key in Configuration.default_configuration:
