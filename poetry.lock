@@ -484,7 +484,7 @@ pyyaml = "*"
 
 [[package]]
 name = "mkdocs-material"
-version = "7.3.0"
+version = "7.3.1"
 description = "A Material Design theme for MkDocs"
 category = "dev"
 optional = false
@@ -495,7 +495,7 @@ markdown = ">=3.2"
 mkdocs = ">=1.2.2"
 mkdocs-material-extensions = ">=1.0"
 Pygments = ">=2.4"
-pymdown-extensions = ">=7.0"
+pymdown-extensions = ">=9.0"
 
 [[package]]
 name = "mkdocs-material-extensions"
@@ -1166,8 +1166,8 @@ mkdocs-markdownextradata-plugin = [
     {file = "mkdocs_markdownextradata_plugin-0.2.4-py3-none-any.whl", hash = "sha256:9acf1860488e8e990c77de2af2e575b36dfc2a24c46ac63789315f78d2a3b709"},
 ]
 mkdocs-material = [
-    {file = "mkdocs-material-7.3.0.tar.gz", hash = "sha256:07db0580fa96c3473aee99ec3fb4606a1a5a1e4f4467e64c0cd1ba8da5b6476e"},
-    {file = "mkdocs_material-7.3.0-py2.py3-none-any.whl", hash = "sha256:b183c27dc0f44e631bbc32c51057f61a3e2ba8b3c1080e59f944167eeba9ff1d"},
+    {file = "mkdocs-material-7.3.1.tar.gz", hash = "sha256:d1ab269da2025f22b8fba079d7eadc05cd97ac2a21d87b09d414e69915f247a7"},
+    {file = "mkdocs_material-7.3.1-py2.py3-none-any.whl", hash = "sha256:8d59c8ac241d59eef1a883c49ca685c8d8446eb054675a212fb748daff24099c"},
 ]
 mkdocs-material-extensions = [
     {file = "mkdocs-material-extensions-1.0.3.tar.gz", hash = "sha256:bfd24dfdef7b41c312ede42648f9eb83476ea168ec163b613f9abd12bbfddba2"},
