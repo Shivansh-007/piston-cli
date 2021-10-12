@@ -42,7 +42,7 @@ taskipy = "^1.6.0"
 # linting
 black = "^21.7b0"
 flake8 = "~=3.8"
-flake8-annotations = "~=2.3"
+flake8-annotations = "~=2.7"
 flake8-bandit = "^2.1.2"
 flake8-bugbear = "~=21.9"
 flake8-docstrings = "~=1.5"
