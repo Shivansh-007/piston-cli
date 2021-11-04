@@ -50,7 +50,7 @@ flake8-isort = "^4.0.0"
 flake8-string-format = "~=0.3"
 flake8-tidy-imports = "~=4.1"
 flake8-todo = "~=0.7"
-isort = "^5.9.2"
+isort = "^5.10.0"
 pep8-naming = "~=0.11"
 # Documentation
 mkdocs = ">=1.1.2,<2.0.0"
